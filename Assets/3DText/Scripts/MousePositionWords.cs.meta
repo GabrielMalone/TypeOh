@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 0fbc18de59282134da1f923b79f8ef22
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Scripts/MousePositionWords.cs
+  uploadId: 525330

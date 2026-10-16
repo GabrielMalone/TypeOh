@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ea2293ad3065aea4d93af6bbbb73a84b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Fonts/Magneto/Magneto.asset
+  uploadId: 525330

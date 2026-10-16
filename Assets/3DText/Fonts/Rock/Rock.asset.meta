@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c306fcf7b02633543b4e3526882eeefc
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Fonts/Rock/Rock.asset
+  uploadId: 525330

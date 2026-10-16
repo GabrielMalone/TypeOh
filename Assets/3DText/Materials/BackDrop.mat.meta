@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 29c890020ea177942941506820d726ab
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Materials/BackDrop.mat
+  uploadId: 525330

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7d31b1dcbdce29d4f92b222bb0358a09
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Materials/LED/LED RED.mat
+  uploadId: 525330

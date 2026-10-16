@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 52f36fa91a2a3194ab1ef22a5325e9f6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Editor/WritingEditor.cs
+  uploadId: 525330

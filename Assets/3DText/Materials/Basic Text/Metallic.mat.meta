@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1da515b1ae814b543814d00c0f6e2086
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Materials/Basic Text/Metallic.mat
+  uploadId: 525330

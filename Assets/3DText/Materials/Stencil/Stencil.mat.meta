@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7c895654658edd740b2d270c86f4a4f6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Materials/Stencil/Stencil.mat
+  uploadId: 525330

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 52e4e4aac8c6e094089013634747d391
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Fonts/Bodoni/Bodoni.asset
+  uploadId: 525330

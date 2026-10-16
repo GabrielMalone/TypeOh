@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a23a3e6282d0220468e14bc6ee3b5ce0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Scripts/FPSWords.cs
+  uploadId: 525330

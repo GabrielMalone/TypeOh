@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e52e5239cda148146b006942bbe59ee4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Fonts/Balloon/Balloon.asset
+  uploadId: 525330

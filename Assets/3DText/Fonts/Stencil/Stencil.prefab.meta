@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4badd487d6a81374080ecfb8617e9715
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Fonts/Stencil/Stencil.prefab
+  uploadId: 525330

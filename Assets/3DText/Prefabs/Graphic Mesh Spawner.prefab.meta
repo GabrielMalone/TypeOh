@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5912c96903c28ab499081e77fa98293e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Prefabs/Graphic Mesh Spawner.prefab
+  uploadId: 525330

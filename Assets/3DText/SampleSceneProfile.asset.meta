@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 10fc4df2da32a41aaa32d77bc913491c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/SampleSceneProfile.asset
+  uploadId: 525330

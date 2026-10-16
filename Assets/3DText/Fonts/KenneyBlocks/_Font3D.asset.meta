@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: acada8d438845424e8397d18a748cb4a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Fonts/KenneyBlocks/_Font3D.asset
+  uploadId: 525330

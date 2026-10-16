@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e495281362fb16443913aeb6d68754de
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Materials/Gradient/Gradient.mat
+  uploadId: 525330

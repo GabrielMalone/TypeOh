@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6c92cc45feb83e4429ba8656d0beb52d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Materials/Neon/Neon Broken Cyan.mat
+  uploadId: 525330

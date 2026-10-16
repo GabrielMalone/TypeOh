@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 559488d210ea6e347ab102199a407b61
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Materials/Pulse/Pulse.mat
+  uploadId: 525330

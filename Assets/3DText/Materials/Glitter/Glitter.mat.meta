@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 29bc5b581845bb546b8367f5c486a6c7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Materials/Glitter/Glitter.mat
+  uploadId: 525330

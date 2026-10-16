@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b8ff27cf3783a2b4eb7c1b497468d517
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213243
+  packageName: MAD Easy 3D Text Editor
+  packageVersion: 1.3
+  assetPath: Assets/3DText/Fonts/Common/Space.prefab
+  uploadId: 525330
