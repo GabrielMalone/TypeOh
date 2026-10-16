@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d877ec3e844f2ca46830012e8e79319b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   rotation:
     m_OverrideState: 0
     m_Value: 0
@@ -54,17 +54,17 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: {x: 0, y: -6378100, z: 0}
   type:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   atmosphericScattering:
     m_OverrideState: 0
     m_Value: 1
   renderingMode:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1
   material:
-    m_OverrideState: 0
-    m_Value: {fileID: 0}
+    m_OverrideState: 1
+    m_Value: {fileID: 2100000, guid: 7ed994c1997814049b44c36a823bba6c, type: 2}
   airDensityR:
     m_OverrideState: 0
     m_Value: 0.04534
@@ -81,8 +81,8 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 55261.973
   aerosolDensity:
-    m_OverrideState: 0
-    m_Value: 0.01192826
+    m_OverrideState: 1
+    m_Value: 0.056
   aerosolTint:
     m_OverrideState: 0
     m_Value: {r: 0.9, g: 0.9, b: 0.9, a: 1}
@@ -103,7 +103,7 @@ MonoBehaviour:
     m_Value: 20000
   groundTint:
     m_OverrideState: 1
-    m_Value: {r: 0.122641504, g: 0.1043775, b: 0.09313812, a: 1}
+    m_Value: {r: 0.01875159, g: 1, b: 0.062210407, a: 1}
   groundColorTexture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953beb541740ddc499d005ee80c9ff29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   quality:
     m_OverrideState: 0
     m_Value: 1
@@ -163,14 +163,14 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 1
   colorMode:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   color:
     m_OverrideState: 0
     m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   tint:
-    m_OverrideState: 0
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_OverrideState: 1
+    m_Value: {r: 0.825971, g: 0, b: 1, a: 1}
   maxFogDistance:
     m_OverrideState: 0
     m_Value: 5000
@@ -270,16 +270,16 @@ MonoBehaviour:
   m_Version: 1
   skyType:
     m_OverrideState: 1
-    m_Value: 4
+    m_Value: 0
   cloudType:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 1
   skyAmbientMode:
-    m_OverrideState: 1
-    m_Value: 0
-  planetRadius:
     m_OverrideState: 0
-    m_Value: 6378.1
+    m_Value: 1
+  planetRadius:
+    m_OverrideState: 1
+    m_Value: 5.69
   renderingSpace:
     m_OverrideState: 0
     m_Value: 1

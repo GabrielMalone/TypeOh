@@ -766,7 +766,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: 22ff8771d87ef27429e670136399094b, type: 2}
+  m_MaterialTemplate: {fileID: 2100000, guid: 162ad232b242eb042b91b10dc755c486, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -789,7 +789,7 @@ Transform:
   m_GameObject: {fileID: 1572028654}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.28, y: 0, z: 0}
+  m_LocalPosition: {x: -162.8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -855,7 +855,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 34
+  field of view: 61.4
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -881,13 +881,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1823688464}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.0058967676, y: -0, z: -0, w: 0.9999826}
   m_LocalPosition: {x: 4.66, y: 1, z: -1.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.676, y: 0, z: 0}
 --- !u!114 &1823688468
 MonoBehaviour:
   m_ObjectHideFlags: 0
