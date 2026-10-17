@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 112956601}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.5, y: 3.09, z: 0.715}
+  m_LocalPosition: {x: 1.52, y: 7.151, z: -0.023000449}
   m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1172,7 +1172,7 @@ Light:
   serializedVersion: 13
   m_Type: 2
   m_Color: {r: 0.4319064, g: 1, b: 0, a: 1}
-  m_Intensity: 15546.577
+  m_Intensity: 34086.137
   m_Range: 11.85
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1251,12 +1251,13 @@ Transform:
   m_GameObject: {fileID: 343721727}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.173, y: 0.618, z: 10.72145}
+  m_LocalPosition: {x: 3.75485, y: -0.35376024, z: 12.19472}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2063776314}
   - {fileID: 112956602}
+  - {fileID: 377737065}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &377737064
@@ -1283,8 +1284,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 377737064}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.717, y: 3.2174, z: 12.615}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.75485, y: 6.82, z: 1.08}
   m_LocalScale: {x: 0.17799, y: 0.17799, z: 0.17799}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1304,7 +1305,7 @@ Transform:
   - {fileID: 1187167001}
   - {fileID: 707174602}
   - {fileID: 1676928069}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 343721728}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410336883
 GameObject:
@@ -2073,6 +2074,8 @@ MonoBehaviour:
   Y: {fileID: 7312965833978098500, guid: 583059c759bda4d32bfb054e24f73811, type: 3}
   Z: {fileID: 7446209971901393848, guid: a9349d6df61a44c66af284dc9d00faaf, type: 3}
   letterSpawnPosition: {fileID: 1350194846}
+  player_1_correctSpawnPosition: {fileID: 1653717329}
+  player_1_incorrectSpawnPosition: {fileID: 1930354216}
   stateManager: {fileID: 876266759}
 --- !u!4 &718957383
 Transform:
@@ -3172,7 +3175,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1350194846}
   m_Layer: 0
-  m_Name: LetterSpawnBox
+  m_Name: CenterArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4843,7 +4846,7 @@ Transform:
   m_GameObject: {fileID: 2063776313}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.5, y: 3.09, z: 0.326}
+  m_LocalPosition: {x: 1.52, y: 7.151, z: -0.453}
   m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -4967,5 +4970,4 @@ SceneRoots:
   - {fileID: 905269539}
   - {fileID: 876266761}
   - {fileID: 343721728}
-  - {fileID: 377737065}
   - {fileID: 1368913117}
