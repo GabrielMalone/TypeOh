@@ -36,6 +36,9 @@ public class PlayerKeyInput : MonoBehaviour
 
     [Header("Letter Spawn Position")]
     public Transform letterSpawnPosition;
+    public Transform player_1_correctSpawnPosition;
+    public Transform player_1_incorrectSpawnPosition;
+
 
     [Header("Game State Manager")]
     public GameObject stateManager;
@@ -69,6 +72,7 @@ public class PlayerKeyInput : MonoBehaviour
     {
         LetterBehavior letterBehavior = letterObject.GetComponent<LetterBehavior>();
         Renderer renderer = letterObject.GetComponentInChildren<Renderer>();
+
         
         // current word player is currently on
         string curWord = gameStateManager.currentWord;
@@ -87,11 +91,13 @@ public class PlayerKeyInput : MonoBehaviour
             gameStateManager.curIndex += 1;
             Material correctMat = letterBehavior.player_1_correctMaterial;
             renderer.material = correctMat;
+            Instantiate(letterObject, player_1_correctSpawnPosition);
         }
         else
         {
             Material incorrectMat = letterBehavior.player_1_incorrectMaterial;
             renderer.material = incorrectMat;
+            Instantiate(letterObject, player_1_incorrectSpawnPosition);
         }
     }
     // -------------------------------------------------------------------
@@ -109,161 +115,132 @@ public class PlayerKeyInput : MonoBehaviour
         {
             case "A":
                 Debug.Log($"{curKey} was pressed!");
-                GameObject curLetterObj = Instantiate(A, letterSpawnPosition);
-                // set material here
-                KeyEventCoordinator(curKey, curLetterObj);
-                // renderer.setMaterial = material for different eveents there. 
-
+                KeyEventCoordinator(curKey, A);
                 return;
 
             case "B":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(B, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, B);
                 return;
 
             case "C":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(C, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, C);
                 return;
 
             case "D":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(D, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, D);
                 return;
 
             case "E":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(E, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey,E);
                 return;
 
             case "F":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(F, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, F);
                 return;
 
             case "G":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(G, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, G);
                 return;
 
             case "H":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(H, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, H);
                 return;
 
             case "I":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(I, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, I);
                 return;
 
             case "J":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(J, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, J);
                 return;
 
             case "K":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(K, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, K);
                 return;
 
             case "L":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(L, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, L);
                 return;
 
             case "M":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(M, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, M);
                 return;
 
             case "N":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(N, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, N);
                 return;
 
             case "O":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(O, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, O);
                 return;
 
             case "P":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(P, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, P);
                 return;
 
             case "Q":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(Q, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, Q);
                 return;
 
             case "R":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(R, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, R);
                 return;
 
             case "S":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(S, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, S);
                 return;
 
             case "T":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(T, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, T);
                 return;
 
             case "U":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(U, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, U);
                 return;
 
             case "V":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(V, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, V);
                 return;
 
             case "W":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(W, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, W);
                 return;
 
             case "X":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(X, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, X);
                 return;
 
             case "Y":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(Y, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, Y);
                 return;
 
             case "Z":
                 Debug.Log($"{curKey} was pressed!");
-                curLetterObj = Instantiate(Z, letterSpawnPosition);
-                KeyEventCoordinator(curKey, curLetterObj);
+                KeyEventCoordinator(curKey, Z);
                 return;
 
             default:
