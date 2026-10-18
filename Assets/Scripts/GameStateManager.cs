@@ -202,7 +202,7 @@ public class GameStateManager : MonoBehaviour
         // first spawn to the left of center
         float nxtPosition = 0;
 
-        Debug.Log($"lenword: {lenWord} xCenter: {xCenter} centerIndex: {centerLetterIndex}");
+        // Debug.Log($"lenword: {lenWord} xCenter: {xCenter} centerIndex: {centerLetterIndex}");
 
         for (int i = 0 ; i < centerLetterIndex ; i ++)
         {

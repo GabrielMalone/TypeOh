@@ -8,6 +8,7 @@ TagManager:
   - Player_2_Platform
   - Letter
   - FinishLine
+  - player_1_current_letter
   layers:
   - Default
   - TransparentFX

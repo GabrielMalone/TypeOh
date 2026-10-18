@@ -10,8 +10,10 @@ public class PlayerKeyInput : MonoBehaviour
     public Transform player_1_incorrectSpawnPosition;
 
     [Header("Letter Spawn Time To Live Settings")]
-    public float correctLetterTTL = 5.0f;
+    public float correctLetterTTL = 1.0f;
     public float inccorectLetterTTL = 2.0f;
+    public float correctCombo = 0;
+    public float incorrectCombo = 0;
 
     [Header("Sound FX Settings")]
     public AudioSource audioSource;
@@ -65,7 +67,7 @@ public class PlayerKeyInput : MonoBehaviour
         // Debug.Log($"Current Game word: {curWord}");
         // Debug.Log($"Current Game letter: {curWordCurLetter}");
 
-        // current path
+        // correct path
         if (curPlayerLetter[0] == curWordCurLetter)
         {
             // increment correct index pos
@@ -73,9 +75,13 @@ public class PlayerKeyInput : MonoBehaviour
             // set color for correct on letter to spawn
             Material correctMat = letterBehavior.player_1_correctMaterial;
             renderer.material = correctMat;
-            // set time to live
+  
             GameObject newLetter = Instantiate(letterObject, player_1_correctSpawnPosition);
             LetterBehavior lb = newLetter.GetComponent<LetterBehavior>();
+
+            // set time to live
+            correctCombo ++;
+            incorrectCombo = 0;
             lb.timeToLive = correctLetterTTL;
 
             audioSource.PlayOneShot(correctSound);
