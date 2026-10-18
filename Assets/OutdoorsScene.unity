@@ -1899,8 +1899,13 @@ MonoBehaviour:
   letterSpawnPosition: {fileID: 0}
   player_1_correctSpawnPosition: {fileID: 1653717329}
   player_1_incorrectSpawnPosition: {fileID: 1930354216}
-  correctLetterTTL: 1000
+  correctLetterTTL: 15
   inccorectLetterTTL: 2
+  correctCombo: 0
+  incorrectCombo: 0
+  maxTimeToLIveCombo: 120
+  comboMultiplier: 1.2
+  mistakeSpawnInterval: 0.02
   audioSource: {fileID: 2060514086}
   correctSound: {fileID: 8300000, guid: 327501191bcb74bf19e4263fff3050c6, type: 3}
   incorrectSound: {fileID: 8300000, guid: 215dcfd91ac5849e38eecec4b23b8765, type: 3}
@@ -2445,6 +2450,8 @@ MonoBehaviour:
   currentWord: GOOBERTRONIUS
   curIndex: 0
   player_1_position: 0
+  player_1: {fileID: 718957381}
+  player_2: {fileID: 0}
   wordSpawnPlayer1: {fileID: 178659632}
   distanceBetweenLetters: 0.45
   wordSpawnArea: {fileID: 183789778}
@@ -2772,9 +2779,9 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: -0.5117606, y: 0.47468263, z: -0.51626927}
-  - {x: -0.51372147, y: 0.47486255, z: 0.51031226}
-  - {x: -0.5307521, y: 0.477248, z: 0.5001026}
+  - {x: -0.5077125, y: -1.208727, z: -0.50711}
+  - {x: -0.51372147, y: 0.47486255, z: 0.500969}
+  - {x: -0.512476, y: 0.477248, z: 0.5001026}
   - {x: 0.5004952, y: 0.085481375, z: 0.5048845}
   - {x: 0.49846444, y: 0.06611538, z: -0.50427777}
   - {x: -0.51006395, y: -1.2338719, z: -0.50873226}

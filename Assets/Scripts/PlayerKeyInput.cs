@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -14,6 +16,13 @@ public class PlayerKeyInput : MonoBehaviour
     public float inccorectLetterTTL = 2.0f;
     public float correctCombo = 0;
     public float incorrectCombo = 0;
+    public float maxTimeToLIveCombo = 120f;
+    public float comboMultiplier = 1.2f;
+
+    [Header("Letter Spawn Time To Live Settings")]
+    public float mistakeSpawnInterval = 0.2f;
+    private float lastTimeCheck = 0f; 
+
 
     [Header("Sound FX Settings")]
     public AudioSource audioSource;
@@ -23,6 +32,7 @@ public class PlayerKeyInput : MonoBehaviour
     [Header("Game State Manager")]
     public GameObject stateManager;
     private GameStateManager gameStateManager;
+    private char lastIncorrectLetter;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,8 +44,15 @@ public class PlayerKeyInput : MonoBehaviour
     void Update()
     {
         CheckForKeyInput();
+        
+        // keep spamming incorrect until player gets correct
+        if (incorrectCombo > 0 && Time.time - lastTimeCheck > mistakeSpawnInterval)
+        {
+            SpawnIncorrectLetters(lastIncorrectLetter);
+            lastTimeCheck = Time.time;
+        }
+    
     }
-   
     // -------------------------------------------------------------------
     KeyControl GetCurrentKey()
     {
@@ -75,15 +92,20 @@ public class PlayerKeyInput : MonoBehaviour
             // set color for correct on letter to spawn
             Material correctMat = letterBehavior.player_1_correctMaterial;
             renderer.material = correctMat;
-  
+
             GameObject newLetter = Instantiate(letterObject, player_1_correctSpawnPosition);
             LetterBehavior lb = newLetter.GetComponent<LetterBehavior>();
-
+            Rigidbody rb = newLetter.GetComponent<Rigidbody>();
+            
             // set time to live
             correctCombo ++;
             incorrectCombo = 0;
-            lb.timeToLive = correctLetterTTL;
-
+            // make letter weigh more based on combo
+            rb.mass += Mathf.Min(correctCombo/100, 3);
+            Debug.Log($"Current mass: {rb.mass}");
+            // make letter last longer based on combo
+            lb.timeToLive = Mathf.Min(maxTimeToLIveCombo, correctCombo * comboMultiplier);
+            // Debug.Log($"correct ttl: {lb.timeToLive}");
             audioSource.PlayOneShot(correctSound);
         }
         // incorrect path
@@ -93,7 +115,16 @@ public class PlayerKeyInput : MonoBehaviour
             renderer.material = incorrectMat;
             GameObject newLetter =  Instantiate(letterObject, player_1_incorrectSpawnPosition);
             LetterBehavior lb = newLetter.GetComponent<LetterBehavior>();
-            lb.timeToLive = inccorectLetterTTL;
+            Rigidbody rb = newLetter.GetComponent<Rigidbody>();
+
+            // set time to live
+            incorrectCombo ++ ;
+            // to help balance things
+            // if you were doing very well then you make a mistake, your mistake lasts longer
+            lb.timeToLive = Mathf.Min(maxTimeToLIveCombo, incorrectCombo * comboMultiplier * correctCombo);
+            // rb.mass += Mathf.Min(incorrectCombo/100, 3);
+            correctCombo = 0;
+            lastIncorrectLetter = newLetter.name[0];
             audioSource.PlayOneShot(incorrectSound);
         }
     }
@@ -109,8 +140,29 @@ public class PlayerKeyInput : MonoBehaviour
         string curKey = curPressedKey.keyCode.ToString();
         // Debug.Log($"{curKey} was pressed!");
         GameObject curLetterObj = GameStateManager.letterObjects[curKey[0]];
+
         KeyEventCoordinator(curKey, curLetterObj);
     }
     // -------------------------------------------------------------------
+
+
+    void SpawnIncorrectLetters(char lastIncorrectLetter)
+    {
+        GameObject letterObject = GameStateManager.letterObjects[lastIncorrectLetter];
+        LetterBehavior letterBehavior = letterObject.GetComponent<LetterBehavior>();
+        Renderer renderer = letterObject.GetComponentInChildren<Renderer>();
+        Material incorrectMat = letterBehavior.player_1_incorrectMaterial;
+        renderer.material = incorrectMat;
+        GameObject newLetter =  Instantiate(letterObject, player_1_incorrectSpawnPosition);
+        LetterBehavior lb = newLetter.GetComponent<LetterBehavior>();
+        Rigidbody rb = newLetter.GetComponent<Rigidbody>();
+        // to help balance things
+        // if you were doing very well then you make a mistake, your mistake lasts longer
+        lb.timeToLive = Mathf.Min(maxTimeToLIveCombo, incorrectCombo  * comboMultiplier);
+        rb.mass += Mathf.Min(incorrectCombo/100, 3);
+        // Debug.Log($"icorrect ttl: {lb.timeToLive}");
+        // also maybe spawn more than one based on how good your correct combo was. 
+    }
+
 
 }

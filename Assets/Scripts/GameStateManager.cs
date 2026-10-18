@@ -9,6 +9,10 @@ public class GameStateManager : MonoBehaviour
     public int curIndex = 0;
     public int player_1_position = 0;
 
+    [Header("Player Settings")]
+    public GameObject player_1;
+    public GameObject player_2;
+
     [Header("Player 1 Word Spawn Settings")]
     public GameObject wordSpawnPlayer1;
     public float distanceBetweenLetters = 0.4f;
@@ -54,6 +58,7 @@ public class GameStateManager : MonoBehaviour
     // 3 ) fun facts on words being displayed (definitions)?
     // 4 ) P1 and P2 arrows over where each is in the word. 
     // 5 ) if player laps another player, what happens?
+    // 6 ) sound for letters going away from TTL expiring
     // -------------------------------------------------------------------
     void Awake()
     {
