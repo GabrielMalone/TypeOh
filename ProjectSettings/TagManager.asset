@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Player_1_Platform
+  - Player_2_Platform
+  - Letter
   layers:
   - Default
   - TransparentFX

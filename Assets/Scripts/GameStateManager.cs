@@ -98,7 +98,6 @@ public class GameStateManager : MonoBehaviour
     {
         currentWord = GetNewWord();
         SpawnCurrentWord();
-        Debug.Log($"CURRENT WORD: {currentWord}");
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
@@ -116,7 +115,6 @@ public class GameStateManager : MonoBehaviour
             currentWord = GetNewWord();
             // spawn letters for new word
             SpawnCurrentWord();
-            Debug.Log("FINISHED WORD!");
         }
         UpdateWordMaterials();
     }

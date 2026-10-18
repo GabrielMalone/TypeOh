@@ -61,9 +61,9 @@ public class PlayerKeyInput : MonoBehaviour
         char curWordCurLetter = curWord[curIndex];
         
         // are we correct?
-        Debug.Log($"Current Player Letter: {curPlayerLetter}");
-        Debug.Log($"Current Game word: {curWord}");
-        Debug.Log($"Current Game letter: {curWordCurLetter}");
+        // Debug.Log($"Current Player Letter: {curPlayerLetter}");
+        // Debug.Log($"Current Game word: {curWord}");
+        // Debug.Log($"Current Game letter: {curWordCurLetter}");
 
         // current path
         if (curPlayerLetter[0] == curWordCurLetter)
@@ -101,7 +101,7 @@ public class PlayerKeyInput : MonoBehaviour
         if (curPressedKey == null) return;
 
         string curKey = curPressedKey.keyCode.ToString();
-        Debug.Log($"{curKey} was pressed!");
+        // Debug.Log($"{curKey} was pressed!");
         GameObject curLetterObj = GameStateManager.letterObjects[curKey[0]];
         KeyEventCoordinator(curKey, curLetterObj);
     }

@@ -22,6 +22,10 @@ public class PlatformScript : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         ClankSfxBasedOnPhysics(collision);
+        if (collision.gameObject.CompareTag("FinishLine"))
+        {
+            Debug.Log($"{gameObject.tag} WINS!");
+        }
     }
 
 
