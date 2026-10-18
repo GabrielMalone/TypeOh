@@ -183,8 +183,7 @@ public class GameStateManager : MonoBehaviour
 
         return curLetterObj;
     }
-
-
+    // -------------------------------------------------------------------
     void CenterAndSpawnWord()
     {
         MeshCollider mc = wordSpawnArea.GetComponent<MeshCollider>();
@@ -224,10 +223,11 @@ public class GameStateManager : MonoBehaviour
             // keep track of these letter objects
             spawnedLetters.Add(letterObj);            
         }
-        // then spawn to the right of center
+      
         nxtPosition = 0;
         // fix weird spacing on odd lengthed words
         if (lenWord % 2 != 0) xCenter -= distanceBetweenLetters;
+        // then spawn to the right of center
         for (int i = centerLetterIndex ; i < lenWord ; i ++)
         {
             char letter = currentWord[i];
