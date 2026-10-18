@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4874126678125670354, guid: 3f043ef7daa947f4a934d4ec3b53d2d1, type: 3}
+  - {fileID: 2100000, guid: 7acac32d3ab564c7aa98e24066030838, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37edff8088b34763b4e0cad29952caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LetterBehavior
-  timeToLive: 3
+  timeToLive: 100000
   player_1_correctMaterial: {fileID: 2100000, guid: 7acac32d3ab564c7aa98e24066030838, type: 2}
   player_1_incorrectMaterial: {fileID: 2100000, guid: 184def8291f0242b7993b15fac0d5f0d, type: 2}
   player_1_currentLetter: {fileID: 2100000, guid: 74578b7450559400e9e236eef75afeb2, type: 2}

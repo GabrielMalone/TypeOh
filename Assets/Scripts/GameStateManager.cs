@@ -44,6 +44,14 @@ public class GameStateManager : MonoBehaviour
     public static List<GameObject> spawnedLetters = new List<GameObject>();
     public static List<string> englishWords;
 
+
+    // -------------------------------------------------------------------
+    // TODO -> 
+    // 1 ) quantify what is a win and make it clear (like platform past a certain plane)
+    // 2 ) some telemetry might be fun, like wpm / accuracy
+    // 3 ) fun facts on words being displayed (definitions)?
+    // 4 ) P1 and P2 arrows over where each is in the word. 
+    // 5 ) if player laps another player, what happens?
     // -------------------------------------------------------------------
     void Awake()
     {
