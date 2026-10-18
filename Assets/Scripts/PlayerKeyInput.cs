@@ -4,41 +4,19 @@ using UnityEngine.InputSystem.Controls;
 // -----------------------------------------------------------------------
 public class PlayerKeyInput : MonoBehaviour
 {
-
-    [Header("Alphabet Game Objects")]
-    public GameObject A;
-    public GameObject B;
-    public GameObject C;
-    public GameObject D;
-    public GameObject E;
-    public GameObject F;
-    public GameObject G;
-    public GameObject H;
-    public GameObject I;
-    public GameObject J;
-    public GameObject K;
-    public GameObject L;
-    public GameObject M;
-    public GameObject N;
-    public GameObject O;
-    public GameObject P;
-    public GameObject Q;
-    public GameObject R;
-    public GameObject S;
-    public GameObject T;
-    public GameObject U;
-    public GameObject V;
-    public GameObject W;
-    public GameObject X;
-    public GameObject Y;
-    public GameObject Z;
-
-
     [Header("Letter Spawn Position")]
     public Transform letterSpawnPosition;
     public Transform player_1_correctSpawnPosition;
     public Transform player_1_incorrectSpawnPosition;
 
+    [Header("Letter Spawn Time To Live Settings")]
+    public float correctLetterTTL = 5.0f;
+    public float inccorectLetterTTL = 2.0f;
+
+    [Header("Sound FX Settings")]
+    public AudioSource audioSource;
+    public AudioClip correctSound;
+    public AudioClip incorrectSound;
 
     [Header("Game State Manager")]
     public GameObject stateManager;
@@ -55,6 +33,7 @@ public class PlayerKeyInput : MonoBehaviour
     {
         CheckForKeyInput();
     }
+   
     // -------------------------------------------------------------------
     KeyControl GetCurrentKey()
     {
@@ -70,10 +49,10 @@ public class PlayerKeyInput : MonoBehaviour
     // -------------------------------------------------------------------
     void KeyEventCoordinator(string curPlayerLetter, GameObject letterObject)
     {
+        // set up letter color change
         LetterBehavior letterBehavior = letterObject.GetComponent<LetterBehavior>();
         Renderer renderer = letterObject.GetComponentInChildren<Renderer>();
 
-        
         // current word player is currently on
         string curWord = gameStateManager.currentWord;
         // current position in that word (cur char)
@@ -86,18 +65,30 @@ public class PlayerKeyInput : MonoBehaviour
         Debug.Log($"Current Game word: {curWord}");
         Debug.Log($"Current Game letter: {curWordCurLetter}");
 
+        // current path
         if (curPlayerLetter[0] == curWordCurLetter)
         {
+            // increment correct index pos
             gameStateManager.curIndex += 1;
+            // set color for correct on letter to spawn
             Material correctMat = letterBehavior.player_1_correctMaterial;
             renderer.material = correctMat;
-            Instantiate(letterObject, player_1_correctSpawnPosition);
+            // set time to live
+            GameObject newLetter = Instantiate(letterObject, player_1_correctSpawnPosition);
+            LetterBehavior lb = newLetter.GetComponent<LetterBehavior>();
+            lb.timeToLive = correctLetterTTL;
+
+            audioSource.PlayOneShot(correctSound);
         }
+        // incorrect path
         else
         {
             Material incorrectMat = letterBehavior.player_1_incorrectMaterial;
             renderer.material = incorrectMat;
-            Instantiate(letterObject, player_1_incorrectSpawnPosition);
+            GameObject newLetter =  Instantiate(letterObject, player_1_incorrectSpawnPosition);
+            LetterBehavior lb = newLetter.GetComponent<LetterBehavior>();
+            lb.timeToLive = inccorectLetterTTL;
+            audioSource.PlayOneShot(incorrectSound);
         }
     }
     // -------------------------------------------------------------------
@@ -110,143 +101,9 @@ public class PlayerKeyInput : MonoBehaviour
         if (curPressedKey == null) return;
 
         string curKey = curPressedKey.keyCode.ToString();
-
-        switch (curKey)
-        {
-            case "A":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, A);
-                return;
-
-            case "B":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, B);
-                return;
-
-            case "C":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, C);
-                return;
-
-            case "D":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, D);
-                return;
-
-            case "E":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey,E);
-                return;
-
-            case "F":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, F);
-                return;
-
-            case "G":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, G);
-                return;
-
-            case "H":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, H);
-                return;
-
-            case "I":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, I);
-                return;
-
-            case "J":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, J);
-                return;
-
-            case "K":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, K);
-                return;
-
-            case "L":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, L);
-                return;
-
-            case "M":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, M);
-                return;
-
-            case "N":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, N);
-                return;
-
-            case "O":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, O);
-                return;
-
-            case "P":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, P);
-                return;
-
-            case "Q":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, Q);
-                return;
-
-            case "R":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, R);
-                return;
-
-            case "S":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, S);
-                return;
-
-            case "T":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, T);
-                return;
-
-            case "U":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, U);
-                return;
-
-            case "V":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, V);
-                return;
-
-            case "W":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, W);
-                return;
-
-            case "X":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, X);
-                return;
-
-            case "Y":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, Y);
-                return;
-
-            case "Z":
-                Debug.Log($"{curKey} was pressed!");
-                KeyEventCoordinator(curKey, Z);
-                return;
-
-            default:
-                return;
-        }
-
+        Debug.Log($"{curKey} was pressed!");
+        GameObject curLetterObj = GameStateManager.letterObjects[curKey[0]];
+        KeyEventCoordinator(curKey, curLetterObj);
     }
     // -------------------------------------------------------------------
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d877ec3e844f2ca46830012e8e79319b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   rotation:
     m_OverrideState: 0
     m_Value: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
     m_Value: 20000
   groundTint:
     m_OverrideState: 1
-    m_Value: {r: 0.01875159, g: 1, b: 0.062210407, a: 1}
+    m_Value: {r: 0.018500218, g: 1, b: 0.027050221, a: 1}
   groundColorTexture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
