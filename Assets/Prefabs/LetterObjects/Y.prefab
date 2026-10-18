@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 967461719713297359}
-  m_Mesh: {fileID: 3809414652456404955, guid: 2ef2c42d3091da64aa2d3de1e056bf12, type: 3}
+  m_Mesh: {fileID: 270591256937774303, guid: 1418f7536e177ef41a5d24ffb3047949, type: 3}
 --- !u!23 &5446452062466225965
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -218,4 +218,4 @@ MonoBehaviour:
   NextLetterMaterial: {fileID: 2100000, guid: 289ad87d1b2d543e1aa37716c85e5d2b, type: 2}
   CurLetterMaterial: {fileID: 2100000, guid: 74578b7450559400e9e236eef75afeb2, type: 2}
   FinishedLetterMaterial: {fileID: 2100000, guid: 9bf8f51fdd81f46f8b6b6d9281444ce8, type: 2}
-  letterScale: 1
+  letterScale: 0.5

@@ -182,6 +182,7 @@ public class GameStateManager : MonoBehaviour
         GameObject curLetterObj = letterObjects[letter];
         LetterBehavior lb = curLetterObj.GetComponent<LetterBehavior>();
         lb.timeToLive = 100000f;
+        lb.letterScale = 0.2f;
 
         // set up letter color change
         LetterBehavior letterBehavior = curLetterObj.GetComponent<LetterBehavior>();
