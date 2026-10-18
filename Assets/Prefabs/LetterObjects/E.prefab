@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2845667754075116701}
   - component: {fileID: 7577656957380185365}
   - component: {fileID: 4864641258267264003}
-  - component: {fileID: 9054120794092116523}
+  - component: {fileID: 8598490217275041475}
   m_Layer: 3
   m_Name: Rock[e](Clone)
   m_TagString: Untagged
@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7acac32d3ab564c7aa98e24066030838, type: 2}
+  - {fileID: 2100000, guid: 289ad87d1b2d543e1aa37716c85e5d2b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -91,7 +91,7 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &9054120794092116523
+--- !u!65 &8598490217275041475
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,8 +110,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0069368477, y: 0.013525376, z: 0.0049999985}
-  m_Center: {x: -0.0005138544, y: 0.0068793586, z: -0.000000020838343}
+  m_Size: {x: 0.01789543, y: 0.040110473, z: 0.009999999}
+  m_Center: {x: -0.0006453325, y: 0.020055236, z: -4.6566126e-10}
 --- !u!1 &6861150159057036482
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +193,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &6821711977850636431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,4 +218,4 @@ MonoBehaviour:
   NextLetterMaterial: {fileID: 2100000, guid: 289ad87d1b2d543e1aa37716c85e5d2b, type: 2}
   CurLetterMaterial: {fileID: 2100000, guid: 74578b7450559400e9e236eef75afeb2, type: 2}
   FinishedLetterMaterial: {fileID: 2100000, guid: 9bf8f51fdd81f46f8b6b6d9281444ce8, type: 2}
-  letterScale: 0.5
+  letterScale: 0.2

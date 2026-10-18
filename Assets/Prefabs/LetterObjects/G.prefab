@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8520958639711710811}
   - component: {fileID: 145510212588263251}
   - component: {fileID: 5509576086616472517}
-  - component: {fileID: 729900139280618139}
+  - component: {fileID: 8561947716714798034}
   m_Layer: 3
   m_Name: Rock[g](Clone)
   m_TagString: Untagged
@@ -91,7 +91,7 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &729900139280618139
+--- !u!65 &8561947716714798034
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,8 +110,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.008832235, y: 0.0149544785, z: 0.0050000018}
-  m_Center: {x: -0.00064015377, y: 0.006636457, z: -0.000000020954758}
+  m_Size: {x: 0.023449173, y: 0.041344605, z: 0.009999999}
+  m_Center: {x: 0.0003519822, y: 0.020672303, z: 0.0000000011641531}
 --- !u!1 &4722229681781019835
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +193,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &7637568001646810442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,4 +218,4 @@ MonoBehaviour:
   NextLetterMaterial: {fileID: 2100000, guid: 289ad87d1b2d543e1aa37716c85e5d2b, type: 2}
   CurLetterMaterial: {fileID: 2100000, guid: 74578b7450559400e9e236eef75afeb2, type: 2}
   FinishedLetterMaterial: {fileID: 2100000, guid: 9bf8f51fdd81f46f8b6b6d9281444ce8, type: 2}
-  letterScale: 0.5
+  letterScale: 0.2

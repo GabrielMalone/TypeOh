@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameStateManager : MonoBehaviour
     [Header("Player 1 Word Spawn Settings")]
     public GameObject wordSpawnPlayer1;
     public float distanceBetweenLetters = 0.4f;
+    public GameObject wordSpawnArea;
 
     [Header("Alphabet Game Objects")]
     public GameObject A;
@@ -97,7 +99,7 @@ public class GameStateManager : MonoBehaviour
     void Start()
     {
         currentWord = GetNewWord();
-        SpawnCurrentWord();
+        CenterAndSpawnWord();
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
@@ -114,7 +116,7 @@ public class GameStateManager : MonoBehaviour
             // pick a new world
             currentWord = GetNewWord();
             // spawn letters for new word
-            SpawnCurrentWord();
+            CenterAndSpawnWord();
         }
         UpdateWordMaterials();
     }
@@ -133,27 +135,9 @@ public class GameStateManager : MonoBehaviour
         return curIndex >= currentWord.Length;
     }
     // -------------------------------------------------------------------
-    void SpawnCurrentWord()
-    {
-        float nxtPosition = 0;
-        foreach (char letter in currentWord)
-        {
-            GameObject letterObj = Instantiate(
-                // letter gameobj
-                SetLetterObj(letter),
-                // scooch over to the right a bit
-                wordSpawnPlayer1.transform.position + new Vector3(nxtPosition, 0, 0),
-                // set rotation
-                Quaternion.Euler(0, 180, 0)
-            );
-            nxtPosition += distanceBetweenLetters;
-            // keep track of these letter objects
-            spawnedLetters.Add(letterObj);
-        }
-    }
-    // -------------------------------------------------------------------
     public void UpdateWordMaterials()
     {
+        if (currentWord.Length <= 0) return;
         for (int i = 0; i < currentWord.Length; i++)
         {
 
@@ -198,6 +182,72 @@ public class GameStateManager : MonoBehaviour
         }
 
         return curLetterObj;
+    }
+
+
+    void CenterAndSpawnWord()
+    {
+        MeshCollider mc = wordSpawnArea.GetComponent<MeshCollider>();
+        // get the center point of our wordSpawn area
+        int lenWord = currentWord.Length;
+        
+        float xMin = mc.bounds.min.x;
+        float xMax = mc.bounds.max.x;
+        float xDistance = xMin - xMax;
+        
+        float xCenter = xDistance / 2;
+        int centerLetterIndex = lenWord / 2;
+
+        float farLeft = xCenter - (distanceBetweenLetters * (lenWord - centerLetterIndex));
+
+        // first spawn to the left of center
+        float nxtPosition = 0;
+
+        Debug.Log($"lenword: {lenWord} xCenter: {xCenter} centerIndex: {centerLetterIndex}");
+
+        for (int i = 0 ; i < centerLetterIndex ; i ++)
+        {
+            char letter = currentWord[i];
+            GameObject letterObj = Instantiate(
+                // letter gameobj
+                SetLetterObj(letter),
+                // start far left then scooch right
+                wordSpawnPlayer1.transform.position + new Vector3(farLeft + nxtPosition, 0, 0),
+                // set rotation
+                Quaternion.Euler(0, 180, 0)
+            );
+            nxtPosition += distanceBetweenLetters;
+            // prevent tipping over
+            Rigidbody rb = letterObj.GetComponent<Rigidbody>();
+            if (rb!=null)
+                rb.constraints = RigidbodyConstraints.FreezeAll;
+            // keep track of these letter objects
+            spawnedLetters.Add(letterObj);            
+        }
+        // then spawn to the right of center
+        nxtPosition = 0;
+        // fix weird spacing on odd lengthed words
+        if (lenWord % 2 != 0) xCenter -= distanceBetweenLetters;
+        for (int i = centerLetterIndex ; i < lenWord ; i ++)
+        {
+            char letter = currentWord[i];
+            GameObject letterObj = Instantiate(
+                // letter gameobj
+                SetLetterObj(letter),
+                // start far left then scooch right
+                wordSpawnPlayer1.transform.position + new Vector3(xCenter + nxtPosition, 0, 0),
+                // set rotation
+                Quaternion.Euler(0, 180, 0)
+            );
+            nxtPosition += distanceBetweenLetters;
+            // prevent tipping over
+            Rigidbody rb = letterObj.GetComponent<Rigidbody>();
+            if (rb!=null)
+                rb.constraints = RigidbodyConstraints.FreezeAll;
+            // keep track of these letter objects
+            spawnedLetters.Add(letterObj);            
+        }
+
     }
 
 

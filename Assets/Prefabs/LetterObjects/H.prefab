@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 318215199515341934}
   - component: {fileID: 4271353276504587359}
-  - component: {fileID: 2839631585809810648}
   - component: {fileID: 2435938333549797956}
+  - component: {fileID: 6825378816348271846}
   m_Layer: 3
   m_Name: H
   m_TagString: Letter
@@ -55,7 +55,32 @@ MonoBehaviour:
   z: 0
   canRotate: 1
   rotationSpeed: {x: 1, y: 0, z: 0}
---- !u!54 &2839631585809810648
+--- !u!114 &2435938333549797956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318215199515343760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f37edff8088b34763b4e0cad29952caa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LetterBehavior
+  timeToLive: 100000
+  player_1_correctMaterial: {fileID: 2100000, guid: 7acac32d3ab564c7aa98e24066030838, type: 2}
+  player_1_incorrectMaterial: {fileID: 2100000, guid: 184def8291f0242b7993b15fac0d5f0d, type: 2}
+  player_1_currentLetter: {fileID: 2100000, guid: 74578b7450559400e9e236eef75afeb2, type: 2}
+  player_1_completedLetter: {fileID: 2100000, guid: 9bf8f51fdd81f46f8b6b6d9281444ce8, type: 2}
+  player_2_correctMaterial: {fileID: 0}
+  player_2_incorrectMaterial: {fileID: 0}
+  player_2_currentLetter: {fileID: 0}
+  player_2_completedLetter: {fileID: 0}
+  NextLetterMaterial: {fileID: 2100000, guid: 289ad87d1b2d543e1aa37716c85e5d2b, type: 2}
+  CurLetterMaterial: {fileID: 2100000, guid: 74578b7450559400e9e236eef75afeb2, type: 2}
+  FinishedLetterMaterial: {fileID: 2100000, guid: 9bf8f51fdd81f46f8b6b6d9281444ce8, type: 2}
+  letterScale: 0.2
+--- !u!54 &6825378816348271846
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81,32 +106,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &2435938333549797956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 318215199515343760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f37edff8088b34763b4e0cad29952caa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LetterBehavior
-  timeToLive: 100000
-  player_1_correctMaterial: {fileID: 2100000, guid: 7acac32d3ab564c7aa98e24066030838, type: 2}
-  player_1_incorrectMaterial: {fileID: 2100000, guid: 184def8291f0242b7993b15fac0d5f0d, type: 2}
-  player_1_currentLetter: {fileID: 2100000, guid: 74578b7450559400e9e236eef75afeb2, type: 2}
-  player_1_completedLetter: {fileID: 2100000, guid: 9bf8f51fdd81f46f8b6b6d9281444ce8, type: 2}
-  player_2_correctMaterial: {fileID: 0}
-  player_2_incorrectMaterial: {fileID: 0}
-  player_2_currentLetter: {fileID: 0}
-  player_2_completedLetter: {fileID: 0}
-  NextLetterMaterial: {fileID: 2100000, guid: 289ad87d1b2d543e1aa37716c85e5d2b, type: 2}
-  CurLetterMaterial: {fileID: 2100000, guid: 74578b7450559400e9e236eef75afeb2, type: 2}
-  FinishedLetterMaterial: {fileID: 2100000, guid: 9bf8f51fdd81f46f8b6b6d9281444ce8, type: 2}
-  letterScale: 0.5
+  m_CollisionDetection: 1
 --- !u!1 &7707655526051267215
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 8368857500964840857}
   - component: {fileID: 7754927006597129359}
   - component: {fileID: 1970517359613849737}
-  - component: {fileID: 3096995070328125175}
+  - component: {fileID: 6802637936303717182}
   m_Layer: 3
   m_Name: Rock[h](Clone)
   m_TagString: Untagged
@@ -174,7 +174,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 289ad87d1b2d543e1aa37716c85e5d2b, type: 2}
+  - {fileID: 2100000, guid: 7acac32d3ab564c7aa98e24066030838, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -198,7 +198,7 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3096995070328125175
+--- !u!65 &6802637936303717182
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -217,5 +217,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.007225208, y: 0.013617182, z: 0.0050000106}
-  m_Center: {x: 0.000003976049, y: 0.0069322865, z: -0.000000022468157}
+  m_Size: {x: 0.024066238, y: 0.040110473, z: 0.009999999}
+  m_Center: {x: 0.000000038184226, y: 0.020055236, z: 0}

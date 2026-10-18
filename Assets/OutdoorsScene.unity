@@ -284,7 +284,7 @@ Transform:
   m_GameObject: {fileID: 178659632}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -318,8 +318,8 @@ Transform:
   m_GameObject: {fileID: 183789778}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0.13730998}
+  m_LocalPosition: {x: -0.7093, y: 0, z: 0}
+  m_LocalScale: {x: 0.0781, y: 1, z: 0.13730998}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 856355722}
@@ -2300,6 +2300,7 @@ MonoBehaviour:
   player_1_position: 0
   wordSpawnPlayer1: {fileID: 178659632}
   distanceBetweenLetters: 0.45
+  wordSpawnArea: {fileID: 183789778}
   A: {fileID: 7630565340444275091, guid: ebb72977567324c7983e7a8c93e4b871, type: 3}
   B: {fileID: 3876128896421753277, guid: 6f826678bc00249748ff87990da88254, type: 3}
   C: {fileID: 7988061378920496000, guid: 3257e1ae36f024aad8f594f70c3a60a4, type: 3}
@@ -3029,13 +3030,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1823688464}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.09284849, y: 0, z: 0, w: 0.99568033}
   m_LocalPosition: {x: 1.2, y: 10.18, z: -5.11}
   m_LocalScale: {x: 1, y: 1, z: 0.99869}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10.655, y: 0, z: 0}
 --- !u!114 &1823688468
 MonoBehaviour:
   m_ObjectHideFlags: 0
