@@ -7,6 +7,7 @@ TagManager:
   - Player_1_Platform
   - Player_2_Platform
   - Letter
+  - FinishLine
   layers:
   - Default
   - TransparentFX
@@ -14,7 +15,7 @@ TagManager:
   - Letter
   - Water
   - UI
-  - 
+  - FinishLine
   - 
   - 
   - 
