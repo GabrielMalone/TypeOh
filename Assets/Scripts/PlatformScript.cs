@@ -16,8 +16,8 @@ public class PlatformScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        lineRenderer = boundaryBox.GetComponent<LineRenderer>();
-        boxCollider = boundaryBox.GetComponent<BoxCollider>();
+        // lineRenderer = boundaryBox.GetComponent<LineRenderer>();
+        // boxCollider = boundaryBox.GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
