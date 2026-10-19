@@ -8,16 +8,22 @@ public class PlatformScript : MonoBehaviour
     public AudioClip clankSound;
     public float maxImpact = 100f;
 
+    [Header("Boundary Settings")]
+    public GameObject boundaryBox;
+    private LineRenderer lineRenderer;
+    private BoxCollider boxCollider;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        lineRenderer = boundaryBox.GetComponent<LineRenderer>();
+        boxCollider = boundaryBox.GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //DrawWireframe();
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -42,6 +48,15 @@ public class PlatformScript : MonoBehaviour
             float volume = Mathf.Clamp01(impact / maxImpact);
             audioSource.PlayOneShot(clankSound, volume);
         }
+    }
+
+    void DrawWireframe()
+    {
+        Vector3 center = boxCollider.center;
+        Vector3 extents = boxCollider.size * 0.5f;
+
+
+
     }
 
 }
