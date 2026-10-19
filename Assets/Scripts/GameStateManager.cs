@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -185,7 +184,7 @@ public class GameStateManager : MonoBehaviour
         {
             renderer.material = letterBehavior.NextLetterMaterial;
         }
-
+        
         return curLetterObj;
     }
     // -------------------------------------------------------------------
@@ -252,7 +251,6 @@ public class GameStateManager : MonoBehaviour
             // keep track of these letter objects
             spawnedLetters.Add(letterObj);            
         }
-
     }
 
 
