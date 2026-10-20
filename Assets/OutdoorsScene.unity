@@ -1381,6 +1381,55 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.3267102, y: 42.656803, z: 1.5633605}
   m_Center: {x: -0.02409077, y: -22.276234, z: -0.031665906}
+--- !u!1 &369511383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 369511385}
+  - component: {fileID: 369511384}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &369511384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369511383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 0}
+--- !u!4 &369511385
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369511383}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -13.368226, y: -2.0901008, z: -1.0552368}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &432432459
 GameObject:
   m_ObjectHideFlags: 0
@@ -2435,7 +2484,7 @@ Transform:
   m_GameObject: {fileID: 856355721}
   serializedVersion: 2
   m_LocalRotation: {x: 0.1993945, y: -0, z: -0, w: 0.9799193}
-  m_LocalPosition: {x: -1.5, y: 2.5999997, z: -32}
+  m_LocalPosition: {x: -1.5, y: 2.08, z: -23.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2509,7 +2558,7 @@ MonoBehaviour:
   flareMultiplier: 1
   surfaceTexture: {fileID: 0}
   surfaceTint: {r: 1, g: 1, b: 1, a: 1}
-  m_Distance: 1.5e+11
+  m_Distance: 10
   m_UseRayTracedShadows: 0
   m_NumRayTracingSamples: 4
   m_FilterTracedShadow: 1
@@ -2592,9 +2641,9 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 6
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 152.14735
-  m_Range: 7.6
+  m_Color: {r: 1, g: 0, b: 0.87002313, a: 1}
+  m_Intensity: 1772.2563
+  m_Range: 26.38
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.802082
   m_CookieSize2D: {x: 0.5, y: 0.5}
@@ -2617,8 +2666,8 @@ Light:
       e13: 0
       e20: 0
       e21: 0
-      e22: 0.26666668
-      e23: -1.0266666
+      e22: 0.0761035
+      e23: -1.0076103
       e30: 0
       e31: 0
       e32: 0
@@ -2636,9 +2685,9 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 50, y: 20}
   m_BounceIntensity: 1
-  m_ColorTemperature: 5492
+  m_ColorTemperature: 20000
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 3.8, w: 27.192646}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 13.19, w: 29.98293}
   m_UseBoundingSphereOverride: 1
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -2950,7 +2999,7 @@ Light:
   serializedVersion: 13
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1961.752
+  m_Intensity: 59263.242
   m_Range: 15
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.028168
@@ -3227,7 +3276,7 @@ Light:
   serializedVersion: 13
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1961.752
+  m_Intensity: 17185.078
   m_Range: 15
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3971,13 +4020,13 @@ MonoBehaviour:
       enableBigTilePrepass: 0
       isFptlEnabled: 0
   clearColorMode: 1
-  backgroundColorHDR: {r: 0.0000058485994, g: 0.0000032592634, b: 0.000046064262, a: 0}
+  backgroundColorHDR: {r: 0, g: 0.022966562, b: 0.023406865, a: 0}
   clearDepth: 1
   volumeLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
   volumeAnchorOverride: {fileID: 0}
-  antialiasing: 0
+  antialiasing: 1
   SMAAQuality: 2
   dithering: 1
   stopNaNs: 0
@@ -4997,3 +5046,4 @@ SceneRoots:
   - {fileID: 710132351}
   - {fileID: 1874166145}
   - {fileID: 283958068}
+  - {fileID: 369511385}
