@@ -28,7 +28,7 @@ public class PlayerPointerScript : MonoBehaviour
 
         gameObject.transform.position = new Vector3(
             curLetterObj.transform.position.x,
-            curLetterObj.transform.position.y + 1f,
+            curLetterObj.transform.position.y + 1.5f,
             curLetterObj.transform.position.z
         );
     }

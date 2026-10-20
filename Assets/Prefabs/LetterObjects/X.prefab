@@ -81,7 +81,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!114 &8212677512577435726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,7 +106,7 @@ MonoBehaviour:
   NextLetterMaterial: {fileID: 2100000, guid: 289ad87d1b2d543e1aa37716c85e5d2b, type: 2}
   CurLetterMaterial: {fileID: 2100000, guid: 74578b7450559400e9e236eef75afeb2, type: 2}
   FinishedLetterMaterial: {fileID: 2100000, guid: 9bf8f51fdd81f46f8b6b6d9281444ce8, type: 2}
-  letterScale: 0.2
+  letterScale: 0.5
 --- !u!1 &8888833998424792054
 GameObject:
   m_ObjectHideFlags: 0

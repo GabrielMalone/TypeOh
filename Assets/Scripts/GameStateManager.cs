@@ -15,6 +15,7 @@ public class GameStateManager : MonoBehaviour
     [Header("Player 1 Word Spawn Settings")]
     public GameObject wordSpawnPlayer1;
     public float distanceBetweenLetters = 0.4f;
+    public float letterScale = 1f;
     public GameObject wordSpawnArea;
 
     [Header("Alphabet Game Objects")]
@@ -48,6 +49,8 @@ public class GameStateManager : MonoBehaviour
     public static Dictionary<char, GameObject> letterObjects = new Dictionary<char, GameObject>();
     public static List<GameObject> spawnedLetters = new List<GameObject>();
     public static List<string> englishWords;
+
+
 
 
     // -------------------------------------------------------------------
@@ -164,13 +167,13 @@ public class GameStateManager : MonoBehaviour
         }
     }
     // -------------------------------------------------------------------
-    GameObject SetLetterObj(char letter)
+    GameObject SetLetterObj(char letter, bool mainWord = false)
     {
         // set time to live
         GameObject curLetterObj = letterObjects[letter];
         LetterBehavior lb = curLetterObj.GetComponent<LetterBehavior>();
         lb.timeToLive = 100000f;
-        lb.letterScale = 0.2f;
+        lb.letterScale = letterScale;
 
         // set up letter color change
         LetterBehavior letterBehavior = curLetterObj.GetComponent<LetterBehavior>();

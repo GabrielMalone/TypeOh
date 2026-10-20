@@ -19,7 +19,10 @@ public class PlayerKeyInput : MonoBehaviour
     public float maxTimeToLIveCombo = 120f;
     public float comboMultiplier = 1.2f;
 
-    [Header("Letter Spawn Time To Live Settings")]
+    [Header("platform letter scale settings")]
+    public float letterScale = 1f;
+
+    [Header("Mistake Settings")]
     public float mistakeSpawnInterval = 0.2f;
     private float lastTimeCheck = 0f; 
 
@@ -72,6 +75,8 @@ public class PlayerKeyInput : MonoBehaviour
         LetterBehavior letterBehavior = letterObject.GetComponent<LetterBehavior>();
         Renderer renderer = letterObject.GetComponentInChildren<Renderer>();
 
+        letterBehavior.letterScale=letterScale;
+
         // current word player is currently on
         string curWord = gameStateManager.currentWord;
         // current position in that word (cur char)
@@ -94,6 +99,7 @@ public class PlayerKeyInput : MonoBehaviour
             renderer.material = correctMat;
 
             GameObject newLetter = Instantiate(letterObject, player_1_correctSpawnPosition);
+            newLetter.transform.localScale =  Vector3.one * letterScale; 
             LetterBehavior lb = newLetter.GetComponent<LetterBehavior>();
             Rigidbody rb = newLetter.GetComponent<Rigidbody>();
             
@@ -114,6 +120,7 @@ public class PlayerKeyInput : MonoBehaviour
             Material incorrectMat = letterBehavior.player_1_incorrectMaterial;
             renderer.material = incorrectMat;
             GameObject newLetter =  Instantiate(letterObject, player_1_incorrectSpawnPosition);
+            newLetter.transform.localScale =  Vector3.one * letterScale; 
             LetterBehavior lb = newLetter.GetComponent<LetterBehavior>();
             Rigidbody rb = newLetter.GetComponent<Rigidbody>();
 
@@ -154,12 +161,15 @@ public class PlayerKeyInput : MonoBehaviour
         Material incorrectMat = letterBehavior.player_1_incorrectMaterial;
         renderer.material = incorrectMat;
         GameObject newLetter =  Instantiate(letterObject, player_1_incorrectSpawnPosition);
+        // fixes late scaling
+        newLetter.transform.localScale =  Vector3.one * letterScale; 
         LetterBehavior lb = newLetter.GetComponent<LetterBehavior>();
         Rigidbody rb = newLetter.GetComponent<Rigidbody>();
+    
         // to help balance things
         // if you were doing very well then you make a mistake, your mistake lasts longer
         lb.timeToLive = Mathf.Min(maxTimeToLIveCombo, incorrectCombo  * comboMultiplier);
-        rb.mass += Mathf.Min(incorrectCombo/100, 3);
+        rb.mass += Mathf.Min(incorrectCombo/100f, 3f);
         // Debug.Log($"icorrect ttl: {lb.timeToLive}");
         // also maybe spawn more than one based on how good your correct combo was. 
     }
