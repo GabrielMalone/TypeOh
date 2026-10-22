@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -41,6 +39,7 @@ public class PlayerKeyInput : MonoBehaviour
     void Start()
     {
         gameStateManager = stateManager.GetComponent<GameStateManager>();
+
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
@@ -145,7 +144,9 @@ public class PlayerKeyInput : MonoBehaviour
         if (curPressedKey == null) return;
 
         string curKey = curPressedKey.keyCode.ToString();
+        if (GameStateManager.keyboardMap.ContainsKey(curKey)) return;
         // Debug.Log($"{curKey} was pressed!");
+
         GameObject curLetterObj = GameStateManager.letterObjects[curKey[0]];
 
         KeyEventCoordinator(curKey, curLetterObj);

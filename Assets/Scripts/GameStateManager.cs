@@ -47,6 +47,7 @@ public class GameStateManager : MonoBehaviour
     public GameObject Z;
 
     public static Dictionary<char, GameObject> letterObjects = new Dictionary<char, GameObject>();
+    public static Dictionary<string, char> keyboardMap = new Dictionary<string, char>();
     public static List<GameObject> spawnedLetters = new List<GameObject>();
     public static List<string> englishWords;
 
@@ -91,6 +92,32 @@ public class GameStateManager : MonoBehaviour
         letterObjects['Y'] = Y;
         letterObjects['Z'] = Z;
 
+        keyboardMap["Digit1"] = 'A';
+        keyboardMap["Digit2"] = 'B';
+        keyboardMap["Digit3"] = 'C';
+        keyboardMap["Digit4"] = 'D';
+        keyboardMap["Digit5"] = 'E';
+        keyboardMap["Digit6"] = 'F';
+        keyboardMap["Digit7"] = 'G';
+        keyboardMap["Digit8"] = 'H';
+        keyboardMap["Digit9"] = 'I';
+        keyboardMap["Digit0"] = 'J';
+        keyboardMap["F1"] = 'K';
+        keyboardMap["F2"] = 'L';
+        keyboardMap["F3"] = 'M';
+        keyboardMap["F4"] = 'N';
+        keyboardMap["F5"] = 'O';
+        keyboardMap["F6"] = 'P';
+        keyboardMap["F7"] = 'Q';
+        keyboardMap["F8"] = 'R';
+        keyboardMap["F9"] = 'S';
+        keyboardMap["F10"] = 'T';
+        keyboardMap["F11"] = 'U';
+        keyboardMap["F12"] = 'V';
+        keyboardMap["F13"] = 'W';
+        keyboardMap["F14"] = 'X';
+        keyboardMap["F15"] = 'X';
+        keyboardMap["F16"] = 'X';
         // load all english words
         // https://github.com/dwyl/english-words
         TextAsset file = Resources.Load<TextAsset>("words_alpha");
