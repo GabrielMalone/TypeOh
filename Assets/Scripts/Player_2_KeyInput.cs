@@ -82,15 +82,11 @@ public class Player_2_KeyInput : MonoBehaviour
         int curIndex = gameStateManager.curIndex;
         // get that char
         char curWordCurLetter = curWord[curIndex];
-        
-        // are we correct?
-        // Debug.Log($"Current Player Letter: {curPlayerLetter}");
-        // Debug.Log($"Current Game word: {curWord}");
-        // Debug.Log($"Current Game letter: {curWordCurLetter}");
 
         // correct path
         if (curPlayerLetter[0] == curWordCurLetter)
         {
+            Debug.Log($"PLAYER TWO CORRECT!");
             // increment correct index pos
             gameStateManager.curIndex += 1;
             // set color for correct on letter to spawn
@@ -107,7 +103,7 @@ public class Player_2_KeyInput : MonoBehaviour
             incorrectCombo = 0;
             // make letter weigh more based on combo
             rb.mass += Mathf.Min(correctCombo/100, 3);
-            Debug.Log($"Current mass: {rb.mass}");
+   
             // make letter last longer based on combo
             lb.timeToLive = Mathf.Min(maxTimeToLIveCombo, correctCombo * comboMultiplier);
             // Debug.Log($"correct ttl: {lb.timeToLive}");
@@ -116,6 +112,7 @@ public class Player_2_KeyInput : MonoBehaviour
         // incorrect path
         else
         {
+            Debug.Log($"PLAYER TWO INCORRECT!");
             Material incorrectMat = letterBehavior.player_1_incorrectMaterial;
             renderer.material = incorrectMat;
             GameObject newLetter =  Instantiate(letterObject, player_2_incorrectSpawnPosition);
@@ -147,12 +144,14 @@ public class Player_2_KeyInput : MonoBehaviour
 
         Debug.Log($"{curKey} was pressed!");
 
+        if (!GameStateManager.keyboardMap.ContainsKey(curKey)) return;
+
         // need to map back to original keys here
         char cur_key = GameStateManager.keyboardMap[curKey];
 
         GameObject curLetterObj = GameStateManager.letterObjects[cur_key];
 
-        KeyEventCoordinator(curKey, curLetterObj);
+        KeyEventCoordinator(cur_key.ToString(), curLetterObj);
     }
     // -------------------------------------------------------------------
 

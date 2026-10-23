@@ -2457,6 +2457,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 759252900}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &778672660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 778672661}
+  m_Layer: 0
+  m_Name: Player_2_Correct_Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &778672661
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778672660}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 913692962}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &856355721
 GameObject:
   m_ObjectHideFlags: 0
@@ -2729,7 +2760,7 @@ MonoBehaviour:
   curIndex: 0
   player_1_position: 0
   player_1: {fileID: 718957381}
-  player_2: {fileID: 0}
+  player_2: {fileID: 929033122}
   wordSpawnPlayer1: {fileID: 178659632}
   distanceBetweenLetters: 1
   letterScale: 0.5
@@ -2805,6 +2836,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1930354216}
+  - {fileID: 778672661}
   - {fileID: 1431308738}
   - {fileID: 1980816612}
   - {fileID: 280137379}
@@ -3083,8 +3115,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_2_KeyInput
   letterSpawnPosition: {fileID: 0}
-  player_2_correctSpawnPosition: {fileID: 1930354216}
-  player_2_incorrectSpawnPosition: {fileID: 1653717329}
+  player_2_correctSpawnPosition: {fileID: 778672661}
+  player_2_incorrectSpawnPosition: {fileID: 1966064417}
   correctLetterTTL: 15
   inccorectLetterTTL: 2
   correctCombo: 0
@@ -3094,8 +3126,8 @@ MonoBehaviour:
   letterScale: 0.5
   mistakeSpawnInterval: 0.2
   audioSource: {fileID: 1697417651}
-  correctSound: {fileID: 0}
-  incorrectSound: {fileID: 0}
+  correctSound: {fileID: 8300000, guid: d574c168e170a4994a4fb2a4b6b255a7, type: 3}
+  incorrectSound: {fileID: 8300000, guid: b72d86b6053755d479fe7f73498f2be1, type: 3}
   stateManager: {fileID: 876266759}
 --- !u!4 &929033124
 Transform:
@@ -4725,6 +4757,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1954166946}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1966064416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1966064417}
+  m_Layer: 0
+  m_Name: Player_2_Inocrrect_Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1966064417
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966064416}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1995847048}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1980816611
 GameObject:
   m_ObjectHideFlags: 0
@@ -4895,6 +4958,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1653717329}
+  - {fileID: 1966064417}
   - {fileID: 294674367}
   - {fileID: 221940180}
   - {fileID: 2078166203}

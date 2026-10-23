@@ -82,12 +82,7 @@ public class PlayerKeyInput : MonoBehaviour
         int curIndex = gameStateManager.curIndex;
         // get that char
         char curWordCurLetter = curWord[curIndex];
-        
-        // are we correct?
-        // Debug.Log($"Current Player Letter: {curPlayerLetter}");
-        // Debug.Log($"Current Game word: {curWord}");
-        // Debug.Log($"Current Game letter: {curWordCurLetter}");
-
+    
         // correct path
         if (curPlayerLetter[0] == curWordCurLetter)
         {

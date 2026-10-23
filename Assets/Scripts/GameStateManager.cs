@@ -52,8 +52,6 @@ public class GameStateManager : MonoBehaviour
     public static List<string> englishWords;
 
 
-
-
     // -------------------------------------------------------------------
     // TODO -> 
     // 1 ) quantify what is a win and make it clear (like platform past a certain plane)
@@ -92,6 +90,9 @@ public class GameStateManager : MonoBehaviour
         letterObjects['Y'] = Y;
         letterObjects['Z'] = Z;
 
+        // map for player 2 keyboard
+        // which was mapped w/ outside program
+        
         keyboardMap["Digit1"] = 'A';
         keyboardMap["Digit2"] = 'B';
         keyboardMap["Digit3"] = 'C';
@@ -102,22 +103,23 @@ public class GameStateManager : MonoBehaviour
         keyboardMap["Digit8"] = 'H';
         keyboardMap["Digit9"] = 'I';
         keyboardMap["Digit0"] = 'J';
-        keyboardMap["F1"] = 'K';
-        keyboardMap["F2"] = 'L';
-        keyboardMap["F3"] = 'M';
-        keyboardMap["F4"] = 'N';
-        keyboardMap["F5"] = 'O';
-        keyboardMap["F6"] = 'P';
-        keyboardMap["F7"] = 'Q';
-        keyboardMap["F8"] = 'R';
-        keyboardMap["F9"] = 'S';
-        keyboardMap["F10"] = 'T';
-        keyboardMap["F11"] = 'U';
-        keyboardMap["F12"] = 'V';
-        keyboardMap["F13"] = 'W';
-        keyboardMap["F14"] = 'X';
-        keyboardMap["F15"] = 'X';
-        keyboardMap["F16"] = 'X';
+        keyboardMap["Numpad1"] = 'K';
+        keyboardMap["Numpad2"] = 'L';
+        keyboardMap["Numpad3"] = 'M';
+        keyboardMap["Numpad4"] = 'N';
+        keyboardMap["Numpad5"] = 'O';
+        keyboardMap["Numpad6"] = 'P';
+        keyboardMap["Numpad7"] = 'Q';
+        keyboardMap["Numpad8"] = 'R';
+        keyboardMap["Numpad9"] = 'S';
+        keyboardMap["Numpad0"] = 'T';
+        keyboardMap["UpArrow"] = 'U';
+        keyboardMap["DownArrow"] = 'V';
+        keyboardMap["LeftArrow"] = 'W';
+        keyboardMap["RightArrow"] = 'X';
+        keyboardMap["Comma"] = 'Y';
+        keyboardMap["Period"] = 'Z';
+
         // load all english words
         // https://github.com/dwyl/english-words
         TextAsset file = Resources.Load<TextAsset>("words_alpha");
