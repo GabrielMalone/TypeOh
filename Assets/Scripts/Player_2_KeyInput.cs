@@ -79,7 +79,7 @@ public class Player_2_KeyInput : MonoBehaviour
         // current word player is currently on
         string curWord = gameStateManager.currentWord;
         // current position in that word (cur char)
-        int curIndex = gameStateManager.curIndex;
+        int curIndex = gameStateManager.p2_curIndex;
         // get that char
         char curWordCurLetter = curWord[curIndex];
 
@@ -88,7 +88,7 @@ public class Player_2_KeyInput : MonoBehaviour
         {
             Debug.Log($"PLAYER TWO CORRECT!");
             // increment correct index pos
-            gameStateManager.curIndex += 1;
+            gameStateManager.p2_curIndex += 1;
             // set color for correct on letter to spawn
             Material correctMat = letterBehavior.player_1_correctMaterial;
             renderer.material = correctMat;

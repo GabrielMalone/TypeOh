@@ -1,16 +1,19 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 
 public class GameStateManager : MonoBehaviour
 {
     [Header("Game State Settings")]
     public string currentWord = "";
-    public int curIndex = 0;
-    public int player_1_position = 0;
+    public int p1_curIndex = 0;
+    public int p2_curIndex = 0;
 
     [Header("Player Settings")]
     public GameObject player_1;
     public GameObject player_2;
+    public Material player_1_material;
+    public Material player_2_material;
 
     [Header("Player 1 Word Spawn Settings")]
     public GameObject wordSpawnPlayer1;
@@ -160,7 +163,8 @@ public class GameStateManager : MonoBehaviour
     public string GetNewWord()
     {
         // for now just reset
-        curIndex = 0;
+        p1_curIndex = 0;
+        p2_curIndex = 0;
         int index = Random.Range(0, englishWords.Count);
         return englishWords[index].ToUpper().Trim();
 
@@ -168,7 +172,7 @@ public class GameStateManager : MonoBehaviour
     // -------------------------------------------------------------------
     public bool CurWordIsFinished()
     {
-        return curIndex >= currentWord.Length;
+        return p1_curIndex >= currentWord.Length || p2_curIndex >= currentWord.Length;
     }
     // -------------------------------------------------------------------
     public void UpdateWordMaterials()
@@ -184,9 +188,15 @@ public class GameStateManager : MonoBehaviour
             Renderer renderer = curLetterObj.GetComponentInChildren<Renderer>();
 
             // highlight the current letter
-            if (curIndex == i && letter == currentWord[curIndex])
+            if (p1_curIndex == i && letter == currentWord[p1_curIndex])
             {
-                renderer.material = lb.CurLetterMaterial;
+                renderer.material = player_1_material;
+            }
+            // highlight the current letter
+            else if (p2_curIndex == i && letter == currentWord[p2_curIndex])
+            {
+                // change these to some diff color for p2 
+                renderer.material = player_2_material;
             }
             else
             {
@@ -208,15 +218,9 @@ public class GameStateManager : MonoBehaviour
         LetterBehavior letterBehavior = curLetterObj.GetComponent<LetterBehavior>();
         Renderer renderer = curLetterObj.GetComponentInChildren<Renderer>();
 
-        if (letter == currentWord[curIndex])
-        {
-            renderer.material = letterBehavior.CurLetterMaterial;
-        }
-        else
-        {
-            renderer.material = letterBehavior.NextLetterMaterial;
-        }
+        renderer.material = letterBehavior.NextLetterMaterial;
         
+
         return curLetterObj;
     }
     // -------------------------------------------------------------------
