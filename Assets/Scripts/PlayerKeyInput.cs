@@ -96,18 +96,10 @@ public class PlayerKeyInput : MonoBehaviour
 
             GameObject newLetter = Instantiate(letterObject, player_1_correctSpawnPosition);
             newLetter.transform.localScale =  Vector3.one * letterScale; 
-            LetterBehavior lb = newLetter.GetComponent<LetterBehavior>();
-            Rigidbody rb = newLetter.GetComponent<Rigidbody>();
-            
-            // set time to live
-            correctCombo ++;
+            // track total weight, this saves a reference, which is nice
+            gameStateManager.player_1_platformLetters.Add(newLetter);
             incorrectCombo = 0;
-            // make letter weigh more based on combo
-            // rb.mass += Mathf.Min(correctCombo/100, 3);
-            Debug.Log($"Current mass: {rb.mass}");
-            // make letter last longer based on combo
-            // lb.timeToLive = Mathf.Min(maxTimeToLIveCombo, correctCombo * comboMultiplier);
-            // Debug.Log($"correct ttl: {lb.timeToLive}");
+        
             audioSource.PlayOneShot(correctSound);
         }
         // incorrect path

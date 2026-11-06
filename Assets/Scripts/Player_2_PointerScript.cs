@@ -18,7 +18,6 @@ public class Player_2_PointerScript : MonoBehaviour
         GetCurrentPlayerLetterObject();
     }
 
-
     void GetCurrentPlayerLetterObject()
     {
         int curIndex = gsm.p2_curIndex;
@@ -32,7 +31,4 @@ public class Player_2_PointerScript : MonoBehaviour
             curLetterObj.transform.position.z
         );
     }
-    
-
-
 }

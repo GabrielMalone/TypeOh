@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-
 public class GameStateManager : MonoBehaviour
 {
     [Header("Game State Settings")]
@@ -16,12 +15,16 @@ public class GameStateManager : MonoBehaviour
     public Material player_2_material;
 
     [Header("Player Stats")]
+    public SpringJoint player_1_spring;
+    public SpringJoint player_2_spring;
     public float player_1_correct_cnt;
     public float player_2_correct_cnt;
     public float player_1_incorrect_cnt;
     public float player_2_incorrect_cnt;
     public GameObject player_1_stats_area;
     public GameObject player_2_stats_area;
+    public List<GameObject> player_1_platformLetters = new List<GameObject>();
+    public List<GameObject> player_2_platformLetters = new List<GameObject>();
 
     [Header("Player 1 Word Spawn Settings")]
     public GameObject wordSpawnPlayer1;
@@ -180,7 +183,13 @@ public class GameStateManager : MonoBehaviour
             CenterAndSpawnWord(currentWord, wordSpawnArea);
         }
         UpdateWordMaterials();
-    
+        GetPlatformWeight(player_1_platformLetters);
+        GetPlatformWeight(player_2_platformLetters);
+    }
+    // -------------------------------------------------------------------
+    void FixedUpdate()
+    {
+
     }
     // -------------------------------------------------------------------
     public string GetNewWord()
@@ -328,4 +337,16 @@ public class GameStateManager : MonoBehaviour
             spawnedLetters.Add(letterObj);            
         }
     }
+    // -------------------------------------------------------------------
+    public float GetPlatformWeight(List<GameObject> platform)
+    {
+        float totalWeight = 0;
+        foreach (GameObject letter in platform)
+        {
+            totalWeight += letter.GetComponent<Rigidbody>().mass;
+        }
+        Debug.Log($"{platform} total weight: {totalWeight}");
+        return totalWeight;
+    }
+    // -------------------------------------------------------------------
 }

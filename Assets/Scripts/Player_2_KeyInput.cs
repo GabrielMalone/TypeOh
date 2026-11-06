@@ -87,6 +87,7 @@ public class Player_2_KeyInput : MonoBehaviour
         // correct path
         if (curPlayerLetter[0] == curWordCurLetter)
         {
+            incorrectCombo = 0;
             Debug.Log($"PLAYER TWO CORRECT!");
             // increment correct index pos
             gameStateManager.p2_curIndex += 1;
@@ -99,16 +100,9 @@ public class Player_2_KeyInput : MonoBehaviour
             newLetter.transform.localScale =  Vector3.one * letterScale; 
             LetterBehavior lb = newLetter.GetComponent<LetterBehavior>();
             Rigidbody rb = newLetter.GetComponent<Rigidbody>();
-            
-            // set time to live
-            correctCombo ++;
-            incorrectCombo = 0;
-            // make letter weigh more based on combo
-            // rb.mass += Mathf.Min(correctCombo/100, 3);
-   
-            // make letter last longer based on combo
-            // lb.timeToLive = Mathf.Min(maxTimeToLIveCombo, correctCombo * comboMultiplier);
-            // Debug.Log($"correct ttl: {lb.timeToLive}");
+            // track total weight on platform
+            gameStateManager.player_2_platformLetters.Add(newLetter);
+
             audioSource.PlayOneShot(correctSound);
         }
         // incorrect path
@@ -119,17 +113,15 @@ public class Player_2_KeyInput : MonoBehaviour
             Material incorrectMat = letterBehavior.player_1_incorrectMaterial;
             renderer.material = incorrectMat;
             GameObject newLetter =  Instantiate(letterObject, player_2_incorrectSpawnPosition);
-            newLetter.transform.localScale =  Vector3.one * letterScale; 
-            LetterBehavior lb = newLetter.GetComponent<LetterBehavior>();
-            Rigidbody rb = newLetter.GetComponent<Rigidbody>();
+            newLetter.transform.localScale =  Vector3.one * letterScale;
+
 
             // set time to live
-            incorrectCombo ++ ;
-            // to help balance things
-            // if you were doing very well then you make a mistake, your mistake lasts longer
-            lb.timeToLive = Mathf.Min(maxTimeToLIveCombo, incorrectCombo * comboMultiplier * correctCombo);
-            // rb.mass += Mathf.Min(incorrectCombo/100, 3);
+            incorrectCombo++;
+
             correctCombo = 0;
+    
+
             lastIncorrectLetter = newLetter.name[0];
             audioSource.PlayOneShot(incorrectSound);
         }
@@ -157,8 +149,6 @@ public class Player_2_KeyInput : MonoBehaviour
         KeyEventCoordinator(cur_key.ToString(), curLetterObj);
     }
     // -------------------------------------------------------------------
-
-
     void SpawnIncorrectLetters(char lastIncorrectLetter)
     {
         GameObject letterObject = GameStateManager.letterObjects[lastIncorrectLetter];
@@ -168,16 +158,7 @@ public class Player_2_KeyInput : MonoBehaviour
         renderer.material = incorrectMat;
         GameObject newLetter =  Instantiate(letterObject, player_2_incorrectSpawnPosition);
         // fixes late scaling
-        newLetter.transform.localScale =  Vector3.one * letterScale; 
-        LetterBehavior lb = newLetter.GetComponent<LetterBehavior>();
-        Rigidbody rb = newLetter.GetComponent<Rigidbody>();
-    
-        // to help balance things
-        // if you were doing very well then you make a mistake, your mistake lasts longer
-        // lb.timeToLive = Mathf.Min(maxTimeToLIveCombo, incorrectCombo  * comboMultiplier);
-        // rb.mass += Mathf.Min(incorrectCombo/100f, 3f);
-        // Debug.Log($"icorrect ttl: {lb.timeToLive}");
-        // also maybe spawn more than one based on how good your correct combo was. 
+        newLetter.transform.localScale =  Vector3.one * letterScale;     
     }
 
 
