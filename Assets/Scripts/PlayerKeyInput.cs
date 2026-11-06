@@ -103,10 +103,10 @@ public class PlayerKeyInput : MonoBehaviour
             correctCombo ++;
             incorrectCombo = 0;
             // make letter weigh more based on combo
-            rb.mass += Mathf.Min(correctCombo/100, 3);
+            // rb.mass += Mathf.Min(correctCombo/100, 3);
             Debug.Log($"Current mass: {rb.mass}");
             // make letter last longer based on combo
-            lb.timeToLive = Mathf.Min(maxTimeToLIveCombo, correctCombo * comboMultiplier);
+            // lb.timeToLive = Mathf.Min(maxTimeToLIveCombo, correctCombo * comboMultiplier);
             // Debug.Log($"correct ttl: {lb.timeToLive}");
             audioSource.PlayOneShot(correctSound);
         }
@@ -125,7 +125,7 @@ public class PlayerKeyInput : MonoBehaviour
             incorrectCombo ++ ;
             // to help balance things
             // if you were doing very well then you make a mistake, your mistake lasts longer
-            lb.timeToLive = Mathf.Min(maxTimeToLIveCombo, incorrectCombo * comboMultiplier * correctCombo);
+            // lb.timeToLive = Mathf.Min(maxTimeToLIveCombo, incorrectCombo * comboMultiplier * correctCombo);
             // rb.mass += Mathf.Min(incorrectCombo/100, 3);
             correctCombo = 0;
             lastIncorrectLetter = newLetter.name[0];
@@ -167,8 +167,8 @@ public class PlayerKeyInput : MonoBehaviour
     
         // to help balance things
         // if you were doing very well then you make a mistake, your mistake lasts longer
-        lb.timeToLive = Mathf.Min(maxTimeToLIveCombo, incorrectCombo  * comboMultiplier);
-        rb.mass += Mathf.Min(incorrectCombo/100f, 3f);
+        // lb.timeToLive = Mathf.Min(maxTimeToLIveCombo, incorrectCombo  * comboMultiplier);
+        // rb.mass += Mathf.Min(incorrectCombo/100f, 3f);
         // Debug.Log($"icorrect ttl: {lb.timeToLive}");
         // also maybe spawn more than one based on how good your correct combo was. 
     }

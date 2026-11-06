@@ -1026,7 +1026,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1145,6 +1145,7 @@ GameObject:
   - component: {fileID: 221940183}
   - component: {fileID: 221940182}
   - component: {fileID: 221940181}
+  - component: {fileID: 221940185}
   m_Layer: 7
   m_Name: LetterCollector (1)
   m_TagString: Untagged
@@ -1190,7 +1191,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 3
@@ -1272,6 +1273,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221940179}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &221940185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221940179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 0.6117647}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &280137378
 GameObject:
   m_ObjectHideFlags: 0
@@ -2421,6 +2437,7 @@ GameObject:
   - component: {fileID: 649689642}
   - component: {fileID: 649689641}
   - component: {fileID: 649689640}
+  - component: {fileID: 649689644}
   m_Layer: 7
   m_Name: LetterCollector (2)
   m_TagString: Untagged
@@ -2437,8 +2454,8 @@ Transform:
   m_GameObject: {fileID: 649689638}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 1.95, y: 3.1225, z: 0}
-  m_LocalScale: {x: 21.758692, y: 1, z: 2.7059}
+  m_LocalPosition: {x: 1.9238, y: 3.1225, z: 0.1386}
+  m_LocalScale: {x: 21.758692, y: 1.0524, z: 2.982984}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1995847048}
@@ -2466,7 +2483,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 3
@@ -2548,6 +2565,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 649689638}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &649689644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649689638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 0.6117647}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &667254598
 GameObject:
   m_ObjectHideFlags: 0
@@ -2755,6 +2787,7 @@ GameObject:
   - component: {fileID: 716831344}
   - component: {fileID: 716831343}
   - component: {fileID: 716831347}
+  - component: {fileID: 716831348}
   m_Layer: 7
   m_Name: LetterCollector (4)
   m_TagString: Untagged
@@ -2771,8 +2804,8 @@ Transform:
   m_GameObject: {fileID: 716831341}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -0.06, y: 3.1225, z: -1.83}
-  m_LocalScale: {x: 21.758692, y: 1, z: 2.7059}
+  m_LocalPosition: {x: 0.0654, y: 3.1225, z: -1.83}
+  m_LocalScale: {x: 21.758692, y: 1, z: 2.9567368}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1995847048}
@@ -2800,7 +2833,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 3
@@ -2995,6 +3028,21 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &716831348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716831341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 0.6117647}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &718957381
 GameObject:
   m_ObjectHideFlags: 0
@@ -4109,7 +4157,7 @@ MonoBehaviour:
   maxTimeToLIveCombo: 120
   comboMultiplier: 1.2
   letterScale: 0.5
-  mistakeSpawnInterval: 0.2
+  mistakeSpawnInterval: 0.02
   audioSource: {fileID: 1697417651}
   correctSound: {fileID: 8300000, guid: d574c168e170a4994a4fb2a4b6b255a7, type: 3}
   incorrectSound: {fileID: 8300000, guid: b72d86b6053755d479fe7f73498f2be1, type: 3}
@@ -4454,6 +4502,7 @@ GameObject:
   - component: {fileID: 1169084576}
   - component: {fileID: 1169084575}
   - component: {fileID: 1169084574}
+  - component: {fileID: 1169084579}
   m_Layer: 7
   m_Name: LetterCollector (5)
   m_TagString: Untagged
@@ -4470,8 +4519,8 @@ Transform:
   m_GameObject: {fileID: 1169084572}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0.02, y: 3.1225, z: 1.99}
-  m_LocalScale: {x: 21.758692, y: 1, z: 2.7059}
+  m_LocalPosition: {x: -0.0103, y: 3.1422, z: 1.75}
+  m_LocalScale: {x: 21.797855, y: 1, z: 3.0203872}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1995847048}
@@ -4612,7 +4661,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 3
@@ -4694,6 +4743,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1169084572}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1169084579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169084572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 0.6117647}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!4 &1253516526 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3957005028267781479, guid: 2d8f06ba886cc4481a6b19733309d4b4, type: 3}
@@ -5618,7 +5682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1697417651
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6650,7 +6714,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -7010,7 +7074,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &2060514086
 AudioSource:
   m_ObjectHideFlags: 0

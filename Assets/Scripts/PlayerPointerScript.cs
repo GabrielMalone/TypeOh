@@ -27,7 +27,7 @@ public class PlayerPointerScript : MonoBehaviour
         if(curLetterObj == null) return;
 
         gameObject.transform.position = new Vector3(
-            curLetterObj.transform.position.x,
+            curLetterObj.transform.position.x - 0.15f,
             curLetterObj.transform.position.y + 1.5f,
             curLetterObj.transform.position.z
         );
