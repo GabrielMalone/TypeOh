@@ -62,6 +62,7 @@ public class Player_2_KeyInput : MonoBehaviour
         {
             if (key.wasPressedThisFrame)
             {
+                Debug.Log($"Player 2 Pressed: {key}");
                 return key;
             }
         }
@@ -89,6 +90,7 @@ public class Player_2_KeyInput : MonoBehaviour
             Debug.Log($"PLAYER TWO CORRECT!");
             // increment correct index pos
             gameStateManager.p2_curIndex += 1;
+            gameStateManager.player_2_correct_cnt++;
             // set color for correct on letter to spawn
             Material correctMat = letterBehavior.player_1_correctMaterial;
             renderer.material = correctMat;
@@ -113,6 +115,7 @@ public class Player_2_KeyInput : MonoBehaviour
         else
         {
             Debug.Log($"PLAYER TWO INCORRECT!");
+            gameStateManager.player_2_incorrect_cnt ++ ;
             Material incorrectMat = letterBehavior.player_1_incorrectMaterial;
             renderer.material = incorrectMat;
             GameObject newLetter =  Instantiate(letterObject, player_2_incorrectSpawnPosition);

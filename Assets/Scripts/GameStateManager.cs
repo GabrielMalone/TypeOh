@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+
 
 public class GameStateManager : MonoBehaviour
 {
@@ -14,6 +14,14 @@ public class GameStateManager : MonoBehaviour
     public GameObject player_2;
     public Material player_1_material;
     public Material player_2_material;
+
+    [Header("Player Stats")]
+    public float player_1_correct_cnt;
+    public float player_2_correct_cnt;
+    public float player_1_incorrect_cnt;
+    public float player_2_incorrect_cnt;
+    public GameObject player_1_stats_area;
+    public GameObject player_2_stats_area;
 
     [Header("Player 1 Word Spawn Settings")]
     public GameObject wordSpawnPlayer1;
@@ -48,16 +56,28 @@ public class GameStateManager : MonoBehaviour
     public GameObject X;
     public GameObject Y;
     public GameObject Z;
+    public GameObject ONE;
+    public GameObject TWO;
+    public GameObject THREE;
+    public GameObject FOUR;
+    public GameObject FIVE;
+    public GameObject SIX;
+    public GameObject SEVEN;
+    public GameObject EIGHT;
+    public GameObject NINE;
+    public GameObject TEN;
+    public GameObject SPACE;
+
 
     public static Dictionary<char, GameObject> letterObjects = new Dictionary<char, GameObject>();
     public static Dictionary<string, char> keyboardMap = new Dictionary<string, char>();
     public static List<GameObject> spawnedLetters = new List<GameObject>();
     public static List<string> englishWords;
 
-
     // -------------------------------------------------------------------
     // TODO -> 
-    // 1 ) quantify what is a win and make it clear (like platform past a certain plane)
+    // 1 ) quantify what is a win and make it clear 
+    // (like platform past a certain plane)
     // 2 ) some telemetry might be fun, like wpm / accuracy
     // 3 ) fun facts on words being displayed (definitions)?
     // 4 ) P1 and P2 arrows over where each is in the word. 
@@ -138,7 +158,9 @@ public class GameStateManager : MonoBehaviour
     void Start()
     {
         currentWord = GetNewWord();
-        CenterAndSpawnWord();
+        CenterAndSpawnWord(currentWord, wordSpawnArea);
+        // CenterAndSpawnWord("WPM", player_1_stats_area);
+        // CenterAndSpawnWord("WPM", player_2_stats_area);
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
@@ -155,9 +177,10 @@ public class GameStateManager : MonoBehaviour
             // pick a new world
             currentWord = GetNewWord();
             // spawn letters for new word
-            CenterAndSpawnWord();
+            CenterAndSpawnWord(currentWord, wordSpawnArea);
         }
         UpdateWordMaterials();
+    
     }
     // -------------------------------------------------------------------
     public string GetNewWord()
@@ -167,7 +190,6 @@ public class GameStateManager : MonoBehaviour
         p2_curIndex = 0;
         int index = Random.Range(0, englishWords.Count);
         return englishWords[index].ToUpper().Trim();
-
     }
     // -------------------------------------------------------------------
     public bool CurWordIsFinished()
@@ -175,12 +197,26 @@ public class GameStateManager : MonoBehaviour
         return p1_curIndex >= currentWord.Length || p2_curIndex >= currentWord.Length;
     }
     // -------------------------------------------------------------------
+    // Formula: Gross WPM = (Total Characters ÷ 5) ÷ Time in Minutes
+    public float GetPlayerWMP(string player)
+    {
+        switch(player)
+        {
+            case  "player1" :
+                return player_1_correct_cnt / 5 / (Time.time/60);
+            case "player2" :
+                return player_2_correct_cnt / 5 / (Time.time / 60); 
+            default :
+                return 0f;
+        }
+    }
+    // -------------------------------------------------------------------
     public void UpdateWordMaterials()
     {
         if (currentWord.Length <= 0) return;
+        
         for (int i = 0; i < currentWord.Length; i++)
         {
-
             char letter = currentWord[i];
             GameObject curLetterObj = spawnedLetters[i];
 
@@ -224,9 +260,9 @@ public class GameStateManager : MonoBehaviour
         return curLetterObj;
     }
     // -------------------------------------------------------------------
-    void CenterAndSpawnWord()
+    void CenterAndSpawnWord(string currentWord, GameObject spawnArea)
     {
-        MeshCollider mc = wordSpawnArea.GetComponent<MeshCollider>();
+        MeshCollider mc = spawnArea.GetComponent<MeshCollider>();
         // get the center point of our wordSpawn area
         int lenWord = currentWord.Length;
         
@@ -251,10 +287,12 @@ public class GameStateManager : MonoBehaviour
                 // letter gameobj
                 SetLetterObj(letter),
                 // start far left then scooch right
-                wordSpawnPlayer1.transform.position + new Vector3(farLeft + nxtPosition, 0, 0),
+                spawnArea.transform.position + new Vector3(farLeft + nxtPosition, 0, 0),
                 // set rotation
                 Quaternion.Euler(0, 180, 0)
             );
+            // give parent to letter
+            letterObj.transform.SetParent(spawnArea.transform, true);
             nxtPosition += distanceBetweenLetters;
             // prevent tipping over
             Rigidbody rb = letterObj.GetComponent<Rigidbody>();
@@ -275,10 +313,12 @@ public class GameStateManager : MonoBehaviour
                 // letter gameobj
                 SetLetterObj(letter),
                 // start far left then scooch right
-                wordSpawnPlayer1.transform.position + new Vector3(xCenter + nxtPosition, 0, 0),
+                spawnArea.transform.position + new Vector3(xCenter + nxtPosition, 0, 0),
                 // set rotation
                 Quaternion.Euler(0, 180, 0)
             );
+            // give parent to letter
+            letterObj.transform.SetParent(spawnArea.transform, true);
             nxtPosition += distanceBetweenLetters;
             // prevent tipping over
             Rigidbody rb = letterObj.GetComponent<Rigidbody>();
@@ -288,6 +328,4 @@ public class GameStateManager : MonoBehaviour
             spawnedLetters.Add(letterObj);            
         }
     }
-
-
 }
