@@ -54,6 +54,10 @@ public class KeyInput : MonoBehaviour
     private GameStateManager GSM;
     private char lastIncorrectLetter;
 
+
+    private bool gameOver = false;
+    private float startTime = 0f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -72,7 +76,16 @@ public class KeyInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckForKeyInput();
+        if (!gameOver)
+            CheckForKeyInput();
+
+        if ((GSM.player_1_winner || GSM.player_2_winner) && !gameOver)
+        {
+            
+            gameOver = true;
+            shaft_light.color = Color.lawnGreen;
+            shaft_light.intensity *= 1000f;
+        }
     }
     // -------------------------------------------------------------------
     void CheckForKeyInput()
@@ -237,7 +250,6 @@ public class KeyInput : MonoBehaviour
         {
             int layer = LayerMask.NameToLayer("GhostLetter");
             newLetter.layer = layer;
-            Debug.Log("setting new layer");
             foreach (Transform child in newLetter.GetComponentsInChildren<Transform>())
             {
                 child.gameObject.layer = layer;

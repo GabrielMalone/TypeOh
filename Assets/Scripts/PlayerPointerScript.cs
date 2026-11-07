@@ -27,7 +27,9 @@ public class PlayerPointerScript : MonoBehaviour
     void GetCurrentPlayerLetterObject()
     {
         int curIndex = player_1 ? gsm.p1_curIndex :  gsm.p2_curIndex;
-        
+
+        if (curIndex > GameStateManager.spawnedLetters.Count - 1) return;
+
         GameObject curLetterObj = GameStateManager.spawnedLetters[curIndex];
 
         if(curLetterObj == null) return;

@@ -358,7 +358,7 @@ public class GameStateManager : MonoBehaviour
         float p1_force = GetPlatformWeight(player_1_spring);
         float p2_force = GetPlatformWeight(player_2_spring);
 
-        // Debug.Log($"force 1 : {p1_force} | force 2: {p2_force}");
+        Debug.Log($"force 1 : {p1_force} | force 2: {p2_force}");
 
         if (p1_force > maxPlatformForce)
         {
@@ -374,4 +374,5 @@ public class GameStateManager : MonoBehaviour
 
     }
     // -------------------------------------------------------------------
+
 }
