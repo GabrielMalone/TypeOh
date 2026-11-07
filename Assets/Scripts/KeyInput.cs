@@ -53,10 +53,8 @@ public class KeyInput : MonoBehaviour
     public GameObject stateManager;
     private GameStateManager GSM;
     private char lastIncorrectLetter;
-
-
     private bool gameOver = false;
-    private float startTime = 0f;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -125,10 +123,9 @@ public class KeyInput : MonoBehaviour
     void KeyEventCoordinator(string curPlayerLetter, GameObject letterObject)
     {
         // set up letter color change
-        LetterBehavior letterBehavior = letterObject.GetComponent<LetterBehavior>();
-        Renderer renderer = letterObject.GetComponentInChildren<Renderer>();
-        renderer.material = correct_material;
-        letterBehavior.letterScale = letterScale;
+        LetterBehavior lb = letterObject.GetComponent<LetterBehavior>();
+        lb.SetLetterMaterial(correct_material);
+
         // current word player is currently on
         // current position in that word (cur char)
         if (curPlayerLetter[0] == (
@@ -149,10 +146,15 @@ public class KeyInput : MonoBehaviour
     {
         // set color for correct on letter to spawn
         GameObject newLetter = Instantiate(letterObject, correctSpawnPosition);
-        newLetter.transform.localScale = Vector3.one * letterScale;
         // increment correct index pos
         if (player_1)
         {
+            if (GSM.goldenLetterIndex == GSM.p1_curIndex)
+            {
+                newLetter.GetComponent<LetterBehavior>().SetLetterMaass(GSM.goldenMassMultiplier);
+                newLetter.GetComponent<LetterBehavior>().SetLetterMaterial(GSM.GoldenLetterMat);
+                newLetter.GetComponent<LetterBehavior>().SetLetterScale(1.25f);
+            }
             GSM.p1_curIndex++;
             GSM.player_1_correct_cnt++;
             GSM.player_1_platformLetters.Add(newLetter);
@@ -176,9 +178,7 @@ public class KeyInput : MonoBehaviour
     void IncorrectKeyPressEvents(GameObject letterObject)
     {
         GameObject newLetter = Instantiate(letterObject, incorrectSpawnPosition);
-        newLetter.transform.localScale = Vector3.one * letterScale;
         lastIncorrectLetter = newLetter.name[0];
-
         if (player_1)
         {
             GSM.player_1_incorrect_cnt++;
@@ -187,8 +187,6 @@ public class KeyInput : MonoBehaviour
         {
             GSM.player_2_incorrect_cnt++;
         }
-
-
         CollisionManagement(newLetter);
         RemoveLetterAsPunishment();        
         if (!wrong_flicker)
@@ -202,7 +200,6 @@ public class KeyInput : MonoBehaviour
     // -------------------------------------------------------------------
     IEnumerator LightFX(bool correct)
     {
-
         float flickerDuration = 0.2f;
         float startTime = Time.time;
         float multiplier = 5;

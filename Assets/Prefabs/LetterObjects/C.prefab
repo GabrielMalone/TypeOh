@@ -141,7 +141,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4489925514602770445}
@@ -207,15 +207,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LetterBehavior
   timeToLive: 100000
-  player_1_correctMaterial: {fileID: 2100000, guid: 7acac32d3ab564c7aa98e24066030838, type: 2}
-  player_1_incorrectMaterial: {fileID: 2100000, guid: 184def8291f0242b7993b15fac0d5f0d, type: 2}
-  player_1_currentLetter: {fileID: 2100000, guid: 74578b7450559400e9e236eef75afeb2, type: 2}
-  player_1_completedLetter: {fileID: 2100000, guid: 9bf8f51fdd81f46f8b6b6d9281444ce8, type: 2}
-  player_2_correctMaterial: {fileID: 0}
-  player_2_incorrectMaterial: {fileID: 0}
-  player_2_currentLetter: {fileID: 0}
-  player_2_completedLetter: {fileID: 0}
   NextLetterMaterial: {fileID: 2100000, guid: 289ad87d1b2d543e1aa37716c85e5d2b, type: 2}
-  CurLetterMaterial: {fileID: 2100000, guid: 74578b7450559400e9e236eef75afeb2, type: 2}
-  FinishedLetterMaterial: {fileID: 2100000, guid: 9bf8f51fdd81f46f8b6b6d9281444ce8, type: 2}
   letterScale: 0.5
+  goldenLetter: 0

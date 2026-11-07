@@ -8,6 +8,9 @@ public class GameStateManager : MonoBehaviour
     public int p1_curIndex = 0;
     public int p2_curIndex = 0;
     public float maxPlatformForce = 1073f;
+    public int goldenLetterIndex;
+    public float goldenMassMultiplier = 10f;
+    public float goldenLetterScaler = 1f;
 
     [Header("Player Settings")]
     public GameObject player_1;
@@ -28,14 +31,17 @@ public class GameStateManager : MonoBehaviour
     public List<GameObject> player_2_platformLetters = new List<GameObject>();
 
     [Header("End Game Settings")]
+    public bool startGame = false;
     public bool player_1_winner = false;
     public bool player_2_winner = false;
+    public bool endGame = false;
 
-    [Header("Player 1 Word Spawn Settings")]
+    [Header("Player Word Spawn Settings")]
     public GameObject wordSpawnPlayer1;
     public float distanceBetweenLetters = 0.4f;
     public float letterScale = 1f;
     public GameObject wordSpawnArea;
+    public Material GoldenLetterMat;
 
     [Header("Alphabet Game Objects")]
     public GameObject A;
@@ -181,6 +187,7 @@ public class GameStateManager : MonoBehaviour
     {
         currentWord = GetNewWord();
         CenterAndSpawnWord(currentWord, wordSpawnArea);
+        PlaceGoldenLetter();
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
@@ -198,6 +205,7 @@ public class GameStateManager : MonoBehaviour
             currentWord = GetNewWord();
             // spawn letters for new word
             CenterAndSpawnWord(currentWord, wordSpawnArea);
+            PlaceGoldenLetter();
         }
         UpdateWordMaterials();
         CheckForWinner();
@@ -244,30 +252,34 @@ public class GameStateManager : MonoBehaviour
         {
             char letter = currentWord[i];
             GameObject curLetterObj = spawnedLetters[i];
-
             LetterBehavior lb = curLetterObj.GetComponent<LetterBehavior>();
-            Renderer renderer = curLetterObj.GetComponentInChildren<Renderer>();
+
+            if (lb.goldenLetter) continue;
 
             // highlight the current letter
             if (p1_curIndex == i && letter == currentWord[p1_curIndex])
             {
-                renderer.material = player_1_material;
+                lb.SetLetterMaterial(player_1_material);
             }
             // highlight the current letter
             else if (p2_curIndex == i && letter == currentWord[p2_curIndex])
             {
                 // change these to some diff color for p2 
-                renderer.material = player_2_material;
+                lb.SetLetterMaterial(player_2_material);
             }
             else
             {
-                renderer.material = lb.NextLetterMaterial;
+                lb.SetLetterMaterial(lb.NextLetterMaterial);
             }
-
         }
     }
     // -------------------------------------------------------------------
-    public void CenterAndSpawnWord(string currentWord, GameObject spawnArea, List<GameObject> otherList = null, bool mainWord = true)
+    public void CenterAndSpawnWord(
+            string currentWord, 
+            GameObject spawnArea, 
+            List<GameObject> otherList = null, 
+            bool mainWord = true
+        )
     {
         MeshCollider mc = spawnArea.GetComponent<MeshCollider>();
         // get the center point of our wordSpawn area
@@ -370,5 +382,16 @@ public class GameStateManager : MonoBehaviour
 
     }
     // -------------------------------------------------------------------
+    public void PlaceGoldenLetter()
+    {
+        int rnd_inx = Mathf.FloorToInt(Random.Range(0,spawnedLetters.Count));
+        goldenLetterIndex = rnd_inx;
+        GameObject goldenLetter = spawnedLetters[rnd_inx];
+
+        LetterBehavior lb = goldenLetter.GetComponent<LetterBehavior>();
+        lb.goldenLetter = true;
+        lb.SetLetterScale(goldenLetterScaler);
+        lb.SetLetterMaterial(GoldenLetterMat);
+    }
 
 }

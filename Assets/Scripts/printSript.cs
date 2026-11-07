@@ -30,7 +30,7 @@ public class printSript : MonoBehaviour
             prevTime = Time.time;
             currentPercent = GSM.GetPlatformWeight(spring) / GSM.maxPlatformForce * 100;
             int floorPercent = Mathf.FloorToInt(currentPercent);
-            Debug.Log($"current percent: {floorPercent}");
+            // Debug.Log($"current percent: {floorPercent}");
             GSM.CenterAndSpawnWord(floorPercent.ToString() + "%", gameObject, statLetters, false);
         }
     }
