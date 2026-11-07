@@ -30,6 +30,8 @@ public class KeyInput : MonoBehaviour
     public float mistakeSpawnInterval = 0.2f;
 
     [Header("Correct Settings")]
+    public int comboTracker;
+    public int comboNeeded = 3;
     public Light player_1_shaft_light;
     public Light player_2_shaft_light;
     private Light shaft_light;
@@ -144,6 +146,16 @@ public class KeyInput : MonoBehaviour
     // -------------------------------------------------------------------
     void CorrectKeyPressEvents(GameObject letterObject)
     {
+
+        comboTracker ++;
+        // Debug.Log($"combotracker: {comboTracker} | comboNeeded: {comboNeeded}");
+        if (comboTracker == comboNeeded)
+        {
+            comboTracker = 0;
+            GSM.ApplyUpwardForce(player_1);
+            // comboNeeded += 3;
+        }
+
         // set color for correct on letter to spawn
         GameObject newLetter = Instantiate(letterObject, correctSpawnPosition);
         // increment correct index pos
@@ -151,9 +163,8 @@ public class KeyInput : MonoBehaviour
         {
             if (GSM.goldenLetterIndex == GSM.p1_curIndex)
             {
-                newLetter.GetComponent<LetterBehavior>().SetLetterMaass(GSM.goldenMassMultiplier);
-                newLetter.GetComponent<LetterBehavior>().SetLetterMaterial(GSM.GoldenLetterMat);
-                newLetter.GetComponent<LetterBehavior>().SetLetterScale(1.25f);
+                GoldenFx(newLetter);
+                GSM.goldenLetterTriggered = true;
             }
             GSM.p1_curIndex++;
             GSM.player_1_correct_cnt++;
@@ -161,6 +172,11 @@ public class KeyInput : MonoBehaviour
         }
         else
         {
+            if (GSM.goldenLetterIndex == GSM.p2_curIndex)
+            {
+                GoldenFx(newLetter);
+                GSM.goldenLetterTriggered = true;
+            }
             GSM.p2_curIndex++;
             GSM.player_2_correct_cnt++;
             GSM.player_2_platformLetters.Add(newLetter);
@@ -181,10 +197,18 @@ public class KeyInput : MonoBehaviour
         lastIncorrectLetter = newLetter.name[0];
         if (player_1)
         {
+            if (GSM.goldenLetterIndex == GSM.p1_curIndex)
+            {
+                GoldenFx(newLetter);
+            }
             GSM.player_1_incorrect_cnt++;
         }
         else
         {
+            if (GSM.goldenLetterIndex == GSM.p2_curIndex)
+            {
+                GoldenFx(newLetter);
+            }
             GSM.player_2_incorrect_cnt++;
         }
         CollisionManagement(newLetter);
@@ -265,6 +289,13 @@ public class KeyInput : MonoBehaviour
             Destroy(GSM.player_1_platformLetters[^1]);
             GSM.player_1_platformLetters.RemoveAt(GSM.player_1_platformLetters.Count - 1);
         }
+    }
+    // -------------------------------------------------------------------
+    void GoldenFx(GameObject goldenLetter)
+    {
+        goldenLetter.GetComponent<LetterBehavior>().SetLetterMaass(GSM.goldenMassMultiplier);
+        goldenLetter.GetComponent<LetterBehavior>().SetLetterMaterial(GSM.GoldenLetterMat);
+        goldenLetter.GetComponent<LetterBehavior>().SetLetterScale(1.25f);
     }
 }
 

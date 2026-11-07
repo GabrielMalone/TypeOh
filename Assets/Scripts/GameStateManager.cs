@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -7,20 +8,25 @@ public class GameStateManager : MonoBehaviour
     public string currentWord = "";
     public int p1_curIndex = 0;
     public int p2_curIndex = 0;
-    public float maxPlatformForce = 1073f;
+    public float maxPlatformForce = 4900f;
+    public float comboForce = 1000f;
     public int goldenLetterIndex;
     public float goldenMassMultiplier = 10f;
     public float goldenLetterScaler = 1f;
+    public bool goldenLetterTriggered = false;
 
     [Header("Player Settings")]
     public GameObject player_1;
     public GameObject player_2;
     public Material player_1_material;
     public Material player_2_material;
+    public GameObject player_1_platform;
+    public GameObject player_2_platform;
 
     [Header("Player Stats")]
     public SpringJoint player_1_spring;
     public SpringJoint player_2_spring;
+    public GameObject finishLine;
     public float player_1_correct_cnt;
     public float player_2_correct_cnt;
     public float player_1_incorrect_cnt;
@@ -208,7 +214,7 @@ public class GameStateManager : MonoBehaviour
             PlaceGoldenLetter();
         }
         UpdateWordMaterials();
-        CheckForWinner();
+        RemoveGoldenLetter();
     }
     // -------------------------------------------------------------------
     void FixedUpdate()
@@ -357,29 +363,9 @@ public class GameStateManager : MonoBehaviour
     public float GetPlatformWeight(SpringJoint spring)
     {
         Vector3 force = spring.currentForce;
+        Debug.Log($"force y: {force.y}");
         float downForce = Mathf.Abs(force.y);
-        return downForce;
-    }
-    // -------------------------------------------------------------------
-    public void CheckForWinner()
-    {
-        float p1_force = GetPlatformWeight(player_1_spring);
-        float p2_force = GetPlatformWeight(player_2_spring);
-
-        //Debug.Log($"force 1 : {p1_force} | force 2: {p2_force}");
-
-        if (p1_force > maxPlatformForce)
-        {
-            Debug.Log("PLAYER 1 WON!");
-            player_1_winner = true;
-        }
-
-        if (p2_force > maxPlatformForce)
-        {
-            Debug.Log("PLAYER 2 WON!");
-            player_2_winner = true;
-        }
-
+        return force.y;
     }
     // -------------------------------------------------------------------
     public void PlaceGoldenLetter()
@@ -387,11 +373,38 @@ public class GameStateManager : MonoBehaviour
         int rnd_inx = Mathf.FloorToInt(Random.Range(0,spawnedLetters.Count));
         goldenLetterIndex = rnd_inx;
         GameObject goldenLetter = spawnedLetters[rnd_inx];
-
         LetterBehavior lb = goldenLetter.GetComponent<LetterBehavior>();
         lb.goldenLetter = true;
         lb.SetLetterScale(goldenLetterScaler);
         lb.SetLetterMaterial(GoldenLetterMat);
+    }
+    // -------------------------------------------------------------------
+    public void RemoveGoldenLetter()
+    {
+        if (goldenLetterTriggered)
+        {
+            goldenLetterTriggered = false;
+            GameObject goldenLetter = spawnedLetters[goldenLetterIndex];
+            LetterBehavior lb = goldenLetter.GetComponent<LetterBehavior>();
+            lb.goldenLetter = false;
+            lb.SetLetterScale(0.5f);
+            lb.SetLetterMaterial(lb.NextLetterMaterial);
+        }
+
+    }
+    // -------------------------------------------------------------------
+    public void ApplyUpwardForce(bool player_1)
+    {
+        Rigidbody rb;
+        if (player_1)
+        {
+             rb = player_2_platform.GetComponent<Rigidbody>();
+        }
+        else
+        {
+            rb = player_1_platform.GetComponent<Rigidbody>();
+        }
+        rb.AddForce(Vector3.up * comboForce, ForceMode.Impulse);
     }
 
 }

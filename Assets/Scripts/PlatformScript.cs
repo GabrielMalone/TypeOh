@@ -21,16 +21,6 @@ public class PlatformScript : MonoBehaviour
     {
         //DrawWireframe();
     }
-    void OnCollisionEnter(Collision collision)
-    {
-        ClankSfxBasedOnPhysics(collision);
-        if (collision.gameObject.CompareTag("FinishLine"))
-        {
-            Debug.Log($"{gameObject.tag} WINS!");
-        }
-    }
-
-
     void ClankSfxBasedOnPhysics(Collision collision)
     {
         Rigidbody rb = collision.rigidbody;
@@ -43,5 +33,4 @@ public class PlatformScript : MonoBehaviour
             //audioSource.PlayOneShot(clankSound, volume);
         }
     }
-
 }

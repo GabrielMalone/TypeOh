@@ -6,19 +6,23 @@ public class printSript : MonoBehaviour
     [Header("Print Settings")]
     public GameObject spawnPoint;
     public GameObject GameStateManager;
+    public GameObject finishLine;
+    public GameObject platform;
     public bool player_1 = false;
     private GameStateManager GSM;
     private float currentPercent = 0;
     private float updateTime = 0.2f;
     private float prevTime = 0f;
-    private SpringJoint spring;
+    private float totalDistance;
+    private float ogStartPostion;
     public List<GameObject> statLetters = new List<GameObject>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         GSM = GameStateManager.GetComponent<GameStateManager>();
         prevTime = Time.time;
-        spring =  player_1 ?  GSM.player_1_spring : GSM.player_2_spring;
+        // let's delay this like 3 seconds since platforms needs to settle. 
+        Invoke(nameof(InitializeDistance), 2f);
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
@@ -26,9 +30,10 @@ public class printSript : MonoBehaviour
     {
         if (Time.time - prevTime > updateTime)
         {
+            float current_distance = Mathf.Abs(finishLine.transform.position.y - ogStartPostion);
             ClearOldStats();
             prevTime = Time.time;
-            currentPercent = GSM.GetPlatformWeight(spring) / GSM.maxPlatformForce * 100;
+            currentPercent = Mathf.Abs((1-(current_distance/totalDistance))*100);
             int floorPercent = Mathf.FloorToInt(currentPercent);
             // Debug.Log($"current percent: {floorPercent}");
             GSM.CenterAndSpawnWord(floorPercent.ToString() + "%", gameObject, statLetters, false);
@@ -46,5 +51,11 @@ public class printSript : MonoBehaviour
 
         statLetters.Clear();
 
+    }
+    // -------------------------------------------------------------------
+    void InitializeDistance()
+    {
+        totalDistance = Mathf.Abs(platform.transform.position.y - finishLine.transform.position.y);
+        ogStartPostion = platform.transform.position.y;
     }
 }
