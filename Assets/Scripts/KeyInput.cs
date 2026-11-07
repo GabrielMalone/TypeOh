@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using Unity.Cinemachine;
 // -----------------------------------------------------------------------
 public class KeyInput : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class KeyInput : MonoBehaviour
 
     [Header("Mistake Settings")]
     public float mistakeSpawnInterval = 0.2f;
+    public CinemachineImpulseSource impulseSource;
 
     [Header("Correct Settings")]
     public int comboTracker;
@@ -153,6 +155,7 @@ public class KeyInput : MonoBehaviour
         {
             comboTracker = 0;
             GSM.ApplyUpwardForce(player_1);
+            ShakeCamera();
             // comboNeeded += 3;
         }
 
@@ -303,5 +306,10 @@ public class KeyInput : MonoBehaviour
         goldenLetter.GetComponent<LetterBehavior>().SetLetterMaterial(GSM.GoldenLetterMat);
         goldenLetter.GetComponent<LetterBehavior>().SetLetterScale(1.25f);
     }
-}
+    // -------------------------------------------------------------------
+    void ShakeCamera()
+    {
+        impulseSource.GenerateImpulse();
+    }
+}   
 
