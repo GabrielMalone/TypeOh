@@ -193,12 +193,14 @@ public class KeyInput : MonoBehaviour
     // -------------------------------------------------------------------
     void IncorrectKeyPressEvents(GameObject letterObject)
     {
+        bool goldenLetter = false;
         GameObject newLetter = Instantiate(letterObject, incorrectSpawnPosition);
         lastIncorrectLetter = newLetter.name[0];
         if (player_1)
         {
             if (GSM.goldenLetterIndex == GSM.p1_curIndex)
             {
+                goldenLetter = true;
                 GoldenFx(newLetter);
             }
             GSM.player_1_incorrect_cnt++;
@@ -207,11 +209,12 @@ public class KeyInput : MonoBehaviour
         {
             if (GSM.goldenLetterIndex == GSM.p2_curIndex)
             {
+                goldenLetter = true;
                 GoldenFx(newLetter);
             }
             GSM.player_2_incorrect_cnt++;
         }
-        CollisionManagement(newLetter);
+        CollisionManagement(newLetter, goldenLetter ? 1 : 2);
         RemoveLetterAsPunishment();        
         if (!wrong_flicker)
         {
@@ -263,10 +266,13 @@ public class KeyInput : MonoBehaviour
         }
     }
     // -------------------------------------------------------------------
-    void CollisionManagement(GameObject newLetter)
+    void CollisionManagement(GameObject newLetter, int mod = 2)
     {
-        // every third letter gets collision
-        if (player_1 ? GSM.player_1_incorrect_cnt % 2 == 0 : GSM.player_2_incorrect_cnt % 2 == 0)
+        // remove collision every once and a while
+        if (player_1 ? 
+            GSM.player_1_incorrect_cnt % mod == 0 : 
+            GSM.player_2_incorrect_cnt % mod == 0
+            )
         {
             int layer = LayerMask.NameToLayer("GhostLetter");
             newLetter.layer = layer;
