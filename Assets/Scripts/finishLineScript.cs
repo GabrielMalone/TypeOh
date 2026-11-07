@@ -19,7 +19,7 @@ public class finishLineScript : MonoBehaviour
     // -------------------------------------------------------------------
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"Finish Line Crossed: {collision.gameObject.name}");
+        // Debug.Log($"Finish Line Crossed: {collision.gameObject.name}");
 
         if (collision.gameObject.name == "p1_collector")
         {

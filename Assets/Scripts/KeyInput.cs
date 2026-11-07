@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 // -----------------------------------------------------------------------
 public class KeyInput : MonoBehaviour
 {
@@ -34,6 +35,10 @@ public class KeyInput : MonoBehaviour
     [Header("Correct Settings")]
     public int comboTracker;
     public int comboNeeded = 3;
+    public Light p1_combo_shaft;
+    public Light p2_combo_shaft;
+    private Light combo_shaft;
+    private bool animatingCombo = false;
     public Light player_1_shaft_light;
     public Light player_2_shaft_light;
     private Light shaft_light;
@@ -73,6 +78,7 @@ public class KeyInput : MonoBehaviour
         incorrect_sound = player_1 ? p1_incorrect_sound : p2_incorrect_sound;
         ogIntensity = shaft_light.intensity;
         ogColor = shaft_light.color;
+        combo_shaft = player_1 ? p2_combo_shaft : p1_combo_shaft;
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
@@ -81,12 +87,14 @@ public class KeyInput : MonoBehaviour
         if (!gameOver && GSM.gameStarted)
             CheckForKeyInput();
 
-        if (( player_1 && GSM.player_1_winner || player_2 && GSM.player_2_winner) && !gameOver)
+        if ( player_1 && GSM.player_1_winner || player_2 && GSM.player_2_winner)
         {
             gameOver = true;
             shaft_light.color = Color.lawnGreen;
-            shaft_light.intensity = 600;
+            shaft_light.intensity += 600;
         }
+        if (!animatingCombo)
+            StartCoroutine(ComboShaftFX());
     }
     // -------------------------------------------------------------------
     void CheckForKeyInput()
@@ -151,14 +159,7 @@ public class KeyInput : MonoBehaviour
 
         comboTracker ++;
         // Debug.Log($"combotracker: {comboTracker} | comboNeeded: {comboNeeded}");
-        if (comboTracker == comboNeeded)
-        {
-            comboTracker = 0;
-            GSM.ApplyUpwardForce(player_1);
-            ShakeCamera();
-            // comboNeeded += 3;
-        }
-
+   
         // set color for correct on letter to spawn
         GameObject newLetter = Instantiate(letterObject, correctSpawnPosition);
         // increment correct index pos
@@ -197,6 +198,7 @@ public class KeyInput : MonoBehaviour
     void IncorrectKeyPressEvents(GameObject letterObject)
     {
         bool goldenLetter = false;
+        comboTracker = 0;
         GameObject newLetter = Instantiate(letterObject, incorrectSpawnPosition);
         lastIncorrectLetter = newLetter.name[0];
         if (player_1)
@@ -311,5 +313,48 @@ public class KeyInput : MonoBehaviour
     {
         impulseSource.GenerateImpulse();
     }
-}   
+    // -------------------------------------------------------------------
+    IEnumerator ComboShaftFX()
+    {
+        bool shake = false;
+        animatingCombo = true;
+        float cur_range = combo_shaft.range;
+
+        // 23 is just figuring out height of shaft in camera
+        float desired_range = (float) comboTracker / (float)comboNeeded * 23;
+
+        float anim_time = 0.2f;
+        float startTime = Time.time;
+
+        if (comboTracker >= comboNeeded)
+        {
+            shake = true;
+        }
+
+        Debug.Log($"cur range: {cur_range} | desired range: {desired_range}");
+
+        while (Time.time - startTime < anim_time)
+        {
+            
+            float t = (Time.time - startTime) / anim_time;
+
+            combo_shaft.range = Mathf.Lerp(
+                cur_range,
+                desired_range,
+                t
+            );
+            yield return null;
+        }
+
+        combo_shaft.range = desired_range;
+        animatingCombo = false;
+
+        if (shake)
+        {
+            comboTracker = 0;
+            GSM.ApplyUpwardForce(player_1);
+            ShakeCamera();
+        }
+    }
+}
 

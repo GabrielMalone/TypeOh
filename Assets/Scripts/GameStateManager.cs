@@ -371,7 +371,6 @@ public class GameStateManager : MonoBehaviour
     public float GetPlatformWeight(SpringJoint spring)
     {
         Vector3 force = spring.currentForce;
-        Debug.Log($"force y: {force.y}");
         float downForce = Mathf.Abs(force.y);
         return force.y;
     }
