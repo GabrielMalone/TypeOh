@@ -7,6 +7,7 @@ public class GameStateManager : MonoBehaviour
     public string currentWord = "";
     public int p1_curIndex = 0;
     public int p2_curIndex = 0;
+    public float maxPlatformForce = 1073f;
 
     [Header("Player Settings")]
     public GameObject player_1;
@@ -72,8 +73,8 @@ public class GameStateManager : MonoBehaviour
     public GameObject SEVEN;
     public GameObject EIGHT;
     public GameObject NINE;
-    public GameObject TEN;
-    public GameObject SPACE;
+    public GameObject ZERO;
+    public GameObject PERCENT;
 
 
     public static Dictionary<char, GameObject> letterObjects = new Dictionary<char, GameObject>();
@@ -122,6 +123,18 @@ public class GameStateManager : MonoBehaviour
         letterObjects['Y'] = Y;
         letterObjects['Z'] = Z;
 
+        letterObjects['1'] = ONE;
+        letterObjects['2'] = TWO;
+        letterObjects['3'] = THREE;
+        letterObjects['4'] = FOUR;
+        letterObjects['5'] = FIVE;
+        letterObjects['6'] = SIX;
+        letterObjects['7'] = SEVEN;
+        letterObjects['8'] = EIGHT;
+        letterObjects['9'] = NINE;
+        letterObjects['0'] = ZERO;
+        letterObjects['%'] = PERCENT;
+
         // map for player 2 keyboard
         // which was mapped w/ outside program
 
@@ -168,8 +181,6 @@ public class GameStateManager : MonoBehaviour
     {
         currentWord = GetNewWord();
         CenterAndSpawnWord(currentWord, wordSpawnArea);
-        // CenterAndSpawnWord("WPM", player_1_stats_area);
-        // CenterAndSpawnWord("WPM", player_2_stats_area);
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
@@ -256,25 +267,7 @@ public class GameStateManager : MonoBehaviour
         }
     }
     // -------------------------------------------------------------------
-    GameObject SetLetterObj(char letter, bool mainWord = false)
-    {
-        // set time to live
-        GameObject curLetterObj = letterObjects[letter];
-        LetterBehavior lb = curLetterObj.GetComponent<LetterBehavior>();
-        lb.timeToLive = 100000f;
-        lb.letterScale = letterScale;
-
-        // set up letter color change
-        LetterBehavior letterBehavior = curLetterObj.GetComponent<LetterBehavior>();
-        Renderer renderer = curLetterObj.GetComponentInChildren<Renderer>();
-
-        renderer.material = letterBehavior.NextLetterMaterial;
-
-
-        return curLetterObj;
-    }
-    // -------------------------------------------------------------------
-    void CenterAndSpawnWord(string currentWord, GameObject spawnArea)
+    public void CenterAndSpawnWord(string currentWord, GameObject spawnArea, List<GameObject> otherList = null, bool mainWord = true)
     {
         MeshCollider mc = spawnArea.GetComponent<MeshCollider>();
         // get the center point of our wordSpawn area
@@ -299,7 +292,7 @@ public class GameStateManager : MonoBehaviour
             char letter = currentWord[i];
             GameObject letterObj = Instantiate(
                 // letter gameobj
-                SetLetterObj(letter),
+                letterObjects[letter],
                 // start far left then scooch right
                 spawnArea.transform.position + new Vector3(farLeft + nxtPosition, 0, 0),
                 // set rotation
@@ -313,7 +306,10 @@ public class GameStateManager : MonoBehaviour
             if (rb != null)
                 rb.constraints = RigidbodyConstraints.FreezeAll;
             // keep track of these letter objects
-            spawnedLetters.Add(letterObj);
+            if (mainWord)
+                spawnedLetters.Add(letterObj);
+            else
+                otherList.Add(letterObj);
         }
 
         nxtPosition = 0;
@@ -325,7 +321,7 @@ public class GameStateManager : MonoBehaviour
             char letter = currentWord[i];
             GameObject letterObj = Instantiate(
                 // letter gameobj
-                SetLetterObj(letter),
+                letterObjects[letter],
                 // start far left then scooch right
                 spawnArea.transform.position + new Vector3(xCenter + nxtPosition, 0, 0),
                 // set rotation
@@ -339,7 +335,10 @@ public class GameStateManager : MonoBehaviour
             if (rb != null)
                 rb.constraints = RigidbodyConstraints.FreezeAll;
             // keep track of these letter objects
-            spawnedLetters.Add(letterObj);
+            if (mainWord)
+                spawnedLetters.Add(letterObj);
+            else
+                otherList.Add(letterObj);
         }
     }
     // -------------------------------------------------------------------
@@ -352,13 +351,10 @@ public class GameStateManager : MonoBehaviour
     // -------------------------------------------------------------------
     public void CheckForWinner()
     {
-
-        float maxPlatformForce = 1073;
-
         float p1_force = GetPlatformWeight(player_1_spring);
         float p2_force = GetPlatformWeight(player_2_spring);
 
-        Debug.Log($"force 1 : {p1_force} | force 2: {p2_force}");
+        //Debug.Log($"force 1 : {p1_force} | force 2: {p2_force}");
 
         if (p1_force > maxPlatformForce)
         {

@@ -245,7 +245,7 @@ public class KeyInput : MonoBehaviour
     void CollisionManagement(GameObject newLetter)
     {
         // every third letter gets collision
-        if (player_1 ? GSM.player_1_incorrect_cnt % 3 == 0 : GSM.player_2_incorrect_cnt % 3 == 0)
+        if (player_1 ? GSM.player_1_incorrect_cnt % 2 == 0 : GSM.player_2_incorrect_cnt % 2 == 0)
         {
             int layer = LayerMask.NameToLayer("GhostLetter");
             newLetter.layer = layer;
