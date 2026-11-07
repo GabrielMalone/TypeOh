@@ -79,12 +79,11 @@ public class KeyInput : MonoBehaviour
         if (!gameOver)
             CheckForKeyInput();
 
-        if ((GSM.player_1_winner || GSM.player_2_winner) && !gameOver)
+        if (( player_1 && GSM.player_1_winner || player_2 && GSM.player_2_winner) && !gameOver)
         {
-            
             gameOver = true;
             shaft_light.color = Color.lawnGreen;
-            shaft_light.intensity *= 1000f;
+            shaft_light.intensity = 600;
         }
     }
     // -------------------------------------------------------------------

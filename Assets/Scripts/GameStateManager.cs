@@ -124,7 +124,7 @@ public class GameStateManager : MonoBehaviour
 
         // map for player 2 keyboard
         // which was mapped w/ outside program
-        
+
         keyboardMap["Digit1"] = 'A';
         keyboardMap["Digit2"] = 'B';
         keyboardMap["Digit3"] = 'C';
@@ -214,13 +214,13 @@ public class GameStateManager : MonoBehaviour
     // Formula: Gross WPM = (Total Characters ÷ 5) ÷ Time in Minutes
     public float GetPlayerWMP(string player)
     {
-        switch(player)
+        switch (player)
         {
-            case  "player1" :
-                return player_1_correct_cnt / 5 / (Time.time/60);
-            case "player2" :
-                return player_2_correct_cnt / 5 / (Time.time / 60); 
-            default :
+            case "player1":
+                return player_1_correct_cnt / 5 / (Time.time / 60);
+            case "player2":
+                return player_2_correct_cnt / 5 / (Time.time / 60);
+            default:
                 return 0f;
         }
     }
@@ -228,7 +228,7 @@ public class GameStateManager : MonoBehaviour
     public void UpdateWordMaterials()
     {
         if (currentWord.Length <= 0) return;
-        
+
         for (int i = 0; i < currentWord.Length; i++)
         {
             char letter = currentWord[i];
@@ -269,7 +269,7 @@ public class GameStateManager : MonoBehaviour
         Renderer renderer = curLetterObj.GetComponentInChildren<Renderer>();
 
         renderer.material = letterBehavior.NextLetterMaterial;
-        
+
 
         return curLetterObj;
     }
@@ -279,11 +279,11 @@ public class GameStateManager : MonoBehaviour
         MeshCollider mc = spawnArea.GetComponent<MeshCollider>();
         // get the center point of our wordSpawn area
         int lenWord = currentWord.Length;
-        
+
         float xMin = mc.bounds.min.x;
         float xMax = mc.bounds.max.x;
         float xDistance = xMin - xMax;
-        
+
         float xCenter = xDistance / 2;
         int centerLetterIndex = lenWord / 2;
 
@@ -294,7 +294,7 @@ public class GameStateManager : MonoBehaviour
 
         // Debug.Log($"lenword: {lenWord} xCenter: {xCenter} centerIndex: {centerLetterIndex}");
 
-        for (int i = 0 ; i < centerLetterIndex ; i ++)
+        for (int i = 0; i < centerLetterIndex; i++)
         {
             char letter = currentWord[i];
             GameObject letterObj = Instantiate(
@@ -310,17 +310,17 @@ public class GameStateManager : MonoBehaviour
             nxtPosition += distanceBetweenLetters;
             // prevent tipping over
             Rigidbody rb = letterObj.GetComponent<Rigidbody>();
-            if (rb!=null)
+            if (rb != null)
                 rb.constraints = RigidbodyConstraints.FreezeAll;
             // keep track of these letter objects
-            spawnedLetters.Add(letterObj);            
+            spawnedLetters.Add(letterObj);
         }
-      
+
         nxtPosition = 0;
         // fix weird spacing on odd lengthed words
         if (lenWord % 2 != 0) xCenter -= distanceBetweenLetters;
         // then spawn to the right of center
-        for (int i = centerLetterIndex ; i < lenWord ; i ++)
+        for (int i = centerLetterIndex; i < lenWord; i++)
         {
             char letter = currentWord[i];
             GameObject letterObj = Instantiate(
@@ -336,10 +336,10 @@ public class GameStateManager : MonoBehaviour
             nxtPosition += distanceBetweenLetters;
             // prevent tipping over
             Rigidbody rb = letterObj.GetComponent<Rigidbody>();
-            if (rb!=null)
+            if (rb != null)
                 rb.constraints = RigidbodyConstraints.FreezeAll;
             // keep track of these letter objects
-            spawnedLetters.Add(letterObj);            
+            spawnedLetters.Add(letterObj);
         }
     }
     // -------------------------------------------------------------------
@@ -352,8 +352,8 @@ public class GameStateManager : MonoBehaviour
     // -------------------------------------------------------------------
     public void CheckForWinner()
     {
-        
-        float maxPlatformForce = 696f;
+
+        float maxPlatformForce = 1073;
 
         float p1_force = GetPlatformWeight(player_1_spring);
         float p2_force = GetPlatformWeight(player_2_spring);
