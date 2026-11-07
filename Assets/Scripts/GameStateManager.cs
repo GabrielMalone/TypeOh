@@ -26,6 +26,10 @@ public class GameStateManager : MonoBehaviour
     public List<GameObject> player_1_platformLetters = new List<GameObject>();
     public List<GameObject> player_2_platformLetters = new List<GameObject>();
 
+    [Header("End Game Settings")]
+    public bool player_1_winner = false;
+    public bool player_2_winner = false;
+
     [Header("Player 1 Word Spawn Settings")]
     public GameObject wordSpawnPlayer1;
     public float distanceBetweenLetters = 0.4f;
@@ -79,6 +83,7 @@ public class GameStateManager : MonoBehaviour
 
     // -------------------------------------------------------------------
     // TODO -> 
+
     // 1 ) quantify what is a win and make it clear 
     // (like platform past a certain plane)
     // 2 ) some telemetry might be fun, like wpm / accuracy
@@ -86,6 +91,7 @@ public class GameStateManager : MonoBehaviour
     // 4 ) P1 and P2 arrows over where each is in the word. 
     // 5 ) if player laps another player, what happens?
     // 6 ) sound for letters going away from TTL expiring
+
     // -------------------------------------------------------------------
     void Awake()
     {
@@ -183,8 +189,7 @@ public class GameStateManager : MonoBehaviour
             CenterAndSpawnWord(currentWord, wordSpawnArea);
         }
         UpdateWordMaterials();
-        GetPlatformWeight(player_1_platformLetters);
-        GetPlatformWeight(player_2_platformLetters);
+        CheckForWinner();
     }
     // -------------------------------------------------------------------
     void FixedUpdate()
@@ -338,15 +343,35 @@ public class GameStateManager : MonoBehaviour
         }
     }
     // -------------------------------------------------------------------
-    public float GetPlatformWeight(List<GameObject> platform)
+    public float GetPlatformWeight(SpringJoint spring)
     {
-        float totalWeight = 0;
-        foreach (GameObject letter in platform)
+        Vector3 force = spring.currentForce;
+        float downForce = Mathf.Abs(force.y);
+        return downForce;
+    }
+    // -------------------------------------------------------------------
+    public void CheckForWinner()
+    {
+        
+        float maxPlatformForce = 696f;
+
+        float p1_force = GetPlatformWeight(player_1_spring);
+        float p2_force = GetPlatformWeight(player_2_spring);
+
+        // Debug.Log($"force 1 : {p1_force} | force 2: {p2_force}");
+
+        if (p1_force > maxPlatformForce)
         {
-            totalWeight += letter.GetComponent<Rigidbody>().mass;
+            Debug.Log("PLAYER 1 WON!");
+            player_1_winner = true;
         }
-        Debug.Log($"{platform} total weight: {totalWeight}");
-        return totalWeight;
+
+        if (p2_force > maxPlatformForce)
+        {
+            Debug.Log("PLAYER 2 WON!");
+            player_2_winner = true;
+        }
+
     }
     // -------------------------------------------------------------------
 }

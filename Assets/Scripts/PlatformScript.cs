@@ -40,7 +40,7 @@ public class PlatformScript : MonoBehaviour
          
             // change impact to a percent and normalize it with cap of 1
             float volume = Mathf.Clamp01(speed / maxImpact);
-            audioSource.PlayOneShot(clankSound, volume);
+            //audioSource.PlayOneShot(clankSound, volume);
         }
     }
 
