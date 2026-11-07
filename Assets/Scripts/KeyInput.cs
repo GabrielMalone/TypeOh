@@ -76,7 +76,7 @@ public class KeyInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!gameOver)
+        if (!gameOver && GSM.gameStarted)
             CheckForKeyInput();
 
         if (( player_1 && GSM.player_1_winner || player_2 && GSM.player_2_winner) && !gameOver)

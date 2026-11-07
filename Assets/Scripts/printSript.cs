@@ -14,7 +14,6 @@ public class printSript : MonoBehaviour
     private float updateTime = 0.2f;
     private float prevTime = 0f;
     private float totalDistance;
-    private float ogStartPostion;
     public List<GameObject> statLetters = new List<GameObject>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,7 +29,7 @@ public class printSript : MonoBehaviour
     {
         if (Time.time - prevTime > updateTime)
         {
-            float current_distance = Mathf.Abs(finishLine.transform.position.y - ogStartPostion);
+            float current_distance = Mathf.Abs(finishLine.transform.position.y - platform.transform.position.y);
             ClearOldStats();
             prevTime = Time.time;
             currentPercent = Mathf.Abs((1-(current_distance/totalDistance))*100);
@@ -56,6 +55,5 @@ public class printSript : MonoBehaviour
     void InitializeDistance()
     {
         totalDistance = Mathf.Abs(platform.transform.position.y - finishLine.transform.position.y);
-        ogStartPostion = platform.transform.position.y;
     }
 }

@@ -4888,7 +4888,7 @@ MonoBehaviour:
   player_2_stats_area: {fileID: 1352502427}
   player_1_platformLetters: []
   player_2_platformLetters: []
-  startGame: 0
+  gameStarted: 0
   player_1_winner: 0
   player_2_winner: 0
   endGame: 0
@@ -4896,6 +4896,7 @@ MonoBehaviour:
   distanceBetweenLetters: 1
   letterScale: 0.5
   wordSpawnArea: {fileID: 183789778}
+  countDownSpawnArea: {fileID: 1416444135}
   GoldenLetterMat: {fileID: 2100000, guid: 7acac32d3ab564c7aa98e24066030838, type: 2}
   A: {fileID: 7630565340444275091, guid: ebb72977567324c7983e7a8c93e4b871, type: 3}
   B: {fileID: 3876128896421753277, guid: 6f826678bc00249748ff87990da88254, type: 3}
@@ -6597,6 +6598,60 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1404511490}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1416444135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1416444136}
+  - component: {fileID: 1416444137}
+  m_Layer: 0
+  m_Name: GameStartArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1416444136
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416444135}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.42, y: 7.04, z: -25.08}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &1416444137
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416444135}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &1431308733
 GameObject:
   m_ObjectHideFlags: 0
@@ -8215,7 +8270,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   volumeAnchorOverride: {fileID: 0}
-  antialiasing: 1
+  antialiasing: 3
   SMAAQuality: 2
   dithering: 1
   stopNaNs: 0
@@ -9697,3 +9752,4 @@ SceneRoots:
   - {fileID: 1874166145}
   - {fileID: 369511385}
   - {fileID: 2132173612}
+  - {fileID: 1416444136}

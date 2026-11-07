@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
+using System.Collections;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class GameStateManager : MonoBehaviour
     public List<GameObject> player_2_platformLetters = new List<GameObject>();
 
     [Header("End Game Settings")]
-    public bool startGame = false;
+    public bool gameStarted = false;
     public bool player_1_winner = false;
     public bool player_2_winner = false;
     public bool endGame = false;
@@ -47,6 +48,7 @@ public class GameStateManager : MonoBehaviour
     public float distanceBetweenLetters = 0.4f;
     public float letterScale = 1f;
     public GameObject wordSpawnArea;
+    public GameObject countDownSpawnArea;
     public Material GoldenLetterMat;
 
     [Header("Alphabet Game Objects")]
@@ -199,6 +201,12 @@ public class GameStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (!gameStarted)
+        {
+            StartCoroutine(StartGame());
+        }
+
         if (CurWordIsFinished())
         {
             // get rid of old letters
@@ -327,7 +335,7 @@ public class GameStateManager : MonoBehaviour
             if (mainWord)
                 spawnedLetters.Add(letterObj);
             else
-                otherList.Add(letterObj);
+                otherList?.Add(letterObj);
         }
 
         nxtPosition = 0;
@@ -356,7 +364,7 @@ public class GameStateManager : MonoBehaviour
             if (mainWord)
                 spawnedLetters.Add(letterObj);
             else
-                otherList.Add(letterObj);
+                otherList?.Add(letterObj);
         }
     }
     // -------------------------------------------------------------------
@@ -406,5 +414,27 @@ public class GameStateManager : MonoBehaviour
         }
         rb.AddForce(Vector3.up * comboForce, ForceMode.Impulse);
     }
+    // -------------------------------------------------------------------
+    public IEnumerator StartGame()
+    {
+        gameStarted = true;
+        List<GameObject> countdownLetters = new List<GameObject>();
+        // need spawn point for countdown numbers
+        for (int i = 0; i < 3 ; i ++)
+        {
+            Debug.Log("spawning countdown!");
+            CenterAndSpawnWord((3-i).ToString(), countDownSpawnArea, countdownLetters, false);
+            yield return new WaitForSeconds(1f);
+            Destroy(countdownLetters[0]);
+            countdownLetters.Clear();
+        }
+        countDownSpawnArea.transform.position = new Vector3(1.94f, countDownSpawnArea.transform.position.y, countDownSpawnArea.transform.position.z);
+        CenterAndSpawnWord("GO", countDownSpawnArea, countdownLetters, false);
+        yield return new WaitForSeconds(0.5f);
+        foreach (GameObject letter in countdownLetters) Destroy(letter);
+        countdownLetters.Clear();
+    }
+
+
 
 }
