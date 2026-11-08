@@ -5,7 +5,8 @@ using System.Collections;
 public class GameStateManager : MonoBehaviour
 {
     [Header("Game State Settings")]
-    public string currentWord = "";
+    public string p1_word = "";
+    public string p2_word = "";
     public int p1_curIndex = 0;
     public int p2_curIndex = 0;
     public float maxPlatformForce = 4900f;
@@ -56,10 +57,10 @@ public class GameStateManager : MonoBehaviour
     public bool endGame = false;
 
     [Header("Player Word Spawn Settings")]
-    public GameObject wordSpawnPlayer1;
     public float distanceBetweenLetters = 0.4f;
     public float letterScale = 1f;
-    public GameObject wordSpawnArea;
+    public GameObject p1_wordSpawnArea;
+    public GameObject p2_wordSpawnArea;
     public GameObject countDownSpawnArea;
     public Material GoldenLetterMat;
 
@@ -104,7 +105,8 @@ public class GameStateManager : MonoBehaviour
 
     public static Dictionary<char, GameObject> letterObjects = new Dictionary<char, GameObject>();
     public static Dictionary<string, char> keyboardMap = new Dictionary<string, char>();
-    public static List<GameObject> spawnedLetters = new List<GameObject>();
+    public static List<GameObject> p1_spawnedLetters = new List<GameObject>();
+    public static List<GameObject> p2_spawnedLetters = new List<GameObject>();
     public static List<string> englishWords;
 
     // -------------------------------------------------------------------
@@ -195,32 +197,52 @@ public class GameStateManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentWord = GetNewWord();
-        CenterAndSpawnWord(currentWord, wordSpawnArea);
-        PlaceGoldenLetter();
+        p1_word = GetNewWord();
+        p2_word = GetNewWord();
+        CenterAndSpawnWord(p1_word, p1_wordSpawnArea, true);
+        CenterAndSpawnWord(p2_word, p2_wordSpawnArea, false);
+        PlaceGoldenLetter(true);
+        PlaceGoldenLetter(false);
+
         StartCoroutine(FadeInMusic());
         StartCoroutine(StartGame());
+
         Invoke(nameof(InitializeDistance), countDownTime);
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
     void Update()
     {
-        if (CurWordIsFinished())
+        if (P1_CurWordIsFinished())
         {
             // get rid of old letters
-            foreach (GameObject letter in spawnedLetters)
+            foreach (GameObject letter in p1_spawnedLetters)
             {
                 Destroy(letter);
             }
-            spawnedLetters.Clear();
+            p1_spawnedLetters.Clear();
             // pick a new world
-            currentWord = GetNewWord();
+            p1_word = GetNewWord();
             // spawn letters for new word
-            CenterAndSpawnWord(currentWord, wordSpawnArea);
-            PlaceGoldenLetter();
+            CenterAndSpawnWord(p1_word, p1_wordSpawnArea, true);
+            PlaceGoldenLetter(true);
+            UpdateWordMaterials(true);
         }
-        UpdateWordMaterials();
+        if (P2_CurWordIsFinished())
+        {
+            // get rid of old letters
+            foreach (GameObject letter in p2_spawnedLetters)
+            {
+                Destroy(letter);
+            }
+            p2_spawnedLetters.Clear();
+            // pick a new world
+            p2_word = GetNewWord();
+            // spawn letters for new word
+            CenterAndSpawnWord(p2_word, p2_wordSpawnArea, false);
+            PlaceGoldenLetter(false);
+            UpdateWordMaterials(false);
+        }
         RemoveGoldenLetter();
         AdjustMusicVolume();
     }
@@ -239,9 +261,13 @@ public class GameStateManager : MonoBehaviour
         return englishWords[index].ToUpper().Trim();
     }
     // -------------------------------------------------------------------
-    public bool CurWordIsFinished()
+    public bool P1_CurWordIsFinished()
     {
-        return p1_curIndex >= currentWord.Length || p2_curIndex >= currentWord.Length;
+        return p1_curIndex >= p1_word.Length;
+    }
+    public bool P2_CurWordIsFinished()
+    {
+        return p2_curIndex >= p2_word.Length;
     }
     // -------------------------------------------------------------------
     // Formula: Gross WPM = (Total Characters ÷ 5) ÷ Time in Minutes
@@ -258,25 +284,30 @@ public class GameStateManager : MonoBehaviour
         }
     }
     // -------------------------------------------------------------------
-    public void UpdateWordMaterials()
+    public void UpdateWordMaterials(bool player_1)
     {
-        if (currentWord.Length <= 0) return;
 
-        for (int i = 0; i < currentWord.Length; i++)
+        string word = player_1 ? p1_word : p2_word;
+        List<GameObject> spawnedLetters = player_1 ? p1_spawnedLetters : p2_spawnedLetters;
+
+
+        if (word.Length <= 0) return;
+
+        for (int i = 0; i < word.Length; i++)
         {
-            char letter = currentWord[i];
+            char letter = word[i];
             GameObject curLetterObj = spawnedLetters[i];
             LetterBehavior lb = curLetterObj.GetComponent<LetterBehavior>();
 
             if (lb.goldenLetter) continue;
 
             // highlight the current letter
-            if (p1_curIndex == i && letter == currentWord[p1_curIndex])
+            if (player_1 && p1_curIndex == i && letter == word[p1_curIndex])
             {
                 lb.SetLetterMaterial(player_1_material);
             }
             // highlight the current letter
-            else if (p2_curIndex == i && letter == currentWord[p2_curIndex])
+            else if (p2_curIndex == i && letter == word[p2_curIndex])
             {
                 // change these to some diff color for p2 
                 lb.SetLetterMaterial(player_2_material);
@@ -289,12 +320,17 @@ public class GameStateManager : MonoBehaviour
     }
     // -------------------------------------------------------------------
     public void CenterAndSpawnWord(
-            string currentWord, 
-            GameObject spawnArea, 
-            List<GameObject> otherList = null, 
+            string currentWord,
+            GameObject spawnArea,
+            bool player_1,
+            List<GameObject> otherList = null,
             bool mainWord = true
         )
     {
+
+        List<GameObject> spawnedLetters = player_1 ? p1_spawnedLetters : p2_spawnedLetters;
+
+
         MeshCollider mc = spawnArea.GetComponent<MeshCollider>();
         // get the center point of our wordSpawn area
         int lenWord = currentWord.Length;
@@ -375,9 +411,12 @@ public class GameStateManager : MonoBehaviour
         return force.y;
     }
     // -------------------------------------------------------------------
-    public void PlaceGoldenLetter()
+    public void PlaceGoldenLetter(bool player_1)
     {
-        int rnd_inx = Mathf.FloorToInt(Random.Range(0,spawnedLetters.Count));
+
+        List<GameObject> spawnedLetters = player_1 ? p1_spawnedLetters : p2_spawnedLetters;
+
+        int rnd_inx = Mathf.FloorToInt(Random.Range(0, spawnedLetters.Count));
         goldenLetterIndex = rnd_inx;
         GameObject goldenLetter = spawnedLetters[rnd_inx];
         LetterBehavior lb = goldenLetter.GetComponent<LetterBehavior>();
@@ -390,6 +429,7 @@ public class GameStateManager : MonoBehaviour
     {
         if (goldenLetterTriggered)
         {
+            List<GameObject> spawnedLetters = player_1 ? p1_spawnedLetters : p2_spawnedLetters;
             goldenLetterTriggered = false;
             GameObject goldenLetter = spawnedLetters[goldenLetterIndex];
             LetterBehavior lb = goldenLetter.GetComponent<LetterBehavior>();
@@ -405,7 +445,7 @@ public class GameStateManager : MonoBehaviour
         Rigidbody rb;
         if (player_1)
         {
-             rb = player_2_platform.GetComponent<Rigidbody>();
+            rb = player_2_platform.GetComponent<Rigidbody>();
         }
         else
         {
@@ -419,18 +459,18 @@ public class GameStateManager : MonoBehaviour
         List<GameObject> countdownLetters = new List<GameObject>();
 
         // need spawn point for countdown numbers
-        for (int i = 0; i < countDownTime ; i ++)
+        for (int i = 0; i < countDownTime; i++)
         {
-            CenterAndSpawnWord((countDownTime - i).ToString(), countDownSpawnArea, countdownLetters, false);
+            CenterAndSpawnWord((countDownTime - i).ToString(), countDownSpawnArea, true, countdownLetters, false);
             countDownSource.Play();
             yield return new WaitForSeconds(1f);
             Destroy(countdownLetters[0]);
             countdownLetters.Clear();
-          
+
         }
 
         countDownSpawnArea.transform.position = new Vector3(1.94f, countDownSpawnArea.transform.position.y, countDownSpawnArea.transform.position.z);
-        CenterAndSpawnWord("GO", countDownSpawnArea, countdownLetters, false);
+        CenterAndSpawnWord("GO", countDownSpawnArea, true, countdownLetters, false);
         countDownSource.clip = beep_1;
         countDownSource.Play();
         yield return new WaitForSeconds(1f);
@@ -461,12 +501,12 @@ public class GameStateManager : MonoBehaviour
     // -------------------------------------------------------------------
     public void AdjustMusicVolume()
     {
-            float p1_distance = Mathf.Abs(finishLine.transform.position.y - player_1_platform.transform.position.y);
-            float p2_distance = Mathf.Abs(finishLine.transform.position.y - player_1_platform.transform.position.y);
-            float min_distance = Mathf.Min(p1_distance, p2_distance);
-            float currentPercent = 1 - (min_distance / totalPlatformDistance);
-            //Debug.Log($"volume: {currentPercent}");
-            gameMusicSource.volume = currentPercent;
+        float p1_distance = Mathf.Abs(finishLine.transform.position.y - player_1_platform.transform.position.y);
+        float p2_distance = Mathf.Abs(finishLine.transform.position.y - player_1_platform.transform.position.y);
+        float min_distance = Mathf.Min(p1_distance, p2_distance);
+        float currentPercent = 1 - (min_distance / totalPlatformDistance);
+        //Debug.Log($"volume: {currentPercent}");
+        gameMusicSource.volume = currentPercent;
     }
     // -------------------------------------------------------------------
     void InitializeDistance()

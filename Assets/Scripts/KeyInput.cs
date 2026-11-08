@@ -148,8 +148,8 @@ public class KeyInput : MonoBehaviour
         // current position in that word (cur char)
         if (curPlayerLetter[0] == (
             player_1 ?
-            GSM.currentWord[GSM.p1_curIndex] :
-            GSM.currentWord[GSM.p2_curIndex])
+            GSM.p1_word[GSM.p1_curIndex] :
+            GSM.p2_word[GSM.p2_curIndex])
         )
         {
             CorrectKeyPressEvents(letterObject);

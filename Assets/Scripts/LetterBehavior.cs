@@ -18,6 +18,7 @@ public class LetterBehavior : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip collisionNoise;
     private bool collisionPlayed = false;
+    private int collisionCount = 0;
     // -------------------------------------------------------------------
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -51,8 +52,9 @@ public class LetterBehavior : MonoBehaviour
     // -------------------------------------------------------------------
     void OnCollisionEnter(Collision collision)
     {
-        if(collisionPlayed) return;
-        collisionPlayed = true;
+        if(collisionPlayed || collisionCount > 5) return;
+        if (collisionCount ++ > 5) collisionPlayed = true;
+
         // letter or platform
         // if (collision.gameObject.layer != 3 || collision.gameObject.layer != 7) return;
         if (!collision.rigidbody) return;

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -26,11 +27,17 @@ public class PlayerPointerScript : MonoBehaviour
 
     void GetCurrentPlayerLetterObject()
     {
-        int curIndex = player_1 ? gsm.p1_curIndex :  gsm.p2_curIndex;
+        int curIndex = player_1 ?
+            gsm.p1_curIndex :  
+            gsm.p2_curIndex;
 
-        if (curIndex > GameStateManager.spawnedLetters.Count - 1) return;
+        List<GameObject> spawnedLetters = player_1 ? 
+            GameStateManager.p1_spawnedLetters : 
+            GameStateManager.p2_spawnedLetters;
 
-        GameObject curLetterObj = GameStateManager.spawnedLetters[curIndex];
+        if (curIndex > spawnedLetters.Count - 1) return;
+
+        GameObject curLetterObj = spawnedLetters[curIndex];
 
         if(curLetterObj == null) return;
 
