@@ -460,13 +460,12 @@ public class GameStateManager : MonoBehaviour
             float t = (Time.time - timeStarted) / musicFadeInTime;
             gameMusicSource.volume = Mathf.Lerp(
                 0f,
-                0.5f,
+                1f,
                 t
             );
             yield return null;
         }
-        gameMusicSource.volume = 0.5f;
-    
+        gameMusicSource.volume = 1f;
     }
     // -------------------------------------------------------------------
 }

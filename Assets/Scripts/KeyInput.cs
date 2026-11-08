@@ -58,6 +58,7 @@ public class KeyInput : MonoBehaviour
     public AudioClip p2_correct_sound;
     public AudioClip p1_incorrect_sound;
     public AudioClip p2_incorrect_sound;
+    public AudioSource goldenLetterAudioSource;
     private AudioSource audio_source;
     private AudioClip correct_sound;
     private AudioClip incorrect_sound;
@@ -92,7 +93,7 @@ public class KeyInput : MonoBehaviour
         if (!gameOver && GSM.gameStarted)
             CheckForKeyInput();
 
-        if ( player_1 && GSM.player_1_winner || player_2 && GSM.player_2_winner)
+        if (player_1 && GSM.player_1_winner || player_2 && GSM.player_2_winner)
         {
             gameOver = true;
             shaft_light.color = Color.lawnGreen;
@@ -110,13 +111,13 @@ public class KeyInput : MonoBehaviour
         if (curPressedKey == null) return;
         string curKey = curPressedKey.keyCode.ToString();
 
-        if (player_1 &&  GameStateManager.keyboardMap.ContainsKey(curKey)) return;
+        if (player_1 && GameStateManager.keyboardMap.ContainsKey(curKey)) return;
         if (player_2 && !GameStateManager.keyboardMap.ContainsKey(curKey)) return;
 
         char cur_key = curKey[0];
         // map back to reality
         if (player_2)
-             cur_key = GameStateManager.keyboardMap[curKey];
+            cur_key = GameStateManager.keyboardMap[curKey];
         // Debug.Log($"{curKey} was pressed!");
 
         GameObject curLetterObj = GameStateManager.letterObjects[cur_key];
@@ -147,7 +148,7 @@ public class KeyInput : MonoBehaviour
         // current position in that word (cur char)
         if (curPlayerLetter[0] == (
             player_1 ?
-            GSM.currentWord[GSM.p1_curIndex] : 
+            GSM.currentWord[GSM.p1_curIndex] :
             GSM.currentWord[GSM.p2_curIndex])
         )
         {
@@ -161,10 +162,12 @@ public class KeyInput : MonoBehaviour
     // -------------------------------------------------------------------
     void CorrectKeyPressEvents(GameObject letterObject)
     {
+        audio_source.clip = correct_sound;
+        audio_source.Play();
 
-        comboTracker ++;
+        comboTracker++;
         // Debug.Log($"combotracker: {comboTracker} | comboNeeded: {comboNeeded}");
-   
+
         // set color for correct on letter to spawn
         GameObject newLetter = Instantiate(letterObject, correctSpawnPosition);
         // increment correct index pos
@@ -174,6 +177,7 @@ public class KeyInput : MonoBehaviour
             {
                 GoldenFx(newLetter);
                 GSM.goldenLetterTriggered = true;
+                goldenLetterAudioSource.Play();
             }
             GSM.p1_curIndex++;
             GSM.player_1_correct_cnt++;
@@ -185,6 +189,7 @@ public class KeyInput : MonoBehaviour
             {
                 GoldenFx(newLetter);
                 GSM.goldenLetterTriggered = true;
+                goldenLetterAudioSource.Play();
             }
             GSM.p2_curIndex++;
             GSM.player_2_correct_cnt++;
@@ -228,7 +233,7 @@ public class KeyInput : MonoBehaviour
             GSM.player_2_incorrect_cnt++;
         }
         CollisionManagement(newLetter, goldenLetter ? 1 : 2);
-        RemoveLetterAsPunishment();        
+        RemoveLetterAsPunishment();
         if (!wrong_flicker)
         {
             wrong_flicker = true;
@@ -282,8 +287,8 @@ public class KeyInput : MonoBehaviour
     void CollisionManagement(GameObject newLetter, int mod = 2)
     {
         // remove collision every once and a while
-        if (player_1 ? 
-            GSM.player_1_incorrect_cnt % mod == 0 : 
+        if (player_1 ?
+            GSM.player_1_incorrect_cnt % mod == 0 :
             GSM.player_2_incorrect_cnt % mod == 0
             )
         {
@@ -329,7 +334,7 @@ public class KeyInput : MonoBehaviour
         float cur_range = combo_shaft.range;
 
         // 23 is just figuring out height of shaft in camera
-        float desired_range = (float) comboTracker / (float)comboNeeded * 23;
+        float desired_range = (float)comboTracker / (float)comboNeeded * 23;
 
         float anim_time = 0.2f;
         float startTime = Time.time;
@@ -347,7 +352,7 @@ public class KeyInput : MonoBehaviour
                 desired_range,
                 t
             );
-            if (GSM.gameStarted && Math.Abs(cur_range-desired_range) > 2)
+            if (GSM.gameStarted && Math.Abs(cur_range - desired_range) > 2)
                 comboAudioSource.Play();
             yield return null;
         }
