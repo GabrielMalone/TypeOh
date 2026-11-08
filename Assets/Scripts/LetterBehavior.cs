@@ -15,6 +15,8 @@ public class LetterBehavior : MonoBehaviour
 
     [Header("Special Settings")]
     public bool goldenLetter = false;
+    public AudioSource audioSource;
+    public AudioClip collisionNoise;
     // -------------------------------------------------------------------
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -46,5 +48,14 @@ public class LetterBehavior : MonoBehaviour
         rb.mass = mass;
     }
     // -------------------------------------------------------------------
+    void OnCollisionEnter(Collision collision)
+    {
+        float speed = collision.relativeVelocity.magnitude;
+        float mass = collision.rigidbody.mass;
+        // change impact to a percent and normalize it with cap of 1
+        float volume = speed * mass / 5f;
+        //Debug.Log($"volume for letters: {volume} | speed: {speed} | mass: {mass} |  maxImpact: {5f}");
+        audioSource.PlayOneShot(collisionNoise, volume);
+    }
 
 }

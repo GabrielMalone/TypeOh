@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.UIElements;
 using System.Collections;
-using Unity.VisualScripting;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -22,6 +20,7 @@ public class GameStateManager : MonoBehaviour
     public float musicFadeInTime = 3f;
     public GameObject p1_platform;
     public GameObject p2_platform;
+    private float totalPlatformDistance;
 
     [Header("Game Music")]
     public AudioSource gameMusicSource;
@@ -103,7 +102,6 @@ public class GameStateManager : MonoBehaviour
     public GameObject ZERO;
     public GameObject PERCENT;
 
-
     public static Dictionary<char, GameObject> letterObjects = new Dictionary<char, GameObject>();
     public static Dictionary<string, char> keyboardMap = new Dictionary<string, char>();
     public static List<GameObject> spawnedLetters = new List<GameObject>();
@@ -111,15 +109,6 @@ public class GameStateManager : MonoBehaviour
 
     // -------------------------------------------------------------------
     // TODO -> 
-
-    // 1 ) quantify what is a win and make it clear 
-    // (like platform past a certain plane)
-    // 2 ) some telemetry might be fun, like wpm / accuracy
-    // 3 ) fun facts on words being displayed (definitions)?
-    // 4 ) P1 and P2 arrows over where each is in the word. 
-    // 5 ) if player laps another player, what happens?
-    // 6 ) sound for letters going away from TTL expiring
-
     // -------------------------------------------------------------------
     void Awake()
     {
@@ -211,6 +200,7 @@ public class GameStateManager : MonoBehaviour
         PlaceGoldenLetter();
         StartCoroutine(FadeInMusic());
         StartCoroutine(StartGame());
+        Invoke(nameof(InitializeDistance), countDownTime);
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
@@ -232,6 +222,7 @@ public class GameStateManager : MonoBehaviour
         }
         UpdateWordMaterials();
         RemoveGoldenLetter();
+        AdjustMusicVolume();
     }
     // -------------------------------------------------------------------
     void FixedUpdate()
@@ -460,12 +451,26 @@ public class GameStateManager : MonoBehaviour
             float t = (Time.time - timeStarted) / musicFadeInTime;
             gameMusicSource.volume = Mathf.Lerp(
                 0f,
-                1f,
+                0.1f,
                 t
             );
             yield return null;
         }
-        gameMusicSource.volume = 1f;
+        gameMusicSource.volume = 0.1f;
     }
     // -------------------------------------------------------------------
+    public void AdjustMusicVolume()
+    {
+            float p1_distance = Mathf.Abs(finishLine.transform.position.y - player_1_platform.transform.position.y);
+            float p2_distance = Mathf.Abs(finishLine.transform.position.y - player_1_platform.transform.position.y);
+            float min_distance = Mathf.Min(p1_distance, p2_distance);
+            float currentPercent = 1 - (min_distance / totalPlatformDistance);
+            //Debug.Log($"volume: {currentPercent}");
+            gameMusicSource.volume = currentPercent;
+    }
+    // -------------------------------------------------------------------
+    void InitializeDistance()
+    {
+        totalPlatformDistance = Mathf.Abs(player_1_platform.transform.position.y - finishLine.transform.position.y);
+    }
 }
