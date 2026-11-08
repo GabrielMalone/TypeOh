@@ -211,7 +211,7 @@ MonoBehaviour:
   NextLetterMaterial: {fileID: 2100000, guid: 289ad87d1b2d543e1aa37716c85e5d2b, type: 2}
   letterScale: 0.5
   goldenLetter: 0
-  audioSource: {fileID: -1377537333614948318, guid: ebb72977567324c7983e7a8c93e4b871, type: 3}
+  audioSource: {fileID: -3328954307642041964}
   collisionNoise: {fileID: 8300000, guid: dc0e3e02e6196504180cc29f85eef89e, type: 3}
 --- !u!82 &-3328954307642041964
 AudioSource:

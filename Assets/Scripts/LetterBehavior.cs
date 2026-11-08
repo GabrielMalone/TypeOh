@@ -17,11 +17,12 @@ public class LetterBehavior : MonoBehaviour
     public bool goldenLetter = false;
     public AudioSource audioSource;
     public AudioClip collisionNoise;
+    private bool collisionPlayed = false;
     // -------------------------------------------------------------------
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Destroy(gameObject, timeToLive);
+       Destroy(gameObject, timeToLive);
        // gameObject.transform.localScale = Vector3.one * letterScale;
     }
     // -------------------------------------------------------------------
@@ -50,11 +51,17 @@ public class LetterBehavior : MonoBehaviour
     // -------------------------------------------------------------------
     void OnCollisionEnter(Collision collision)
     {
+        if(collisionPlayed) return;
+        collisionPlayed = true;
+        // letter or platform
+        // if (collision.gameObject.layer != 3 || collision.gameObject.layer != 7) return;
+        if (!collision.rigidbody) return;
+
         float speed = collision.relativeVelocity.magnitude;
         float mass = collision.rigidbody.mass;
-        // change impact to a percent and normalize it with cap of 1
-        float volume = speed * mass / 5f;
-        //Debug.Log($"volume for letters: {volume} | speed: {speed} | mass: {mass} |  maxImpact: {5f}");
+        float volume = speed * mass / 1f;
+        
+        Debug.Log($"volume for letters: {volume} | speed: {speed} | mass: {mass} |  maxImpact: {1f}");
         audioSource.PlayOneShot(collisionNoise, volume);
     }
 

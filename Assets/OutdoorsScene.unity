@@ -5879,7 +5879,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlatformScript
   audioSource: {fileID: 1014663159}
   clankSound: {fileID: 8300000, guid: dc0e3e02e6196504180cc29f85eef89e, type: 3}
-  maxImpact: 20
+  maxImpact: 5
   boundaryBox: {fileID: 0}
 --- !u!65 &1014663155
 BoxCollider:
@@ -7585,7 +7585,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlatformScript
   audioSource: {fileID: 1431308742}
   clankSound: {fileID: 8300000, guid: dc0e3e02e6196504180cc29f85eef89e, type: 3}
-  maxImpact: 20
+  maxImpact: 5
   boundaryBox: {fileID: 0}
 --- !u!120 &1431308740
 LineRenderer:
