@@ -21,20 +21,28 @@ public class printSript : MonoBehaviour
         GSM = GameStateManager.GetComponent<GameStateManager>();
         prevTime = Time.time;
         // let's delay this like 3 seconds since platforms needs to settle. 
-        Invoke(nameof(InitializeDistance), 2f);
+        Invoke(nameof(InitializeDistance), GSM.countDownTime);
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
     void Update()
+    {
+        if (GSM.gameStarted)
+        {
+            UpdatePercentDone();
+        }
+    }
+    // -------------------------------------------------------------------
+    void UpdatePercentDone()
     {
         if (Time.time - prevTime > updateTime)
         {
             float current_distance = Mathf.Abs(finishLine.transform.position.y - platform.transform.position.y);
             ClearOldStats();
             prevTime = Time.time;
-            currentPercent = Mathf.Abs((1-(current_distance/totalDistance))*100);
+            currentPercent = Mathf.Abs((1 - (current_distance / totalDistance)) * 100);
             int floorPercent = Mathf.FloorToInt(currentPercent);
-            // Debug.Log($"current percent: {floorPercent}");
+            Debug.Log($"current percent: {floorPercent}");
             GSM.CenterAndSpawnWord(floorPercent.ToString() + "%", gameObject, statLetters, false);
         }
     }

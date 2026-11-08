@@ -3,7 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using Unity.Cinemachine;
-using Unity.VisualScripting;
+using System;
+
 // -----------------------------------------------------------------------
 public class KeyInput : MonoBehaviour
 {
@@ -48,6 +49,9 @@ public class KeyInput : MonoBehaviour
     private Color ogColor;
 
     [Header("Sound FX Settings")]
+    public AudioSource p1_comboAudioSource;
+    public AudioSource p2_comboAudioSource;
+    private AudioSource comboAudioSource;
     public AudioSource p1_audio_source;
     public AudioSource p2_audio_source;
     public AudioClip p1_correct_sound;
@@ -79,6 +83,7 @@ public class KeyInput : MonoBehaviour
         ogIntensity = shaft_light.intensity;
         ogColor = shaft_light.color;
         combo_shaft = player_1 ? p2_combo_shaft : p1_combo_shaft;
+        comboAudioSource = player_1 ? p1_comboAudioSource : p2_comboAudioSource;
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
@@ -197,6 +202,9 @@ public class KeyInput : MonoBehaviour
     // -------------------------------------------------------------------
     void IncorrectKeyPressEvents(GameObject letterObject)
     {
+        audio_source.clip = incorrect_sound;
+        audio_source.Play();
+
         bool goldenLetter = false;
         comboTracker = 0;
         GameObject newLetter = Instantiate(letterObject, incorrectSpawnPosition);
@@ -330,19 +338,17 @@ public class KeyInput : MonoBehaviour
         {
             shake = true;
         }
-
-        Debug.Log($"cur range: {cur_range} | desired range: {desired_range}");
-
+        // Debug.Log($"cur range: {cur_range} | desired range: {desired_range}");
         while (Time.time - startTime < anim_time)
         {
-            
             float t = (Time.time - startTime) / anim_time;
-
             combo_shaft.range = Mathf.Lerp(
                 cur_range,
                 desired_range,
                 t
             );
+            if (GSM.gameStarted && Math.Abs(cur_range-desired_range) > 2)
+                comboAudioSource.Play();
             yield return null;
         }
 

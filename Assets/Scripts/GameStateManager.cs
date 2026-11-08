@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -15,6 +16,18 @@ public class GameStateManager : MonoBehaviour
     public float goldenMassMultiplier = 10f;
     public float goldenLetterScaler = 1f;
     public bool goldenLetterTriggered = false;
+
+    [Header("Game Start Settings")]
+    public int countDownTime = 3;
+    public float musicFadeInTime = 3f;
+    public GameObject p1_platform;
+    public GameObject p2_platform;
+
+    [Header("Game Music")]
+    public AudioSource gameMusicSource;
+    public AudioClip gameMusic;
+    public AudioSource countDownSource;
+    public AudioClip beep_1;
 
     [Header("Player Settings")]
     public GameObject player_1;
@@ -196,17 +209,13 @@ public class GameStateManager : MonoBehaviour
         currentWord = GetNewWord();
         CenterAndSpawnWord(currentWord, wordSpawnArea);
         PlaceGoldenLetter();
+        StartCoroutine(FadeInMusic());
+        StartCoroutine(StartGame());
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
     void Update()
     {
-
-        if (!gameStarted)
-        {
-            StartCoroutine(StartGame());
-        }
-
         if (CurWordIsFinished())
         {
             // get rid of old letters
@@ -416,24 +425,48 @@ public class GameStateManager : MonoBehaviour
     // -------------------------------------------------------------------
     public IEnumerator StartGame()
     {
-        gameStarted = true;
         List<GameObject> countdownLetters = new List<GameObject>();
+
         // need spawn point for countdown numbers
-        for (int i = 0; i < 3 ; i ++)
+        for (int i = 0; i < countDownTime ; i ++)
         {
-            Debug.Log("spawning countdown!");
-            CenterAndSpawnWord((3-i).ToString(), countDownSpawnArea, countdownLetters, false);
+            CenterAndSpawnWord((countDownTime - i).ToString(), countDownSpawnArea, countdownLetters, false);
+            countDownSource.Play();
             yield return new WaitForSeconds(1f);
             Destroy(countdownLetters[0]);
             countdownLetters.Clear();
+          
         }
+
         countDownSpawnArea.transform.position = new Vector3(1.94f, countDownSpawnArea.transform.position.y, countDownSpawnArea.transform.position.z);
         CenterAndSpawnWord("GO", countDownSpawnArea, countdownLetters, false);
-        yield return new WaitForSeconds(0.5f);
+        countDownSource.clip = beep_1;
+        countDownSource.Play();
+        yield return new WaitForSeconds(1f);
         foreach (GameObject letter in countdownLetters) Destroy(letter);
         countdownLetters.Clear();
+        gameStarted = true;
+
     }
+    // -------------------------------------------------------------------
+    public IEnumerator FadeInMusic()
+    {
+        float timeStarted = Time.time;
+        gameMusicSource.volume = 0;
+        gameMusicSource.Play();
 
-
-
+        while (Time.time - timeStarted < musicFadeInTime)
+        {
+            float t = (Time.time - timeStarted) / musicFadeInTime;
+            gameMusicSource.volume = Mathf.Lerp(
+                0f,
+                0.5f,
+                t
+            );
+            yield return null;
+        }
+        gameMusicSource.volume = 0.5f;
+    
+    }
+    // -------------------------------------------------------------------
 }
