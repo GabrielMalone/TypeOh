@@ -258,8 +258,9 @@ public class GameStateManager : MonoBehaviour
             UpdateWordMaterials(true);
             p1_word_set = true;
         }
-           
+
         RemoveGoldenLetter(true);
+           
         
         // p2 branch
         if (CurWordIsFinished(false))
@@ -284,6 +285,7 @@ public class GameStateManager : MonoBehaviour
         }
 
         RemoveGoldenLetter(false);
+
         AdjustMusicVolume();
 
         if ((player_1_winner || player_2_winner) && !victorySoundPlayed)
@@ -291,7 +293,9 @@ public class GameStateManager : MonoBehaviour
             victorySoundPlayed = true;
             countDownSource.PlayOneShot(victorySound);
         }
-
+        
+        
+        
         CheckForReset();
         
     }
@@ -561,8 +565,8 @@ public class GameStateManager : MonoBehaviour
     {
 
         int goldenLetterIndex = p1 ? p1_goldenLetterIndex : p2_goldenLetterIndex;
-
         bool goldenLetterTriggered = p1 ? p1_goldenLetterTriggered : p2_goldenLetterTriggered;
+        Material material = p1 ? p1_Material : p2_Material;
 
         if (goldenLetterTriggered)
         {
@@ -580,7 +584,7 @@ public class GameStateManager : MonoBehaviour
             LetterBehavior lb = goldenLetter.GetComponent<LetterBehavior>();
             lb.goldenLetter = false;
             lb.SetLetterScale(0.5f);
-            lb.SetLetterMaterial(lb.NextLetterMaterial);
+            lb.SetLetterMaterial(material);
         }
     }
     // -------------------------------------------------------------------

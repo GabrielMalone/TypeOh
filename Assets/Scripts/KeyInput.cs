@@ -221,13 +221,16 @@ public class KeyInput : MonoBehaviour
     // -------------------------------------------------------------------
     void IncorrectKeyPressEvents(GameObject letterObject)
     {
-        audio_source.clip = incorrect_sound;
-        audio_source.Play();
-
+        
+        Material material = player_1 ? GSM.p1_Material : GSM.p2_Material;
+        
+        audio_source.PlayOneShot(incorrect_sound);
         bool goldenLetter = false;
         comboTracker = 0;
         GameObject newLetter = Instantiate(letterObject, incorrectSpawnPosition);
-        lastIncorrectLetter = newLetter.name[0];
+        lastIncorrectLetter = newLetter.name[0];    
+
+        newLetter.GetComponentInChildren<Renderer>().material = material;
 
         if (player_1 && GSM.p1_goldenLetterIndex == GSM.p1_curIndex)
         {
@@ -248,14 +251,14 @@ public class KeyInput : MonoBehaviour
             GSM.player_2_incorrect_cnt++;
 
         CollisionManagement(newLetter, goldenLetter ? 1 : 2);
+
         RemoveLetterAsPunishment();
+
         if (!wrong_flicker)
         {
             wrong_flicker = true;
             StartCoroutine(LightFX(false));
         }
-        //Debug.Log($"PLAYER ONE INCORRECT!");
-        // audioSource.PlayOneShot(incorrectSound);
     }
     // -------------------------------------------------------------------
     IEnumerator LightFX(bool correct)
