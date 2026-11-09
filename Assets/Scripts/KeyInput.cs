@@ -148,10 +148,6 @@ public class KeyInput : MonoBehaviour
 
     void KeyEventCoordinator(string curPlayerLetter, GameObject letterObject)
     {
-        // set up letter color change
-        LetterBehavior lb = letterObject.GetComponent<LetterBehavior>();
-        lb.SetLetterMaterial(correct_material);
-
         // current word player is currently on
         // current position in that word (cur char)
         if (curPlayerLetter[0] == (
@@ -200,7 +196,7 @@ public class KeyInput : MonoBehaviour
         if (player_1)
         {
             // gravity drop fx
-            spawnedLetters[GSM.p1_curIndex].GetComponent<LetterBehavior>().TypedFX();
+            //spawnedLetters[GSM.p1_curIndex].GetComponent<LetterBehavior>().TypedFX();
             GSM.p1_curIndex++;
             GSM.player_1_correct_cnt++;
             GSM.player_1_platformLetters.Add(newLetter);
@@ -208,7 +204,7 @@ public class KeyInput : MonoBehaviour
         }
         if (!player_1)
         {
-            spawnedLetters[GSM.p2_curIndex].GetComponent<LetterBehavior>().TypedFX();
+           //spawnedLetters[GSM.p2_curIndex].GetComponent<LetterBehavior>().TypedFX();
             GSM.p2_curIndex++;
             GSM.player_2_correct_cnt++;
             GSM.player_2_platformLetters.Add(newLetter);
@@ -392,7 +388,7 @@ public class KeyInput : MonoBehaviour
     {   
         if (!computer) return;
 
-        char rnd_char = (char)Random.Range(65,91);
+        char rnd_char = (char)Random.Range(65,90);
         char cur_car = GSM.p2_word[GSM.p2_curIndex];
 
         if (Time.time - timeLastTyped > speed) 

@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Numerics;
 using UnityEngine;
 
 public class LetterBehavior : MonoBehaviour
@@ -34,7 +34,7 @@ public class LetterBehavior : MonoBehaviour
     // -------------------------------------------------------------------
     public void SetLetterScale(float scale)
     {
-        gameObject.transform.localScale = Vector3.one * scale;
+        gameObject.transform.localScale = UnityEngine.Vector3.one * scale;
     }
     // -------------------------------------------------------------------
     public void SetLetterMaterial(Material material)
@@ -54,6 +54,8 @@ public class LetterBehavior : MonoBehaviour
         Rigidbody rb = gameObject.GetComponent<Rigidbody>();
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.None;
+        rb.AddForce((Random.value > 0.5 ? UnityEngine.Vector3.up : UnityEngine.Vector3.down) * 10, ForceMode.Impulse);
+        rb.AddTorque((Random.value > 0.5 ? UnityEngine.Vector3.up : UnityEngine.Vector3.down) * 10, ForceMode.Impulse);
     }
     // -------------------------------------------------------------------
     void OnCollisionEnter(Collision collision)

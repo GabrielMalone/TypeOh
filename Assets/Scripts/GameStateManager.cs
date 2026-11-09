@@ -116,7 +116,8 @@ public class GameStateManager : MonoBehaviour
     public static Dictionary<string, char> keyboardMap = new Dictionary<string, char>();
     public static List<GameObject> p1_spawnedLetters = new List<GameObject>();
     public static List<GameObject> p2_spawnedLetters = new List<GameObject>();
-    public static List<string> englishWords;
+    public static List<string> englishWordsHard;
+    public static List<string> englishWordsEasy;
 
     public bool p1_word_set = false;
     public bool p2_word_set = false;
@@ -201,7 +202,13 @@ public class GameStateManager : MonoBehaviour
         TextAsset file = Resources.Load<TextAsset>("words_alpha");
 
         // put them in the list
-        englishWords = new List<string>(
+        englishWordsHard = new List<string>(
+            file.text.Split('\n')
+        );
+
+        file = Resources.Load<TextAsset>("google-10000-english");
+
+        englishWordsEasy = new List<string>(
             file.text.Split('\n')
         );
 
@@ -294,14 +301,47 @@ public class GameStateManager : MonoBehaviour
     // -------------------------------------------------------------------
     public string GetNewWord(bool p1)
     {
+        // cybernetic system 2
+
         if (p1)
             p1_curIndex = 0;
         else
             p2_curIndex = 0;
 
-        int index = Random.Range(0, englishWords.Count);
+        float hardChance;
+        List<string> wordList;
 
-        return englishWords[index].ToUpper().Trim();
+        string player = p1 ? "player 1" : "player 2";
+        
+        // losing get easy word
+        if (p1 && p1_percent_complete < p2_percent_complete)
+        {
+            hardChance = 0.2f;
+        }
+        // losing get easy word
+        else if (!p1 && p2_percent_complete < p1_percent_complete)
+        {
+            hardChance = 0.2f;
+        }
+        // im in the lead, get harder word
+        else
+        {
+            hardChance = 0.8f;
+        }
+
+        if (Random.value < hardChance)
+        {
+            wordList = englishWordsHard;
+            Debug.Log($"hard word assigned for {player}");
+        }
+        else
+        {
+            wordList = englishWordsEasy;
+            Debug.Log($"easy word assigned for {player}");
+        }
+
+        int index = Random.Range(0, wordList.Count);
+        return wordList[index].ToUpper().Trim();
     }
     // -------------------------------------------------------------------
     public bool CurWordIsFinished(bool p1)
@@ -515,7 +555,7 @@ public class GameStateManager : MonoBehaviour
             LetterBehavior lb = goldenLetter.GetComponent<LetterBehavior>();
             lb.goldenLetter = false;
             lb.SetLetterScale(0.5f);
-            lb.SetLetterMaterial(lb.NextLetterMaterial);
+            // lb.SetLetterMaterial(lb.NextLetterMaterial);
         }
     }
     // -------------------------------------------------------------------
@@ -563,7 +603,13 @@ public class GameStateManager : MonoBehaviour
         CenterAndSpawnWord("GO", countDownSpawnArea, false, countdownLetters, false);
         countDownSource.clip = beep_1;
         countDownSource.Play();
+
+        foreach (GameObject letter in countdownLetters)
+        {
+            letter.GetComponentInChildren<Renderer>().material = basicLetterMat;
+        }
         yield return new WaitForSeconds(1f);
+
         foreach (GameObject letter in countdownLetters) Destroy(letter);
         countdownLetters.Clear();
         gameStarted = true;

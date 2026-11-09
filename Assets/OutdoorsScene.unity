@@ -1659,7 +1659,7 @@ Transform:
   m_GameObject: {fileID: 183789778}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.8456926, z: -0, w: 0.53367037}
-  m_LocalPosition: {x: -0.31999993, y: 3.84, z: -3.7299998}
+  m_LocalPosition: {x: -11.9, y: 12.6, z: -3.7299998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -3588,7 +3588,7 @@ Transform:
   m_GameObject: {fileID: 496101310}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.8456926, z: -0, w: 0.53367037}
-  m_LocalPosition: {x: -0.5799999, y: 6.04, z: -3.7299998}
+  m_LocalPosition: {x: 11.4, y: 12.7, z: -3.7299998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5392,7 +5392,7 @@ MonoBehaviour:
   goldenLetterScaler: 0.5
   p1_goldenLetterTriggered: 0
   p2_goldenLetterTriggered: 0
-  countDownTime: 5
+  countDownTime: 0
   musicFadeInTime: 5
   p1_platform: {fileID: 994735117}
   p2_platform: {fileID: 913692961}
@@ -5835,8 +5835,8 @@ MonoBehaviour:
   player_1: 0
   player_2: 1
   computer: 1
-  speed: 0.2
-  accuracy: 0.95
+  speed: 0.15
+  accuracy: 0.8
   player_1_correctSpawnPosition: {fileID: 860827830}
   player_1_incorrectSpawnPosition: {fileID: 1930354216}
   player_2_correctSpawnPosition: {fileID: 778672661}
