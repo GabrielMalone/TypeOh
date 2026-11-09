@@ -8473,7 +8473,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 6
-  m_Color: {r: 0.13510863, g: 0.015352436, b: 0.6509434, a: 1}
+  m_Color: {r: 0.07114033, g: 0.04013884, b: 0.20754719, a: 1}
   m_Intensity: 40.40088
   m_Range: 36.8
   m_SpotAngle: 30
@@ -10365,7 +10365,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   volumeAnchorOverride: {fileID: 0}
-  antialiasing: 2
+  antialiasing: 0
   SMAAQuality: 2
   dithering: 1
   stopNaNs: 0

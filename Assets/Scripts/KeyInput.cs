@@ -18,7 +18,6 @@ public class KeyInput : MonoBehaviour
     public float accuracy = 0.5f;
     private float timeLastTyped = 0f;
 
-
     [Header("Letter Spawn Position")]
     public Transform player_1_correctSpawnPosition;
     public Transform player_1_incorrectSpawnPosition;
@@ -138,7 +137,6 @@ public class KeyInput : MonoBehaviour
         {
             if (key.wasPressedThisFrame)
             {
-                // Debug.Log($"Player 2 Pressed: {key}");
                 return key;
             }
         }
@@ -150,6 +148,7 @@ public class KeyInput : MonoBehaviour
     {
         // current word player is currently on
         // current position in that word (cur char)
+
         if (curPlayerLetter[0] == (
             player_1 ?
             GSM.p1_word[GSM.p1_curIndex] :
@@ -303,13 +302,16 @@ public class KeyInput : MonoBehaviour
     void CollisionManagement(GameObject newLetter, int mod = 2)
     {
         // remove collision every once and a while
-        if (player_1 ?
+        if (
+            player_1 ?
             GSM.player_1_incorrect_cnt % mod == 0 :
             GSM.player_2_incorrect_cnt % mod == 0
             )
         {
+
             int layer = LayerMask.NameToLayer("GhostLetter");
             newLetter.layer = layer;
+
             foreach (Transform child in newLetter.GetComponentsInChildren<Transform>())
             {
                 child.gameObject.layer = layer;

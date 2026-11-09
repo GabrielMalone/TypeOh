@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -291,12 +292,27 @@ public class GameStateManager : MonoBehaviour
             countDownSource.PlayOneShot(victorySound);
         }
 
+        CheckForReset();
         
     }
     // -------------------------------------------------------------------
     void FixedUpdate()
     {
 
+    }
+
+    void CheckForReset()
+    {
+        if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.rKey.isPressed)
+        {
+            letterObjects = new Dictionary<char, GameObject>();
+            keyboardMap = new Dictionary<string, char>();
+            p1_spawnedLetters = new List<GameObject>();
+            p2_spawnedLetters = new List<GameObject>();
+            englishWordsHard.Clear();
+            englishWordsEasy.Clear();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
     // -------------------------------------------------------------------
     public string GetNewWord(bool p1)
@@ -564,7 +580,7 @@ public class GameStateManager : MonoBehaviour
             LetterBehavior lb = goldenLetter.GetComponent<LetterBehavior>();
             lb.goldenLetter = false;
             lb.SetLetterScale(0.5f);
-            // lb.SetLetterMaterial(lb.NextLetterMaterial);
+            lb.SetLetterMaterial(lb.NextLetterMaterial);
         }
     }
     // -------------------------------------------------------------------
