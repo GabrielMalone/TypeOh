@@ -164,37 +164,41 @@ public class KeyInput : MonoBehaviour
     {
         audio_source.clip = correct_sound;
         audio_source.Play();
-
         comboTracker++;
         // Debug.Log($"combotracker: {comboTracker} | comboNeeded: {comboNeeded}");
 
-        // set color for correct on letter to spawn
         GameObject newLetter = Instantiate(letterObject, correctSpawnPosition);
+      
+        if (player_1 && GSM.p1_goldenLetterIndex == GSM.p1_curIndex)
+        {
+            GoldenFx(newLetter);
+            GSM.p1_goldenLetterTriggered = true;
+            goldenLetterAudioSource.Play();
+        }
+
+        if (!player_1 && GSM.p2_goldenLetterIndex == GSM.p2_curIndex)
+        {
+            GoldenFx(newLetter);
+            GSM.p2_goldenLetterTriggered = true;
+            goldenLetterAudioSource.Play();
+        }
+     
         // increment correct index pos
         if (player_1)
         {
-            if (GSM.goldenLetterIndex == GSM.p1_curIndex)
-            {
-                GoldenFx(newLetter);
-                GSM.goldenLetterTriggered = true;
-                goldenLetterAudioSource.Play();
-            }
             GSM.p1_curIndex++;
             GSM.player_1_correct_cnt++;
             GSM.player_1_platformLetters.Add(newLetter);
+            GSM.p1_word_set = false;
         }
-        else
+        if (!player_1)
         {
-            if (GSM.goldenLetterIndex == GSM.p2_curIndex)
-            {
-                GoldenFx(newLetter);
-                GSM.goldenLetterTriggered = true;
-                goldenLetterAudioSource.Play();
-            }
             GSM.p2_curIndex++;
             GSM.player_2_correct_cnt++;
             GSM.player_2_platformLetters.Add(newLetter);
+            GSM.p2_word_set = false;
         }
+
         // every third letter gets collision
         CollisionManagement(newLetter);
         if (!flickering)
@@ -202,7 +206,6 @@ public class KeyInput : MonoBehaviour
             flickering = true;
             StartCoroutine(LightFX(true));
         }
-        // audioSource.PlayOneShot(correctSound);
     }
     // -------------------------------------------------------------------
     void IncorrectKeyPressEvents(GameObject letterObject)
@@ -214,24 +217,25 @@ public class KeyInput : MonoBehaviour
         comboTracker = 0;
         GameObject newLetter = Instantiate(letterObject, incorrectSpawnPosition);
         lastIncorrectLetter = newLetter.name[0];
+
+        if (player_1 && GSM.p1_goldenLetterIndex == GSM.p1_curIndex)
+        {
+            goldenLetter = true;
+            GoldenFx(newLetter);
+        }
+
         if (player_1)
-        {
-            if (GSM.goldenLetterIndex == GSM.p1_curIndex)
-            {
-                goldenLetter = true;
-                GoldenFx(newLetter);
-            }
             GSM.player_1_incorrect_cnt++;
-        }
-        else
+
+        if (!player_1 && GSM.p2_goldenLetterIndex == GSM.p2_curIndex)
         {
-            if (GSM.goldenLetterIndex == GSM.p2_curIndex)
-            {
-                goldenLetter = true;
-                GoldenFx(newLetter);
-            }
-            GSM.player_2_incorrect_cnt++;
+            goldenLetter = true;
+            GoldenFx(newLetter);
         }
+
+        if (!player_1)
+            GSM.player_2_incorrect_cnt++;
+
         CollisionManagement(newLetter, goldenLetter ? 1 : 2);
         RemoveLetterAsPunishment();
         if (!wrong_flicker)

@@ -1659,7 +1659,7 @@ Transform:
   m_GameObject: {fileID: 183789778}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.15, y: 17.49, z: -3.7299998}
+  m_LocalPosition: {x: 0.109999895, y: 3.62, z: -3.7299998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3347,7 +3347,7 @@ Transform:
   m_GameObject: {fileID: 496101310}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.410001, y: 17.49, z: -3.7299998}
+  m_LocalPosition: {x: -0.54999995, y: 6.04, z: -3.7299998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5395,10 +5395,12 @@ MonoBehaviour:
   p2_curIndex: 0
   maxPlatformForce: 4905
   comboForce: 1000
-  goldenLetterIndex: 0
+  p1_goldenLetterIndex: 0
+  p2_goldenLetterIndex: 0
   goldenMassMultiplier: 10
-  goldenLetterScaler: 0.75
-  goldenLetterTriggered: 0
+  goldenLetterScaler: 0.5
+  p1_goldenLetterTriggered: 0
+  p2_goldenLetterTriggered: 0
   countDownTime: 5
   musicFadeInTime: 5
   p1_platform: {fileID: 994735117}
@@ -5471,6 +5473,8 @@ MonoBehaviour:
   NINE: {fileID: 7446209971901393848, guid: 418025fabbc3543f59fd162ad956ab70, type: 3}
   ZERO: {fileID: 7446209971901393848, guid: b66bdfb9a7b2a49eebfb0e689de6b275, type: 3}
   PERCENT: {fileID: 7446209971901393848, guid: d2b0fcae712f843c193ee819dd753366, type: 3}
+  p1_word_set: 0
+  p2_word_set: 0
 --- !u!4 &876266761
 Transform:
   m_ObjectHideFlags: 0

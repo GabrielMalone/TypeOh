@@ -52,8 +52,8 @@ public class LetterBehavior : MonoBehaviour
     // -------------------------------------------------------------------
     void OnCollisionEnter(Collision collision)
     {
-        if(collisionPlayed || collisionCount > 5) return;
-        if (collisionCount ++ > 5) collisionPlayed = true;
+        if(collisionPlayed) return;
+        collisionPlayed = true;
 
         // letter or platform
         // if (collision.gameObject.layer != 3 || collision.gameObject.layer != 7) return;
@@ -61,7 +61,7 @@ public class LetterBehavior : MonoBehaviour
 
         float speed = collision.relativeVelocity.magnitude;
         float mass = collision.rigidbody.mass;
-        float volume = speed * mass / 1f;
+        float volume = Mathf.Clamp01(speed * mass / 1f);
         
         Debug.Log($"volume for letters: {volume} | speed: {speed} | mass: {mass} |  maxImpact: {1f}");
         audioSource.PlayOneShot(collisionNoise, volume);
