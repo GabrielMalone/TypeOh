@@ -78,7 +78,7 @@ public class printSript : MonoBehaviour
     {
         platformCollider = platform.GetComponent<Collider>();
         finishCollider = finishLine.GetComponent<Collider>();
-
         totalDistance = Mathf.Abs(platformCollider.transform.position.y - finishCollider.transform.position.y);
+        GSM.totalPlatformDistance = totalDistance;
     }
 }

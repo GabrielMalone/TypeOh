@@ -24,7 +24,7 @@ public class GameStateManager : MonoBehaviour
     public float musicFadeInTime = 3f;
     public GameObject p1_platform;
     public GameObject p2_platform;
-    private float totalPlatformDistance;
+    public float totalPlatformDistance;
 
     [Header("Game Music")]
     public AudioSource gameMusicSource;
@@ -60,6 +60,7 @@ public class GameStateManager : MonoBehaviour
     public bool player_1_winner = false;
     public bool player_2_winner = false;
     public bool endGame = false;
+    public AudioClip victorySound;
 
     [Header("Player Word Spawn Settings")]
     public float distanceBetweenLetters = 0.4f;
@@ -116,6 +117,7 @@ public class GameStateManager : MonoBehaviour
 
     public bool p1_word_set = false;
     public bool p2_word_set = false;
+    private bool victorySoundPlayed = false;
 
     // -------------------------------------------------------------------
     // TODO -> 
@@ -272,6 +274,12 @@ public class GameStateManager : MonoBehaviour
 
         RemoveGoldenLetter(false);
         AdjustMusicVolume();
+
+        if ((player_1_winner || player_2_winner) && !victorySoundPlayed)
+        {
+            victorySoundPlayed = true;
+            countDownSource.PlayOneShot(victorySound);
+        }
 
         
     }
@@ -573,16 +581,19 @@ public class GameStateManager : MonoBehaviour
             );
             yield return null;
         }
+
+        Debug.Log("Playing Music!");
+
         gameMusicSource.volume = 0.1f;
     }
     // -------------------------------------------------------------------
     public void AdjustMusicVolume()
     {
-        float p1_distance = Mathf.Abs(finishLine.transform.position.y - player_1_platform.transform.position.y);
-        float p2_distance = Mathf.Abs(finishLine.transform.position.y - player_1_platform.transform.position.y);
+        float p1_distance = Mathf.Abs(player_1_platform.transform.position.y - finishLine.transform.position.y);
+        float p2_distance = Mathf.Abs(player_2_platform.transform.position.y - finishLine.transform.position.y);
         float min_distance = Mathf.Min(p1_distance, p2_distance);
-        float currentPercent = 1 - (min_distance / totalPlatformDistance);
-        //Debug.Log($"volume: {currentPercent}");
+        float currentPercent = Mathf.Clamp01(1 - (min_distance / totalPlatformDistance));
+        Debug.Log($"volume: {currentPercent}");
         gameMusicSource.volume = currentPercent;
     }
     // -------------------------------------------------------------------
