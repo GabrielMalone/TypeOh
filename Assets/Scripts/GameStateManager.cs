@@ -202,8 +202,8 @@ public class GameStateManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        p1_word = GetNewWord();
-        p2_word = GetNewWord();
+        p1_word = GetNewWord(true);
+        p2_word = GetNewWord(false);
 
         CenterAndSpawnWord(p1_word, p1_wordSpawnArea, true);
         CenterAndSpawnWord(p2_word, p2_wordSpawnArea, false);
@@ -230,7 +230,7 @@ public class GameStateManager : MonoBehaviour
             }
             p1_spawnedLetters.Clear();
             // pick a new world
-            p1_word = GetNewWord();
+            p1_word = GetNewWord(true);
             // spawn letters for new word
             CenterAndSpawnWord(p1_word, p1_wordSpawnArea, true);
             PlaceGoldenLetter(true);
@@ -255,7 +255,7 @@ public class GameStateManager : MonoBehaviour
             }
             p2_spawnedLetters.Clear();
             // pick a new world
-            p2_word = GetNewWord();
+            p2_word = GetNewWord(false);
             // spawn letters for new word
             CenterAndSpawnWord(p2_word, p2_wordSpawnArea, false);
             PlaceGoldenLetter(false);
@@ -269,6 +269,8 @@ public class GameStateManager : MonoBehaviour
 
         RemoveGoldenLetter(false);
         AdjustMusicVolume();
+
+        
     }
     // -------------------------------------------------------------------
     void FixedUpdate()
@@ -276,12 +278,15 @@ public class GameStateManager : MonoBehaviour
 
     }
     // -------------------------------------------------------------------
-    public string GetNewWord()
+    public string GetNewWord(bool p1)
     {
-        // for now just reset
-        p1_curIndex = 0;
-        p2_curIndex = 0;
+        if (p1)
+            p1_curIndex = 0;
+        else
+            p2_curIndex = 0;
+
         int index = Random.Range(0, englishWords.Count);
+
         return englishWords[index].ToUpper().Trim();
     }
     // -------------------------------------------------------------------

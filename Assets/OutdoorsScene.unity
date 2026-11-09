@@ -1659,7 +1659,7 @@ Transform:
   m_GameObject: {fileID: 183789778}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.109999895, y: 3.62, z: -3.7299998}
+  m_LocalPosition: {x: -0.64999986, y: 3.62, z: -3.7299998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3346,8 +3346,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 496101310}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.54999995, y: 6.04, z: -3.7299998}
+  m_LocalRotation: {x: -0, y: -0.8456926, z: -0, w: 0.53367037}
+  m_LocalPosition: {x: -0.48000002, y: 6.04, z: -3.7299998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5836,6 +5836,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KeyInput
   player_1: 0
   player_2: 1
+  computer: 1
+  speed: 0.2
+  accuracy: 0.95
   player_1_correctSpawnPosition: {fileID: 860827830}
   player_1_incorrectSpawnPosition: {fileID: 1930354216}
   player_2_correctSpawnPosition: {fileID: 778672661}
@@ -9258,6 +9261,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KeyInput
   player_1: 1
   player_2: 0
+  computer: 0
+  speed: 1
+  accuracy: 0.5
   player_1_correctSpawnPosition: {fileID: 860827830}
   player_1_incorrectSpawnPosition: {fileID: 1930354216}
   player_2_correctSpawnPosition: {fileID: 778672661}

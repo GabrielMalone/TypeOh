@@ -25,11 +25,13 @@ public class finishLineScript : MonoBehaviour
         {
             GSM.player_1_winner = true;
             GSM.endGame = true;
+            GSM.gameStarted = false;
         }
         if (collision.gameObject.name == "p2_collector")
         {
             GSM.player_2_winner = true;
             GSM.endGame = true;
+            GSM.gameStarted = false;
         }
     }
     // ------------------------------------------------------------------- 

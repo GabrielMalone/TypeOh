@@ -3,8 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using Unity.Cinemachine;
-using System;
-
 // -----------------------------------------------------------------------
 public class KeyInput : MonoBehaviour
 {
@@ -12,6 +10,13 @@ public class KeyInput : MonoBehaviour
     [Header("Player Selection")]
     public bool player_1 = false;
     public bool player_2 = false;
+    public bool computer = false;
+
+    [Header("Computer Player Settings")]
+    public float speed = 1f;
+    public float accuracy = 0.5f;
+    private float timeLastTyped = 0f;
+
 
     [Header("Letter Spawn Position")]
     public Transform player_1_correctSpawnPosition;
@@ -91,8 +96,10 @@ public class KeyInput : MonoBehaviour
     void Update()
     {
         if (!gameOver && GSM.gameStarted)
+        {
             CheckForKeyInput();
-
+            ComptuerPlayer();
+        }
         if (player_1 && GSM.player_1_winner || player_2 && GSM.player_2_winner)
         {
             gameOver = true;
@@ -356,7 +363,7 @@ public class KeyInput : MonoBehaviour
                 desired_range,
                 t
             );
-            if (GSM.gameStarted && Math.Abs(cur_range - desired_range) > 2)
+            if (GSM.gameStarted && Mathf.Abs(cur_range - desired_range) > 2)
                 comboAudioSource.Play();
             yield return null;
         }
@@ -369,6 +376,29 @@ public class KeyInput : MonoBehaviour
             comboTracker = 0;
             GSM.ApplyUpwardForce(player_1);
             ShakeCamera();
+        }
+    }
+    // -------------------------------------------------------------------
+    void ComptuerPlayer()
+    {   
+        if (!computer) return;
+
+        char rnd_char = (char)Random.Range(65,91);
+        char cur_car = GSM.p2_word[GSM.p2_curIndex];
+
+        if (Time.time - timeLastTyped > speed) 
+        {
+            timeLastTyped = Time.time;
+            if (Random.value < accuracy)
+            {
+                GameObject curLetterObj = GameStateManager.letterObjects[cur_car];
+                KeyEventCoordinator(cur_car.ToString(), curLetterObj);
+            }
+            else
+            {
+                GameObject curLetterObj = GameStateManager.letterObjects[rnd_char];
+                KeyEventCoordinator(rnd_char.ToString(), curLetterObj);
+            }   
         }
     }
 }
