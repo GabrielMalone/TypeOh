@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using Unity.Cinemachine;
+using System.Collections.Generic;
 // -----------------------------------------------------------------------
 public class KeyInput : MonoBehaviour
 {
@@ -174,6 +175,11 @@ public class KeyInput : MonoBehaviour
         comboTracker++;
         // Debug.Log($"combotracker: {comboTracker} | comboNeeded: {comboNeeded}");
 
+        List<GameObject> spawnedLetters = 
+            player_1 ? 
+            GameStateManager.p1_spawnedLetters : 
+            GameStateManager.p2_spawnedLetters;
+
         GameObject newLetter = Instantiate(letterObject, correctSpawnPosition);
       
         if (player_1 && GSM.p1_goldenLetterIndex == GSM.p1_curIndex)
@@ -193,6 +199,8 @@ public class KeyInput : MonoBehaviour
         // increment correct index pos
         if (player_1)
         {
+            // gravity drop fx
+            spawnedLetters[GSM.p1_curIndex].GetComponent<LetterBehavior>().TypedFX();
             GSM.p1_curIndex++;
             GSM.player_1_correct_cnt++;
             GSM.player_1_platformLetters.Add(newLetter);
@@ -200,6 +208,7 @@ public class KeyInput : MonoBehaviour
         }
         if (!player_1)
         {
+            spawnedLetters[GSM.p2_curIndex].GetComponent<LetterBehavior>().TypedFX();
             GSM.p2_curIndex++;
             GSM.player_2_correct_cnt++;
             GSM.player_2_platformLetters.Add(newLetter);

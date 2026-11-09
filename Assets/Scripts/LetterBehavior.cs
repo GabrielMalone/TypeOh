@@ -18,7 +18,6 @@ public class LetterBehavior : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip collisionNoise;
     private bool collisionPlayed = false;
-    private int collisionCount = 0;
     // -------------------------------------------------------------------
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -48,6 +47,13 @@ public class LetterBehavior : MonoBehaviour
     {
         Rigidbody rb = gameObject.GetComponent<Rigidbody>();
         rb.mass = mass;
+    }
+    // -------------------------------------------------------------------
+    public void TypedFX()
+    {
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+        rb.useGravity = true;
+        rb.constraints = RigidbodyConstraints.None;
     }
     // -------------------------------------------------------------------
     void OnCollisionEnter(Collision collision)
