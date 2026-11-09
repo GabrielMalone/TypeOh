@@ -301,8 +301,6 @@ public class GameStateManager : MonoBehaviour
     // -------------------------------------------------------------------
     public string GetNewWord(bool p1)
     {
-        // cybernetic system 2
-
         if (p1)
             p1_curIndex = 0;
         else
@@ -310,38 +308,49 @@ public class GameStateManager : MonoBehaviour
 
         float hardChance;
         List<string> wordList;
-
         string player = p1 ? "player 1" : "player 2";
-        
-        // losing get easy word
-        if (p1 && p1_percent_complete < p2_percent_complete)
-        {
-            hardChance = 0.2f;
-        }
-        // losing get easy word
-        else if (!p1 && p2_percent_complete < p1_percent_complete)
-        {
-            hardChance = 0.2f;
-        }
-        // im in the lead, get harder word
-        else
-        {
-            hardChance = 0.8f;
-        }
+        string word = "";
+        // cybernetic system 2
 
-        if (Random.value < hardChance)
-        {
-            wordList = englishWordsHard;
-            Debug.Log($"hard word assigned for {player}");
-        }
-        else
-        {
-            wordList = englishWordsEasy;
-            Debug.Log($"easy word assigned for {player}");
-        }
+        bool wordFound = false;
 
-        int index = Random.Range(0, wordList.Count);
-        return wordList[index].ToUpper().Trim();
+        while (!wordFound)
+        {
+            // losing get easy word
+            if (p1 && p1_percent_complete < p2_percent_complete)
+            {
+                hardChance = 0.2f;
+            }
+            // losing get easy word
+            else if (!p1 && p2_percent_complete < p1_percent_complete)
+            {
+                hardChance = 0.2f;
+            }
+            // im in the lead, get harder word
+            else
+            {
+                hardChance = 0.8f;
+            }
+            // hard v easy word assignment
+            if (Random.value < hardChance)
+            {
+                wordList = englishWordsHard;
+                Debug.Log($"hard word assigned for {player}");
+            }
+            else
+            {
+                wordList = englishWordsEasy;
+                Debug.Log($"easy word assigned for {player}");
+            }
+            int index = Random.Range(0, wordList.Count);
+            word = wordList[index].ToUpper().Trim();
+            // word length check
+            if (word.Length > 2 && word.Length < 13)
+            {
+                wordFound = true;
+            }
+        }
+        return word;
     }
     // -------------------------------------------------------------------
     public bool CurWordIsFinished(bool p1)
