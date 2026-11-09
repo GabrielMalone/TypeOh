@@ -44,7 +44,7 @@ public class PlatformScript : MonoBehaviour
             float mass = collision.rigidbody.mass;
             // change impact to a percent and normalize it with cap of 1
             float volume = speed * mass / maxImpact;
-            Debug.Log($"volume for letters: {volume} | speed: {speed} | mass: {mass} |  maxImpact: {maxImpact}");
+             // Debug.Log($"volume for letters: {volume} | speed: {speed} | mass: {mass} |  maxImpact: {maxImpact}");
             audioSource.PlayOneShot(clankSound, volume);
         }
 

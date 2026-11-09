@@ -15,33 +15,45 @@ public class printSript : MonoBehaviour
     private float prevTime = 0f;
     private float totalDistance;
     public List<GameObject> statLetters = new List<GameObject>();
+    private Collider platformCollider;
+    private Collider finishCollider;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         GSM = GameStateManager.GetComponent<GameStateManager>();
         prevTime = Time.time;
         // let's delay this like 3 seconds since platforms needs to settle. 
-        Invoke(nameof(InitializeDistance), GSM.countDownTime);
+        Invoke(nameof(InitializeDistance), 3f);
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
     void Update()
     {
-        if (GSM.gameStarted)
-        {
-            UpdatePercentDone();
-        }
+      
+        UpdatePercentDone();
+        
     }
     // -------------------------------------------------------------------
     void UpdatePercentDone()
     {
+        float current_distance = Mathf.Abs(finishLine.transform.position.y - platform.transform.position.y);
+        currentPercent = Mathf.Clamp01(1 - (current_distance / totalDistance)) * 100f;
+
+        if (player_1)
+        {
+            GSM.p1_percent_complete = currentPercent;
+        }
+        else
+        {
+            GSM.p2_percent_complete = currentPercent;
+        }
+
         if (Time.time - prevTime > updateTime)
         {
-            float current_distance = Mathf.Abs(finishLine.transform.position.y - platform.transform.position.y);
+       
             ClearOldStats();
             prevTime = Time.time;
-            currentPercent = Mathf.Abs((1 - (current_distance / totalDistance)) * 100);
-            int floorPercent = Mathf.FloorToInt(currentPercent);
+            int floorPercent = Mathf.RoundToInt(currentPercent);
             //Debug.Log($"current percent: {floorPercent}");
             GSM.CenterAndSpawnWord(floorPercent.ToString() + "%", gameObject, true, statLetters, false);
             float rotation = player_1 ? -65f : 65f;
@@ -64,6 +76,9 @@ public class printSript : MonoBehaviour
     // -------------------------------------------------------------------
     void InitializeDistance()
     {
-        totalDistance = Mathf.Abs(platform.transform.position.y - finishLine.transform.position.y);
+        platformCollider = platform.GetComponent<Collider>();
+        finishCollider = finishLine.GetComponent<Collider>();
+
+        totalDistance = Mathf.Abs(platformCollider.transform.position.y - finishCollider.transform.position.y);
     }
 }

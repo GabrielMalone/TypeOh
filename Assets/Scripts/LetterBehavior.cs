@@ -63,7 +63,7 @@ public class LetterBehavior : MonoBehaviour
         float mass = collision.rigidbody.mass;
         float volume = Mathf.Clamp01(speed * mass / 1f);
         
-        Debug.Log($"volume for letters: {volume} | speed: {speed} | mass: {mass} |  maxImpact: {1f}");
+        // Debug.Log($"volume for letters: {volume} | speed: {speed} | mass: {mass} |  maxImpact: {1f}");
         audioSource.PlayOneShot(collisionNoise, volume);
     }
 

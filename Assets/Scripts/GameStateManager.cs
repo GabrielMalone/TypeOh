@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.UIElements;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -51,6 +52,8 @@ public class GameStateManager : MonoBehaviour
     public GameObject player_2_stats_area;
     public List<GameObject> player_1_platformLetters = new List<GameObject>();
     public List<GameObject> player_2_platformLetters = new List<GameObject>();
+    public float p1_percent_complete;
+    public float p2_percent_complete;
 
     [Header("End Game Settings")]
     public bool gameStarted = false;
@@ -346,11 +349,13 @@ public class GameStateManager : MonoBehaviour
     }
     // -------------------------------------------------------------------
     public void CenterAndSpawnWord(
+
             string currentWord,
             GameObject spawnArea,
             bool p1,
             List<GameObject> otherList = null,
             bool mainWord = true
+
         )
     {
 
@@ -438,9 +443,30 @@ public class GameStateManager : MonoBehaviour
     // -------------------------------------------------------------------
     public void PlaceGoldenLetter(bool p1)
     {   
+        // will set up some cybernetic stuff here
+        // greater chance of oglden 
+        float goldenChance;
+
+        if (p1 && p1_percent_complete < p2_percent_complete)
+        {
+            goldenChance = 0.8f;
+        }
+        else if (!p1 && p2_percent_complete < p1_percent_complete)
+        {
+            goldenChance = 0.8f;
+        }
+        else
+        {
+            goldenChance = 0.2f;
+        }
+
+        if (Random.value > goldenChance) return;
+
         List<GameObject> spawnedLetters = p1 ? p1_spawnedLetters : p2_spawnedLetters;
+        string cur_word = p1 ? p1_word : p2_word;
 
         int rnd_inx = Mathf.FloorToInt(Random.Range(0, spawnedLetters.Count));
+        rnd_inx = Mathf.FloorToInt(cur_word.Length / 2);
 
         if (p1)
             p1_goldenLetterIndex = rnd_inx;
@@ -502,7 +528,13 @@ public class GameStateManager : MonoBehaviour
         // need spawn point for countdown numbers
         for (int i = 0; i < countDownTime; i++)
         {
-            CenterAndSpawnWord((countDownTime - i).ToString(), countDownSpawnArea, false, countdownLetters, false);
+            CenterAndSpawnWord(
+                (countDownTime - i).ToString(), 
+                countDownSpawnArea, 
+                false, 
+                countdownLetters, 
+                false
+            );
             countDownSource.Play();
             yield return new WaitForSeconds(1f);
             Destroy(countdownLetters[0]);
@@ -510,7 +542,12 @@ public class GameStateManager : MonoBehaviour
 
         }
 
-        countDownSpawnArea.transform.position = new Vector3(1.94f, countDownSpawnArea.transform.position.y, countDownSpawnArea.transform.position.z);
+        countDownSpawnArea.transform.position = 
+            new Vector3(
+                1.94f, 
+                countDownSpawnArea.transform.position.y, 
+                countDownSpawnArea.transform.position.z
+            );
         CenterAndSpawnWord("GO", countDownSpawnArea, false, countdownLetters, false);
         countDownSource.clip = beep_1;
         countDownSource.Play();
@@ -551,6 +588,9 @@ public class GameStateManager : MonoBehaviour
     // -------------------------------------------------------------------
     void InitializeDistance()
     {
-        totalPlatformDistance = Mathf.Abs(player_1_platform.transform.position.y - finishLine.transform.position.y);
+        totalPlatformDistance = 
+            Mathf.Abs(
+                player_1_platform.transform.position.y - finishLine.transform.position.y
+            );
     }
 }
