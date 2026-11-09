@@ -502,7 +502,7 @@ public class GameStateManager : MonoBehaviour
         // need spawn point for countdown numbers
         for (int i = 0; i < countDownTime; i++)
         {
-            CenterAndSpawnWord((countDownTime - i).ToString(), countDownSpawnArea, true, countdownLetters, false);
+            CenterAndSpawnWord((countDownTime - i).ToString(), countDownSpawnArea, false, countdownLetters, false);
             countDownSource.Play();
             yield return new WaitForSeconds(1f);
             Destroy(countdownLetters[0]);
@@ -511,7 +511,7 @@ public class GameStateManager : MonoBehaviour
         }
 
         countDownSpawnArea.transform.position = new Vector3(1.94f, countDownSpawnArea.transform.position.y, countDownSpawnArea.transform.position.z);
-        CenterAndSpawnWord("GO", countDownSpawnArea, true, countdownLetters, false);
+        CenterAndSpawnWord("GO", countDownSpawnArea, false, countdownLetters, false);
         countDownSource.clip = beep_1;
         countDownSource.Play();
         yield return new WaitForSeconds(1f);

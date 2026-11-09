@@ -44,6 +44,8 @@ public class printSript : MonoBehaviour
             int floorPercent = Mathf.FloorToInt(currentPercent);
             //Debug.Log($"current percent: {floorPercent}");
             GSM.CenterAndSpawnWord(floorPercent.ToString() + "%", gameObject, true, statLetters, false);
+            float rotation = player_1 ? -65f : 65f;
+            gameObject.transform.Rotate(0f, rotation, 0f);
         }
     }
     // -------------------------------------------------------------------
