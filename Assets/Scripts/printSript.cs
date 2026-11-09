@@ -9,6 +9,9 @@ public class printSript : MonoBehaviour
     public GameObject finishLine;
     public GameObject platform;
     public bool player_1 = false;
+    public Material p1_percent_mat;
+    public Material p2_percent_mat;
+    private Material material;
     private GameStateManager GSM;
     private float currentPercent = 0;
     private float updateTime = 0.2f;
@@ -24,6 +27,7 @@ public class printSript : MonoBehaviour
         prevTime = Time.time;
         // let's delay this like 3 seconds since platforms needs to settle. 
         Invoke(nameof(InitializeDistance), 3f);
+        material = player_1 ? p1_percent_mat : p2_percent_mat;
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
@@ -58,6 +62,7 @@ public class printSript : MonoBehaviour
             GSM.CenterAndSpawnWord(floorPercent.ToString() + "%", gameObject, true, statLetters, false);
             float rotation = player_1 ? -65f : 65f;
             gameObject.transform.Rotate(0f, rotation, 0f);
+            SetStatMaterial();
         }
     }
     // -------------------------------------------------------------------
@@ -71,7 +76,15 @@ public class printSript : MonoBehaviour
         }
 
         statLetters.Clear();
-
+    }
+    // -------------------------------------------------------------------
+    void SetStatMaterial()
+    {
+        foreach (GameObject letter in statLetters)
+        {
+            Renderer renderer = letter.GetComponentInChildren<Renderer>();
+            renderer.material = material;
+        }
     }
     // -------------------------------------------------------------------
     void InitializeDistance()

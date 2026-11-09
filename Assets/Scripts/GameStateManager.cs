@@ -69,6 +69,9 @@ public class GameStateManager : MonoBehaviour
     public GameObject p2_wordSpawnArea;
     public GameObject countDownSpawnArea;
     public Material GoldenLetterMat;
+    public Material basicLetterMat;
+    public Material p1_Material;
+    public Material p2_Material;
 
     [Header("Alphabet Game Objects")]
     public GameObject A;
@@ -351,7 +354,8 @@ public class GameStateManager : MonoBehaviour
             }
             else 
             {
-                lb.SetLetterMaterial(lb.NextLetterMaterial);
+                Material basic = p1 ? p1_Material : p2_Material;
+                lb.SetLetterMaterial(basic);
             }
         }
     }
@@ -582,7 +586,7 @@ public class GameStateManager : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("Playing Music!");
+        // Debug.Log("Playing Music!");
 
         gameMusicSource.volume = 0.1f;
     }
@@ -593,7 +597,7 @@ public class GameStateManager : MonoBehaviour
         float p2_distance = Mathf.Abs(player_2_platform.transform.position.y - finishLine.transform.position.y);
         float min_distance = Mathf.Min(p1_distance, p2_distance);
         float currentPercent = Mathf.Clamp01(1 - (min_distance / totalPlatformDistance));
-        Debug.Log($"volume: {currentPercent}");
+        // Debug.Log($"volume: {currentPercent}");
         gameMusicSource.volume = currentPercent;
     }
     // -------------------------------------------------------------------
