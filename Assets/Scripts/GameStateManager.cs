@@ -17,8 +17,6 @@ public class GameStateManager : MonoBehaviour
     public int p2_goldenLetterIndex = -1;
     public float goldenMassMultiplier = 10f;
     public float goldenLetterScaler = 1f;
-    public bool p1_goldenLetterTriggered = false;
-    public bool p2_goldenLetterTriggered = false;
 
     [Header("Game Start Settings")]
     public int countDownTime = 3;
@@ -123,8 +121,6 @@ public class GameStateManager : MonoBehaviour
     public bool p1_word_set = false;
     public bool p2_word_set = false;
     private bool victorySoundPlayed = false;
-    private bool firstStart = false;
-
     // -------------------------------------------------------------------
     // TODO -> 
     // -------------------------------------------------------------------
@@ -221,6 +217,10 @@ public class GameStateManager : MonoBehaviour
     {
         p1_word = GetNewWord(true);
         p2_word = GetNewWord(false);
+        p1_wordSpawnArea.SetActive(false);
+        p2_wordSpawnArea.SetActive(false);
+        CenterAndSpawnWord(p1_word, p1_wordSpawnArea, true);
+        CenterAndSpawnWord(p2_word, p2_wordSpawnArea, false);
         StartCoroutine(FadeInMusic());
         StartCoroutine(StartGame());
         Invoke(nameof(InitializeDistance), countDownTime);
@@ -230,7 +230,7 @@ public class GameStateManager : MonoBehaviour
     void Update()
     {
         // p1 branch
-        if (CurWordIsFinished(true) || firstStart)
+        if (CurWordIsFinished(true))
         {
             // get rid of old letters
             foreach (GameObject letter in p1_spawnedLetters)
@@ -252,12 +252,11 @@ public class GameStateManager : MonoBehaviour
             p1_word_set = true;
         }
 
-        RemoveGoldenLetter(true);
+        // RemoveGoldenLetter(true);
            
         // p2 branch
-        if (CurWordIsFinished(false) || firstStart)
+        if (CurWordIsFinished(false))
         {
-            firstStart = false;
             // get rid of old letters
             foreach (GameObject letter in p2_spawnedLetters)
             {
@@ -277,7 +276,7 @@ public class GameStateManager : MonoBehaviour
             p2_word_set = true;
         }
 
-        RemoveGoldenLetter(false);
+        // RemoveGoldenLetter(false);
 
         AdjustMusicVolume();
 
@@ -397,7 +396,9 @@ public class GameStateManager : MonoBehaviour
             GameObject curLetterObj = spawnedLetters[i];
             LetterBehavior lb = curLetterObj.GetComponent<LetterBehavior>();
 
-            if (lb.goldenLetter) continue;
+            if (p1 && lb.p1_goldenLetter) continue;
+            if (!p1 && lb.p2_goldenLetter) continue;
+
             // highlight the current letter
             if (p1 && p1_curIndex == i)
             {
@@ -405,6 +406,7 @@ public class GameStateManager : MonoBehaviour
                 // blinkin fx
                 lb.currentlySelected = true;
             } 
+     
             // highlight the current letter
             else if (!p1 && p2_curIndex == i)
             {
@@ -516,73 +518,51 @@ public class GameStateManager : MonoBehaviour
     {   
         // will set up some cybernetic stuff here
         // greater chance of oglden 
-        // float goldenChance;
+        float goldenChance;
 
-        // if (p1 && p1_percent_complete < p2_percent_complete)
-        // {
-        //     goldenChance = 0.8f;
-        // }
-        // else if (!p1 && p2_percent_complete < p1_percent_complete)
-        // {
-        //     goldenChance = 0.8f;
-        // }
-        // else
-        // {
-        //     goldenChance = 0.2f;
-        // }
+        if (p1 && p1_percent_complete > p2_percent_complete)
+        {
+            p1_goldenLetterIndex = -1;
+            goldenChance = 0.8f;
+            return;
+        }
+        else if (!p1 && p2_percent_complete > p1_percent_complete)
+        {
+            p2_goldenLetterIndex = -1;
+            return;
+            goldenChance = 0.8f;
+        }
+        else
+        {
+            goldenChance = 0.2f;
+        }
 
         // if (Random.value > goldenChance) return;
+        
 
         List<GameObject> spawnedLetters = p1 ? p1_spawnedLetters : p2_spawnedLetters;
         string cur_word = p1 ? p1_word : p2_word;
-
         int rnd_inx = Mathf.FloorToInt(Random.Range(0, spawnedLetters.Count));
         rnd_inx = Mathf.FloorToInt(cur_word.Length / 2);
+        GameObject goldenLetter = spawnedLetters[rnd_inx];
+        LetterBehavior lb = goldenLetter.GetComponent<LetterBehavior>();
 
         if (p1)
         {
             p1_goldenLetterIndex = rnd_inx;
             Debug.Log($"golden letter index for player 1: {p1_goldenLetterIndex}");
+            lb.p1_goldenLetter = true;
         }
             
         else
         {
             p2_goldenLetterIndex = rnd_inx;
             Debug.Log($"golden letter index for player 1: {p2_goldenLetterIndex}");
+            lb.p2_goldenLetter = true;
         }
             
-        GameObject goldenLetter = spawnedLetters[rnd_inx];
-        LetterBehavior lb = goldenLetter.GetComponent<LetterBehavior>();
-        lb.goldenLetter = true;
         lb.SetLetterScale(goldenLetterScaler);
         lb.SetLetterMaterial(GoldenLetterMat);
-    }
-    // -------------------------------------------------------------------
-    public void RemoveGoldenLetter(bool p1)
-    {
-
-        int goldenLetterIndex = p1 ? p1_goldenLetterIndex : p2_goldenLetterIndex;
-        bool goldenLetterTriggered = p1 ? p1_goldenLetterTriggered : p2_goldenLetterTriggered;
-        Material material = p1 ? p1_Material : p2_Material;
-
-        if (goldenLetterTriggered)
-        {
-            List<GameObject> spawnedLetters = p1 ? p1_spawnedLetters : p2_spawnedLetters;
-            
-            if (p1)
-            {
-                p1_goldenLetterTriggered = false;
-            }
-            else
-            {
-                p2_goldenLetterTriggered = false;
-            }
-            GameObject goldenLetter = spawnedLetters[goldenLetterIndex];
-            LetterBehavior lb = goldenLetter.GetComponent<LetterBehavior>();
-            lb.goldenLetter = false;
-            lb.SetLetterScale(0.5f);
-            lb.SetLetterMaterial(material);
-        }
     }
     // -------------------------------------------------------------------
     public void ApplyUpwardForce(bool p1)
@@ -601,8 +581,8 @@ public class GameStateManager : MonoBehaviour
     // -------------------------------------------------------------------
     public IEnumerator StartGame()
     {
+     
         List<GameObject> countdownLetters = new List<GameObject>();
-
         // need spawn point for countdown numbers
         for (int i = 0; i < countDownTime; i++)
         {
@@ -639,7 +619,8 @@ public class GameStateManager : MonoBehaviour
         foreach (GameObject letter in countdownLetters) Destroy(letter);
         countdownLetters.Clear();
         gameStarted = true;
-        firstStart = true;
+        p1_wordSpawnArea.SetActive(true);
+        p2_wordSpawnArea.SetActive(true);
     }
     // -------------------------------------------------------------------
     public IEnumerator FadeInMusic()

@@ -176,18 +176,16 @@ public class KeyInput : MonoBehaviour
             GameStateManager.p2_spawnedLetters;
 
         GameObject newLetter = Instantiate(letterObject, correctSpawnPosition);
-      
+
         if (player_1 && GSM.p1_goldenLetterIndex == GSM.p1_curIndex)
         {
             GoldenFx(newLetter);
-            GSM.p1_goldenLetterTriggered = true;
             goldenLetterAudioSource.Play();
         }
 
         if (!player_1 && GSM.p2_goldenLetterIndex == GSM.p2_curIndex)
         {
             GoldenFx(newLetter);
-            GSM.p2_goldenLetterTriggered = true;
             goldenLetterAudioSource.Play();
         }
      
@@ -411,5 +409,6 @@ public class KeyInput : MonoBehaviour
             }   
         }
     }
+    // -------------------------------------------------------------------
 }
 

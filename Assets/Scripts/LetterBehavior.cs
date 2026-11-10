@@ -15,7 +15,8 @@ public class LetterBehavior : MonoBehaviour
     public float letterScale = 1f;
 
     [Header("Special Settings")]
-    public bool goldenLetter = false;
+    public bool p1_goldenLetter = false;
+    public bool p2_goldenLetter = false;
     public AudioSource audioSource;
     public AudioClip collisionNoise;
     private bool collisionPlayed = false;
