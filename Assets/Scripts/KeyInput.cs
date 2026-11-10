@@ -195,7 +195,7 @@ public class KeyInput : MonoBehaviour
         if (player_1)
         {
             // gravity drop fx
-            //spawnedLetters[GSM.p1_curIndex].GetComponent<LetterBehavior>().TypedFX();
+            spawnedLetters[GSM.p1_curIndex].SetActive(false);
             GSM.p1_curIndex++;
             GSM.player_1_correct_cnt++;
             GSM.player_1_platformLetters.Add(newLetter);
@@ -203,7 +203,7 @@ public class KeyInput : MonoBehaviour
         }
         if (!player_1)
         {
-           //spawnedLetters[GSM.p2_curIndex].GetComponent<LetterBehavior>().TypedFX();
+            spawnedLetters[GSM.p2_curIndex].SetActive(false);
             GSM.p2_curIndex++;
             GSM.player_2_correct_cnt++;
             GSM.player_2_platformLetters.Add(newLetter);
