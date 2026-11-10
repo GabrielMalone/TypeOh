@@ -20,6 +20,8 @@ public class printSript : MonoBehaviour
     public List<GameObject> statLetters = new List<GameObject>();
     private Collider platformCollider;
     private Collider finishCollider;
+    private float prevDistance;
+    private bool distanceSet = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,17 +30,18 @@ public class printSript : MonoBehaviour
         // let's delay this like 3 seconds since platforms needs to settle. 
         Invoke(nameof(InitializeDistance), 3f);
         material = player_1 ? p1_percent_mat : p2_percent_mat;
+        UpdatePercentDone(true);
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
     void Update()
     {
-      
-        UpdatePercentDone();
+        if (distanceSet)
+            UpdatePercentDone();
         
     }
     // -------------------------------------------------------------------
-    void UpdatePercentDone()
+    void UpdatePercentDone(bool firstTimeRunning = false)
     {
         float current_distance = Mathf.Abs(finishLine.transform.position.y - platform.transform.position.y);
         currentPercent = Mathf.Clamp01(1 - (current_distance / totalDistance)) * 100f;
@@ -52,9 +55,10 @@ public class printSript : MonoBehaviour
             GSM.p2_percent_complete = currentPercent;
         }
 
-        if (Time.time - prevTime > updateTime)
+        bool distanceChanged = Mathf.Abs(current_distance - prevDistance) > 0.001;
+
+        if (firstTimeRunning || ((Time.time - prevTime > updateTime) && distanceChanged))
         {
-       
             ClearOldStats();
             prevTime = Time.time;
             int floorPercent = Mathf.RoundToInt(currentPercent);
@@ -64,6 +68,9 @@ public class printSript : MonoBehaviour
             gameObject.transform.Rotate(0f, rotation, 0f);
             SetStatMaterial();
         }
+
+        prevDistance = current_distance;
+
     }
     // -------------------------------------------------------------------
     void ClearOldStats()
@@ -93,5 +100,7 @@ public class printSript : MonoBehaviour
         finishCollider = finishLine.GetComponent<Collider>();
         totalDistance = Mathf.Abs(platformCollider.transform.position.y - finishCollider.transform.position.y);
         GSM.totalPlatformDistance = totalDistance;
+        prevDistance = totalDistance;
+        distanceSet = true;
     }
 }
