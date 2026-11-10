@@ -48,18 +48,30 @@ public class LetterBehavior : MonoBehaviour
         Color ogEmission = material.GetColor("_EmissiveColor");
         
         float blinkTime = 0.2f;
+        float offsetY = 0.25f;
+        float offsetX = 0.25f;
+        float s = 1.5f;
         float startTime = Time.time;
-        float intensity;
+        float i;
+
+        gameObject.transform.position = new UnityEngine.Vector3(
+           gameObject.transform.position.x - offsetX,
+           gameObject.transform.position.y - offsetY ,
+           gameObject.transform.position.z
+       );
 
         while (Time.time - startTime < blinkTime)
         {
             float t = (Time.time - startTime) / blinkTime;
-            intensity = Mathf.Lerp(
+            i = Mathf.Lerp(
                 1,
                 0,
                 t
             );
-            material.SetColor("_EmissiveColor", ogEmission * intensity);
+            material.SetColor("_EmissiveColor", ogEmission * i);
+            gameObject.transform.localScale = new UnityEngine.Vector3(i*s, i*s, i*s);
+
+       
             yield return null;
         }
     
@@ -70,14 +82,22 @@ public class LetterBehavior : MonoBehaviour
         while (Time.time - startTime < blinkTime)
         {
             float t = (Time.time - startTime) / blinkTime;
-            intensity = Mathf.Lerp(
+            i = Mathf.Lerp(
                 0,
                 1,
                 t
             );
-            material.SetColor("_EmissiveColor", ogEmission * intensity);
+       
+            gameObject.transform.localScale = new UnityEngine.Vector3(i*s, i*s, i*s);
+            material.SetColor("_EmissiveColor", ogEmission * i);
             yield return null;
         }
+
+        gameObject.transform.position = new UnityEngine.Vector3(
+           gameObject.transform.position.x + offsetX,
+           gameObject.transform.position.y + offsetY,
+           gameObject.transform.position.z
+       );
 
         material.SetColor("_EmissiveColor", ogEmission);
         blinking = false;

@@ -246,6 +246,9 @@ public class GameStateManager : MonoBehaviour
             p1_word_set = false;
         }
         // move highlighted material 
+        // wordset was wrong 
+        // choice for name
+        // so ignore
         if (!p1_word_set)
         {
             UpdateWordMaterials(true);
@@ -391,22 +394,34 @@ public class GameStateManager : MonoBehaviour
         if (word.Length < 1) return;
         if (spawnedLetters.Count < 1) return;
 
+        Debug.Log($"Golden Letter index: {p1_goldenLetterIndex} | p1_curIndex: {p1_curIndex}");
+
+      
         for (int i = 0; i < word.Length; i++)
         {
             GameObject curLetterObj = spawnedLetters[i];
             LetterBehavior lb = curLetterObj.GetComponent<LetterBehavior>();
 
-            if (p1 && lb.p1_goldenLetter) continue;
-            if (!p1 && lb.p2_goldenLetter) continue;
+            if (p1 && p1_goldenLetterIndex == p1_curIndex &&lb.p1_goldenLetter)
+            {
+                lb.currentlySelected = true;
+            }
 
+
+            if (p1 && lb.p1_goldenLetter)
+            {
+                continue;
+            } 
+            if (!p1 && lb.p2_goldenLetter)
+            {
+                continue;
+            } 
             // highlight the current letter
             if (p1 && p1_curIndex == i)
             {
                 lb.SetLetterMaterial(player_1_material);
-                // blinkin fx
                 lb.currentlySelected = true;
             } 
-     
             // highlight the current letter
             else if (!p1 && p2_curIndex == i)
             {
@@ -518,24 +533,24 @@ public class GameStateManager : MonoBehaviour
     {   
         // will set up some cybernetic stuff here
         // greater chance of oglden 
-        float goldenChance;
+        // float goldenChance;
 
-        if (p1 && p1_percent_complete > p2_percent_complete)
-        {
-            p1_goldenLetterIndex = -1;
-            goldenChance = 0.8f;
-            return;
-        }
-        else if (!p1 && p2_percent_complete > p1_percent_complete)
-        {
-            p2_goldenLetterIndex = -1;
-            return;
-            goldenChance = 0.8f;
-        }
-        else
-        {
-            goldenChance = 0.2f;
-        }
+        // if (p1 && p1_percent_complete > p2_percent_complete)
+        // {
+        //     p1_goldenLetterIndex = -1;
+        //     goldenChance = 0.8f;
+        //     return;
+        // }
+        // else if (!p1 && p2_percent_complete > p1_percent_complete)
+        // {
+        //     p2_goldenLetterIndex = -1;
+        //     return;
+        //     goldenChance = 0.8f;
+        // }
+        // else
+        // {
+        //     goldenChance = 0.2f;
+        // }
 
         // if (Random.value > goldenChance) return;
         

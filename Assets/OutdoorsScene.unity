@@ -5390,8 +5390,6 @@ MonoBehaviour:
   p2_goldenLetterIndex: -1
   goldenMassMultiplier: 10
   goldenLetterScaler: 0.5
-  p1_goldenLetterTriggered: 0
-  p2_goldenLetterTriggered: 0
   countDownTime: 3
   musicFadeInTime: 5
   p1_platform: {fileID: 994735117}
@@ -5403,8 +5401,8 @@ MonoBehaviour:
   beep_1: {fileID: 8300000, guid: b2f34eeedc6df412fab8f2b24b5e1d2c, type: 3}
   player_1: {fileID: 1771319987}
   player_2: {fileID: 929033122}
-  player_1_material: {fileID: 2100000, guid: 7cd94846a33da46f598111d204130a11, type: 2}
-  player_2_material: {fileID: 2100000, guid: 0fa456f79b93f47e0bd931c18a916efc, type: 2}
+  player_1_material: {fileID: 2100000, guid: cfb16296380964658a5c11226330dfa0, type: 2}
+  player_2_material: {fileID: 2100000, guid: 34a8f052067d049c9909594f30de97d7, type: 2}
   player_1_platform: {fileID: 1014663150}
   player_2_platform: {fileID: 1431308733}
   player_1_spring: {fileID: 1871610276}
@@ -5834,7 +5832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KeyInput
   player_1: 0
   player_2: 1
-  computer: 1
+  computer: 0
   speed: 0.15
   accuracy: 0.99
   player_1_correctSpawnPosition: {fileID: 860827830}
