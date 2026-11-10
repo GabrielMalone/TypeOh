@@ -317,7 +317,6 @@ public class GameStateManager : MonoBehaviour
         string player = p1 ? "player 1" : "player 2";
         string word = "";
         // cybernetic system 2
-
         bool wordFound = false;
 
         while (!wordFound)
@@ -390,7 +389,8 @@ public class GameStateManager : MonoBehaviour
             p1_spawnedLetters : 
             p2_spawnedLetters;
 
-        if (word.Length <= 0) return;
+        if (word.Length < 1) return;
+        if (spawnedLetters.Count < 1) return;
 
         for (int i = 0; i < word.Length; i++)
         {
@@ -430,7 +430,6 @@ public class GameStateManager : MonoBehaviour
 
         )
     {
-
         List<GameObject> spawnedLetters = p1 ? p1_spawnedLetters : p2_spawnedLetters;
 
         MeshCollider mc = spawnArea.GetComponent<MeshCollider>();
@@ -517,22 +516,22 @@ public class GameStateManager : MonoBehaviour
     {   
         // will set up some cybernetic stuff here
         // greater chance of oglden 
-        float goldenChance;
+        // float goldenChance;
 
-        if (p1 && p1_percent_complete < p2_percent_complete)
-        {
-            goldenChance = 0.8f;
-        }
-        else if (!p1 && p2_percent_complete < p1_percent_complete)
-        {
-            goldenChance = 0.8f;
-        }
-        else
-        {
-            goldenChance = 0.2f;
-        }
+        // if (p1 && p1_percent_complete < p2_percent_complete)
+        // {
+        //     goldenChance = 0.8f;
+        // }
+        // else if (!p1 && p2_percent_complete < p1_percent_complete)
+        // {
+        //     goldenChance = 0.8f;
+        // }
+        // else
+        // {
+        //     goldenChance = 0.2f;
+        // }
 
-        if (Random.value > goldenChance) return;
+        // if (Random.value > goldenChance) return;
 
         List<GameObject> spawnedLetters = p1 ? p1_spawnedLetters : p2_spawnedLetters;
         string cur_word = p1 ? p1_word : p2_word;
