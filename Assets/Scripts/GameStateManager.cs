@@ -221,16 +221,8 @@ public class GameStateManager : MonoBehaviour
     {
         p1_word = GetNewWord(true);
         p2_word = GetNewWord(false);
-
-        // CenterAndSpawnWord(p1_word, p1_wordSpawnArea, true);
-        // CenterAndSpawnWord(p2_word, p2_wordSpawnArea, false);
-        
-        // PlaceGoldenLetter(true);
-        // PlaceGoldenLetter(false);
-
         StartCoroutine(FadeInMusic());
         StartCoroutine(StartGame());
-
         Invoke(nameof(InitializeDistance), countDownTime);
     }
     // -------------------------------------------------------------------
@@ -299,11 +291,6 @@ public class GameStateManager : MonoBehaviour
         
     }
     // -------------------------------------------------------------------
-    void FixedUpdate()
-    {
-
-    }
-
     void CheckForReset()
     {
         if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.rKey.isPressed)
@@ -398,7 +385,10 @@ public class GameStateManager : MonoBehaviour
     {
         string word = p1 ? p1_word : p2_word;
 
-        List<GameObject> spawnedLetters = p1 ? p1_spawnedLetters : p2_spawnedLetters;
+        List<GameObject> spawnedLetters = 
+            p1 ? 
+            p1_spawnedLetters : 
+            p2_spawnedLetters;
 
         if (word.Length <= 0) return;
 
@@ -411,14 +401,16 @@ public class GameStateManager : MonoBehaviour
             // highlight the current letter
             if (p1 && p1_curIndex == i)
             {
-                // Debug.Log($"setting material for player 1, letter: {word[i]} on gameobject: {curLetterObj.name}");
                 lb.SetLetterMaterial(player_1_material);
+                // blinkin fx
+                lb.currentlySelected = true;
             } 
             // highlight the current letter
             else if (!p1 && p2_curIndex == i)
             {
                 // change these to some diff color for p2 
                 lb.SetLetterMaterial(player_2_material);
+                lb.currentlySelected = true;
             }
             else 
             {

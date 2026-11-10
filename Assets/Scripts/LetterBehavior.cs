@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Numerics;
 using UnityEngine;
 
@@ -18,18 +19,67 @@ public class LetterBehavior : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip collisionNoise;
     private bool collisionPlayed = false;
+    private Renderer renderer;
+    private bool blinking = false;
+    public bool currentlySelected = false;
     // -------------------------------------------------------------------
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
        Destroy(gameObject, timeToLive);
        // gameObject.transform.localScale = Vector3.one * letterScale;
+       renderer = gameObject.GetComponentInChildren<Renderer>();
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
     void Update()
     {
-       
+       if (currentlySelected && !blinking)
+        {
+            StartCoroutine(CursorBlink());
+        }
+    }
+    // -------------------------------------------------------------------
+    public IEnumerator CursorBlink()
+    {
+        blinking = true;
+        Material material = renderer.material;
+        Color ogEmission = material.GetColor("_EmissiveColor");
+        
+        float blinkTime = 0.2f;
+        float startTime = Time.time;
+        float intensity;
+
+        while (Time.time - startTime < blinkTime)
+        {
+            float t = (Time.time - startTime) / blinkTime;
+            intensity = Mathf.Lerp(
+                1,
+                0,
+                t
+            );
+            material.SetColor("_EmissiveColor", ogEmission * intensity);
+            yield return null;
+        }
+    
+        material.SetColor("_EmissiveColor", ogEmission * 0);
+
+        startTime = Time.time;
+
+        while (Time.time - startTime < blinkTime)
+        {
+            float t = (Time.time - startTime) / blinkTime;
+            intensity = Mathf.Lerp(
+                0,
+                1,
+                t
+            );
+            material.SetColor("_EmissiveColor", ogEmission * intensity);
+            yield return null;
+        }
+
+        material.SetColor("_EmissiveColor", ogEmission);
+        blinking = false;
     }
     // -------------------------------------------------------------------
     public void SetLetterScale(float scale)
