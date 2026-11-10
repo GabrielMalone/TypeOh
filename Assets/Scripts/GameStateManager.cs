@@ -13,8 +13,8 @@ public class GameStateManager : MonoBehaviour
     public int p2_curIndex = 0;
     public float maxPlatformForce = 4900f;
     public float comboForce = 1000f;
-    public int p1_goldenLetterIndex;
-    public int p2_goldenLetterIndex;
+    public int p1_goldenLetterIndex = -1;
+    public int p2_goldenLetterIndex = -1;
     public float goldenMassMultiplier = 10f;
     public float goldenLetterScaler = 1f;
     public bool p1_goldenLetterTriggered = false;
@@ -123,6 +123,7 @@ public class GameStateManager : MonoBehaviour
     public bool p1_word_set = false;
     public bool p2_word_set = false;
     private bool victorySoundPlayed = false;
+    private bool firstStart = false;
 
     // -------------------------------------------------------------------
     // TODO -> 
@@ -221,11 +222,11 @@ public class GameStateManager : MonoBehaviour
         p1_word = GetNewWord(true);
         p2_word = GetNewWord(false);
 
-        CenterAndSpawnWord(p1_word, p1_wordSpawnArea, true);
-        CenterAndSpawnWord(p2_word, p2_wordSpawnArea, false);
+        // CenterAndSpawnWord(p1_word, p1_wordSpawnArea, true);
+        // CenterAndSpawnWord(p2_word, p2_wordSpawnArea, false);
         
-        PlaceGoldenLetter(true);
-        PlaceGoldenLetter(false);
+        // PlaceGoldenLetter(true);
+        // PlaceGoldenLetter(false);
 
         StartCoroutine(FadeInMusic());
         StartCoroutine(StartGame());
@@ -237,7 +238,7 @@ public class GameStateManager : MonoBehaviour
     void Update()
     {
         // p1 branch
-        if (CurWordIsFinished(true))
+        if (CurWordIsFinished(true) || firstStart)
         {
             // get rid of old letters
             foreach (GameObject letter in p1_spawnedLetters)
@@ -261,10 +262,10 @@ public class GameStateManager : MonoBehaviour
 
         RemoveGoldenLetter(true);
            
-        
         // p2 branch
-        if (CurWordIsFinished(false))
+        if (CurWordIsFinished(false) || firstStart)
         {
+            firstStart = false;
             // get rid of old letters
             foreach (GameObject letter in p2_spawnedLetters)
             {
@@ -293,8 +294,6 @@ public class GameStateManager : MonoBehaviour
             victorySoundPlayed = true;
             countDownSource.PlayOneShot(victorySound);
         }
-        
-        
         
         CheckForReset();
         
@@ -550,10 +549,17 @@ public class GameStateManager : MonoBehaviour
         rnd_inx = Mathf.FloorToInt(cur_word.Length / 2);
 
         if (p1)
+        {
             p1_goldenLetterIndex = rnd_inx;
+            Debug.Log($"golden letter index for player 1: {p1_goldenLetterIndex}");
+        }
+            
         else
+        {
             p2_goldenLetterIndex = rnd_inx;
-
+            Debug.Log($"golden letter index for player 1: {p2_goldenLetterIndex}");
+        }
+            
         GameObject goldenLetter = spawnedLetters[rnd_inx];
         LetterBehavior lb = goldenLetter.GetComponent<LetterBehavior>();
         lb.goldenLetter = true;
@@ -637,11 +643,12 @@ public class GameStateManager : MonoBehaviour
         {
             letter.GetComponentInChildren<Renderer>().material = basicLetterMat;
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
 
         foreach (GameObject letter in countdownLetters) Destroy(letter);
         countdownLetters.Clear();
         gameStarted = true;
+        firstStart = true;
     }
     // -------------------------------------------------------------------
     public IEnumerator FadeInMusic()

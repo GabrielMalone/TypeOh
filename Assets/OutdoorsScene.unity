@@ -5386,13 +5386,13 @@ MonoBehaviour:
   p2_curIndex: 0
   maxPlatformForce: 4905
   comboForce: 1000
-  p1_goldenLetterIndex: 0
-  p2_goldenLetterIndex: 0
+  p1_goldenLetterIndex: -1
+  p2_goldenLetterIndex: -1
   goldenMassMultiplier: 10
   goldenLetterScaler: 0.5
   p1_goldenLetterTriggered: 0
   p2_goldenLetterTriggered: 0
-  countDownTime: 0
+  countDownTime: 3
   musicFadeInTime: 5
   p1_platform: {fileID: 994735117}
   p2_platform: {fileID: 913692961}
@@ -5836,7 +5836,7 @@ MonoBehaviour:
   player_2: 1
   computer: 1
   speed: 0.15
-  accuracy: 0
+  accuracy: 0.99
   player_1_correctSpawnPosition: {fileID: 860827830}
   player_1_incorrectSpawnPosition: {fileID: 1930354216}
   player_2_correctSpawnPosition: {fileID: 778672661}
@@ -7650,7 +7650,7 @@ Transform:
   m_GameObject: {fileID: 1310182768}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: -0.5}
-  m_LocalPosition: {x: -0.1, y: -8.13, z: 0}
+  m_LocalPosition: {x: -0.099999905, y: -7.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10365,7 +10365,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   volumeAnchorOverride: {fileID: 0}
-  antialiasing: 2
+  antialiasing: 1
   SMAAQuality: 2
   dithering: 1
   stopNaNs: 0
@@ -11996,7 +11996,7 @@ Transform:
   m_GameObject: {fileID: 1999807074}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: -0.5}
-  m_LocalPosition: {x: 0.06, y: -8.13, z: 0}
+  m_LocalPosition: {x: -0.119999886, y: -7.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
