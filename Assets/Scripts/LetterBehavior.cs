@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Numerics;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class LetterBehavior : MonoBehaviour
@@ -23,6 +24,7 @@ public class LetterBehavior : MonoBehaviour
     private Renderer renderer;
     private bool blinking = false;
     public bool currentlySelected = false;
+    private bool rotating = false;
     // -------------------------------------------------------------------
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -35,10 +37,40 @@ public class LetterBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if (currentlySelected && !blinking)
+        if (currentlySelected && !blinking)
         {
             StartCoroutine(CursorBlink());
         }
+        if (currentlySelected && !rotating)
+        {
+            StartCoroutine(CursorRotate());
+        }
+    }
+    // -------------------------------------------------------------------
+    public IEnumerator CursorRotate()
+    {
+        rotating = true;
+
+        float rotateTime = 2f;
+        float startTime = Time.time;
+        float i;
+
+        UnityEngine.Quaternion ogRotation = transform.rotation;
+
+        while (Time.time - startTime < rotateTime)
+        {
+            float t = (Time.time - startTime) / rotateTime;
+            i = Mathf.Lerp(
+                0,
+                360,
+                t
+            );
+            transform.rotation = ogRotation * UnityEngine.Quaternion.Euler(0f, i, 0f); ;
+            yield return null;
+        }
+        transform.rotation = ogRotation;
+
+        rotating = false;
     }
     // -------------------------------------------------------------------
     public IEnumerator CursorBlink()
@@ -48,17 +80,11 @@ public class LetterBehavior : MonoBehaviour
         Color ogEmission = material.GetColor("_EmissiveColor");
         
         float blinkTime = 0.2f;
-        float offsetY = 0.25f;
-        float offsetX = 0.25f;
+        float offsetY = 0.05f;
+        float offsetX = 0;
         float s = 1.5f;
         float startTime = Time.time;
         float i;
-
-        gameObject.transform.position = new UnityEngine.Vector3(
-           gameObject.transform.position.x - offsetX,
-           gameObject.transform.position.y - offsetY ,
-           gameObject.transform.position.z
-       );
 
         while (Time.time - startTime < blinkTime)
         {
@@ -69,14 +95,23 @@ public class LetterBehavior : MonoBehaviour
                 t
             );
             material.SetColor("_EmissiveColor", ogEmission * i);
-            gameObject.transform.localScale = new UnityEngine.Vector3(i*s, i*s, i*s);
 
-       
+            // transform.position = new UnityEngine.Vector3(
+            //     transform.position.x - offsetX * i,
+            //     transform.position.y - offsetY * i,
+            //     transform.position.z
+            // );
+
+            //transform.localScale = new UnityEngine.Vector3(i*s, i*s, i*s);
             yield return null;
         }
-    
-        material.SetColor("_EmissiveColor", ogEmission * 0);
+        // transform.position = new UnityEngine.Vector3(
+        //     transform.position.x - offsetX,
+        //     transform.position.y - offsetY,
+        //     transform.position.z
+        // );
 
+        material.SetColor("_EmissiveColor", ogEmission * 0);
         startTime = Time.time;
 
         while (Time.time - startTime < blinkTime)
@@ -87,18 +122,20 @@ public class LetterBehavior : MonoBehaviour
                 1,
                 t
             );
-       
-            gameObject.transform.localScale = new UnityEngine.Vector3(i*s, i*s, i*s);
+            //transform.localScale = new UnityEngine.Vector3(i*s, i*s, i*s);
+            // transform.position = new UnityEngine.Vector3(
+            //     transform.position.x + offsetX * i,
+            //     transform.position.y + offsetY * i,
+            //     transform.position.z
+            // );
             material.SetColor("_EmissiveColor", ogEmission * i);
             yield return null;
         }
-
-        gameObject.transform.position = new UnityEngine.Vector3(
-           gameObject.transform.position.x + offsetX,
-           gameObject.transform.position.y + offsetY,
-           gameObject.transform.position.z
-       );
-
+        // transform.position = new UnityEngine.Vector3(
+        //     transform.position.x + offsetX,
+        //     transform.position.y + offsetY,
+        //     transform.position.z
+        // );
         material.SetColor("_EmissiveColor", ogEmission);
         blinking = false;
     }
