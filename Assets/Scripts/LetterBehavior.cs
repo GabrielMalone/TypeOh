@@ -149,7 +149,7 @@ public class LetterBehavior : MonoBehaviour
         if (!isCountdown)
         {
             s *= Random.value;
-            s = Mathf.Clamp(s, 0.8f, 1.1f);
+            s = Mathf.Clamp(s, 0.95f, 1.05f);
         }
             
         while (true)
