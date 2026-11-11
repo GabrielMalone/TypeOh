@@ -542,7 +542,6 @@ public class GameStateManager : MonoBehaviour
         else if (!p1 && p2_percent_complete > p1_percent_complete)
         {
             goldenChance = 0f;
-            return;
         }
         else
         {
@@ -610,6 +609,7 @@ public class GameStateManager : MonoBehaviour
                 false
             );
             countDownSource.Play();
+            countdownLetters[0].GetComponent<LetterBehavior>().isCountdown = true;
             yield return new WaitForSeconds(1f);
             Destroy(countdownLetters[0]);
             countdownLetters.Clear();
@@ -622,6 +622,7 @@ public class GameStateManager : MonoBehaviour
                 countDownSpawnArea.transform.position.y, 
                 countDownSpawnArea.transform.position.z
             );
+
         CenterAndSpawnWord("GO", countDownSpawnArea, false, countdownLetters, false);
         countDownSource.clip = beep_1;
         countDownSource.Play();
@@ -629,6 +630,7 @@ public class GameStateManager : MonoBehaviour
         foreach (GameObject letter in countdownLetters)
         {
             letter.GetComponentInChildren<Renderer>().material = basicLetterMat;
+
         }
         yield return new WaitForSeconds(0.1f);
 

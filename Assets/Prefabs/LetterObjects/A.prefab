@@ -103,6 +103,9 @@ MonoBehaviour:
   audioSource: {fileID: -1377537333614948318}
   collisionNoise: {fileID: 8300000, guid: dc0e3e02e6196504180cc29f85eef89e, type: 3}
   currentlySelected: 0
+  isPercent: 0
+  isCountdown: 0
+  isOnPlatform: 0
 --- !u!82 &-1377537333614948318
 AudioSource:
   m_ObjectHideFlags: 0

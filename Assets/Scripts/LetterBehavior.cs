@@ -26,6 +26,9 @@ public class LetterBehavior : MonoBehaviour
     public bool currentlySelected = false;
     private bool rotating = false;
     private bool scaling = false;
+    public bool isPercent = false;
+    public bool isCountdown = false;
+    public bool isOnPlatform = false;
     // -------------------------------------------------------------------
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -44,12 +47,25 @@ public class LetterBehavior : MonoBehaviour
         }
         if (currentlySelected && !rotating)
         {
-            StartCoroutine(CursorRotate());
+            // StartCoroutine(CursorRotate());
         }
         if (currentlySelected && !blinking)
         {
             StartCoroutine(CursorBlink());
         }
+        if (p1_goldenLetter || p2_goldenLetter && !blinking)
+        {
+            StartCoroutine(CursorBlink());
+        }
+        if (isCountdown && !scaling)
+        {
+            StartCoroutine(CursorScale());
+        }
+        if (isPercent && !scaling)
+        {
+            StartCoroutine(CursorScale());
+        }
+
     }
     // -------------------------------------------------------------------
     public IEnumerator CursorRotate()

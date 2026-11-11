@@ -14,7 +14,7 @@ public class printSript : MonoBehaviour
     private Material material;
     private GameStateManager GSM;
     private float currentPercent = 0;
-    private float updateTime = 0.2f;
+    private float updateTime = 0.5f;
     private float prevTime = 0f;
     private float totalDistance;
     public List<GameObject> statLetters = new List<GameObject>();
@@ -22,6 +22,7 @@ public class printSript : MonoBehaviour
     private Collider finishCollider;
     private float prevDistance;
     private bool distanceSet = false;
+    private bool percentLoaded = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,12 +31,16 @@ public class printSript : MonoBehaviour
         // let's delay this like 3 seconds since platforms needs to settle. 
         Invoke(nameof(InitializeDistance), 3f);
         material = player_1 ? p1_percent_mat : p2_percent_mat;
-        UpdatePercentDone(true);
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
     void Update()
     {
+        if (GSM.gameStarted && !percentLoaded)
+        {
+            percentLoaded = true;
+            UpdatePercentDone(true);
+        }
         if (distanceSet)
             UpdatePercentDone();
         
@@ -57,7 +62,7 @@ public class printSript : MonoBehaviour
 
         bool distanceChanged = Mathf.Abs(current_distance - prevDistance) > 0.001;
 
-        if (firstTimeRunning || ((Time.time - prevTime > updateTime) && distanceChanged))
+        if (firstTimeRunning || (distanceChanged && Time.time - prevTime > updateTime))
         {
             ClearOldStats();
             prevTime = Time.time;
@@ -67,6 +72,10 @@ public class printSript : MonoBehaviour
             float rotation = player_1 ? -65f : 65f;
             gameObject.transform.Rotate(0f, rotation, 0f);
             SetStatMaterial();
+            foreach(GameObject letter in statLetters)
+            {
+                letter.GetComponent<LetterBehavior>().isPercent = true;
+            }
         }
 
         prevDistance = current_distance;
