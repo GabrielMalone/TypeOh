@@ -25,6 +25,7 @@ public class LetterBehavior : MonoBehaviour
     private bool blinking = false;
     public bool currentlySelected = false;
     private bool rotating = false;
+    private bool scaling = false;
     // -------------------------------------------------------------------
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,13 +38,17 @@ public class LetterBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentlySelected && !blinking)
+        if (currentlySelected && !scaling)
         {
-            StartCoroutine(CursorBlink());
+            StartCoroutine(CursorScale());
         }
         if (currentlySelected && !rotating)
         {
             StartCoroutine(CursorRotate());
+        }
+        if (currentlySelected && !blinking)
+        {
+            StartCoroutine(CursorBlink());
         }
     }
     // -------------------------------------------------------------------
@@ -78,11 +83,8 @@ public class LetterBehavior : MonoBehaviour
         blinking = true;
         Material material = renderer.material;
         Color ogEmission = material.GetColor("_EmissiveColor");
-        
+
         float blinkTime = 0.2f;
-        float offsetY = 0.05f;
-        float offsetX = 0;
-        float s = 1.5f;
         float startTime = Time.time;
         float i;
 
@@ -91,53 +93,62 @@ public class LetterBehavior : MonoBehaviour
             float t = (Time.time - startTime) / blinkTime;
             i = Mathf.Lerp(
                 1,
-                0,
+                0f,
                 t
             );
             material.SetColor("_EmissiveColor", ogEmission * i);
-
-            // transform.position = new UnityEngine.Vector3(
-            //     transform.position.x - offsetX * i,
-            //     transform.position.y - offsetY * i,
-            //     transform.position.z
-            // );
-
-            //transform.localScale = new UnityEngine.Vector3(i*s, i*s, i*s);
             yield return null;
         }
-        // transform.position = new UnityEngine.Vector3(
-        //     transform.position.x - offsetX,
-        //     transform.position.y - offsetY,
-        //     transform.position.z
-        // );
-
         material.SetColor("_EmissiveColor", ogEmission * 0);
         startTime = Time.time;
-
         while (Time.time - startTime < blinkTime)
         {
             float t = (Time.time - startTime) / blinkTime;
             i = Mathf.Lerp(
-                0,
+                0f,
                 1,
                 t
             );
-            //transform.localScale = new UnityEngine.Vector3(i*s, i*s, i*s);
-            // transform.position = new UnityEngine.Vector3(
-            //     transform.position.x + offsetX * i,
-            //     transform.position.y + offsetY * i,
-            //     transform.position.z
-            // );
             material.SetColor("_EmissiveColor", ogEmission * i);
             yield return null;
         }
-        // transform.position = new UnityEngine.Vector3(
-        //     transform.position.x + offsetX,
-        //     transform.position.y + offsetY,
-        //     transform.position.z
-        // );
         material.SetColor("_EmissiveColor", ogEmission);
         blinking = false;
+    }
+    // -------------------------------------------------------------------
+    public IEnumerator CursorScale()
+    {
+        scaling = true;
+    
+        float scaleTime = 1f;
+        float s = 1.25f;
+        float startTime = Time.time;
+        float i;
+
+        while (Time.time - startTime < scaleTime)
+        {
+            float t = (Time.time - startTime) / scaleTime;
+            i = Mathf.Lerp(
+                1,
+                0.5f,
+                t
+            );
+            transform.localScale = new UnityEngine.Vector3(i*s, i*s, i*s);
+            yield return null;
+        }
+        startTime = Time.time;
+        while (Time.time - startTime < scaleTime)
+        {
+            float t = (Time.time - startTime) / scaleTime;
+            i = Mathf.Lerp(
+                0.5f,
+                1,
+                t
+            );
+            transform.localScale = new UnityEngine.Vector3(i*s, i*s, i*s);
+            yield return null;
+        }
+        scaling = false;
     }
     // -------------------------------------------------------------------
     public void SetLetterScale(float scale)

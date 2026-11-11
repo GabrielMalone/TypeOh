@@ -533,28 +533,29 @@ public class GameStateManager : MonoBehaviour
     {   
         // will set up some cybernetic stuff here
         // greater chance of oglden 
-        // float goldenChance;
+        float goldenChance;
 
-        // if (p1 && p1_percent_complete > p2_percent_complete)
-        // {
-        //     p1_goldenLetterIndex = -1;
-        //     goldenChance = 0.8f;
-        //     return;
-        // }
-        // else if (!p1 && p2_percent_complete > p1_percent_complete)
-        // {
-        //     p2_goldenLetterIndex = -1;
-        //     return;
-        //     goldenChance = 0.8f;
-        // }
-        // else
-        // {
-        //     goldenChance = 0.2f;
-        // }
+        if (p1 && p1_percent_complete > p2_percent_complete)
+        {
+            goldenChance = 0f;
+        }
+        else if (!p1 && p2_percent_complete > p1_percent_complete)
+        {
+            goldenChance = 0f;
+            return;
+        }
+        else
+        {
+            goldenChance = 1f;
+        }
 
-        // if (Random.value > goldenChance) return;
-        
-
+        if (Random.value >= goldenChance)
+        {
+            if (p1) p1_goldenLetterIndex  = -1;
+            if (!p1) p2_goldenLetterIndex = -1;
+            return;
+        }
+    
         List<GameObject> spawnedLetters = p1 ? p1_spawnedLetters : p2_spawnedLetters;
         string cur_word = p1 ? p1_word : p2_word;
         int rnd_inx = Mathf.FloorToInt(Random.Range(0, spawnedLetters.Count));
