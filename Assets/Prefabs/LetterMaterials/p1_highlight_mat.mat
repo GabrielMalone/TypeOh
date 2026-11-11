@@ -53,13 +53,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlbedoAffectEmissive: 1
-    - _EmissiveExposureWeight: 0.367
+    - _EmissiveExposureWeight: 1
     - _Metallic: 0.283
     - _RefractionModel: 0
     - _Smoothness: 0.178
     - _StencilRefDepth: 0
     - _StencilWriteMaskDepth: 9
     m_Colors:
-    - _EmissiveColor: {r: 5.992156, g: 0, b: 5.4898443, a: 1}
+    - _EmissiveColor: {r: 7.3772097, g: 0, b: 6.7587914, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
