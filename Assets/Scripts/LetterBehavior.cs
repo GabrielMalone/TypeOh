@@ -46,11 +46,11 @@ public class LetterBehavior : MonoBehaviour
     {
         if (currentlySelected && !scaling)
         {
-            StartCoroutine(CursorScale(1f));
+            StartCoroutine(CursorScale(0.25f));
         }
         if (currentlySelected && !rotating)
         {
-            // StartCoroutine(CursorRotate());
+            StartCoroutine(CursorRotate());
         }
         if (currentlySelected && !blinking)
         {
@@ -62,13 +62,13 @@ public class LetterBehavior : MonoBehaviour
         }
         if (isCountdown && !scaling)
         {
-            StartCoroutine(CursorScale(0f));
+            StartCoroutine(CursorScale(0.5f));
         }
         if (isPercent && !scaling)
         {
             StartCoroutine(CursorScale(1f));
         }
-        if (!scaling && !isPercent &&!isOnPlatform)
+        if (!scaling && !isPercent &&!isOnPlatform &&!currentlySelected)
         {
             StartCoroutine(CursorScale(1f));
         }
@@ -169,60 +169,6 @@ public class LetterBehavior : MonoBehaviour
             yield return null;
         }
     }
-    // -------------------------------------------------------------------
-    // public IEnumerator CursorScale()
-    // {
-    //     scaling = true;
-
-    //     if (lastScale != null && isPercent)
-    //     {
-    //         transform.localScale = lastScale;
-    //     }
-  
-
-    //     float scaleTime = 1f;
-    //     float s = 1.25f;
-    //     float startTime = Time.time;
-    //     float i;
-
-    //     while (Time.time - startTime < scaleTime)
-    //     {
-    //         float t = (Time.time - startTime) / scaleTime;
-    //         i = Mathf.Lerp(
-    //             1,
-    //             0.5f,
-    //             t
-    //         );
-    //         transform.localScale = new UnityEngine.Vector3(i*s, i*s, i*s);
-
-    //         if (isPercent)
-    //         {
-    //             lastScale = transform.localScale;
-    //         }
-    //         yield return null;
-    //     }
-    //     startTime = Time.time;
-
-    //     while (Time.time - startTime < scaleTime)
-    //     {
-    //         float t = (Time.time - startTime) / scaleTime;
-    //         i = Mathf.Lerp(
-    //             0.5f,
-    //             1,
-    //             t
-    //         );
-
-    //         transform.localScale = new UnityEngine.Vector3(i*s, i*s, i*s);
-
-    //         if (isPercent)
-    //         {
-    //             lastScale = transform.localScale;
-    //         }
-
-    //         yield return null;
-    //     }
-    //     scaling = false;
-    // }
     // -------------------------------------------------------------------
     public void SetLetterScale(float scale)
     {

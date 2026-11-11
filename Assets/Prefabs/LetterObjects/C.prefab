@@ -110,8 +110,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0073071467, y: 0.013547823, z: 0.0049999985}
-  m_Center: {x: -0.00017931755, y: 0.006855131, z: -0.00000002013985}
+  m_Size: {x: 0.026141819, y: 0.041609272, z: 0.0049999985}
+  m_Center: {x: 0.00095323025, y: 0.020885851, z: -0.000000020048834}
 --- !u!1 &7988061378920496000
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,9 +210,14 @@ MonoBehaviour:
   timeToLive: 100000
   NextLetterMaterial: {fileID: 2100000, guid: 289ad87d1b2d543e1aa37716c85e5d2b, type: 2}
   letterScale: 0.5
-  goldenLetter: 0
+  p1_goldenLetter: 0
+  p2_goldenLetter: 0
   audioSource: {fileID: 7808967345336895406}
   collisionNoise: {fileID: 8300000, guid: dc0e3e02e6196504180cc29f85eef89e, type: 3}
+  currentlySelected: 0
+  isPercent: 0
+  isCountdown: 0
+  isOnPlatform: 0
 --- !u!82 &7808967345336895406
 AudioSource:
   m_ObjectHideFlags: 0

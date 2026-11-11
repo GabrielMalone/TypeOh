@@ -11,7 +11,7 @@ public class KeyInput : MonoBehaviour
     [Header("Player Selection")]
     public bool player_1 = false;
     public bool player_2 = false;
-    public bool computer = false;
+    [SerializeField] public static bool computer = false;
 
     [Header("Computer Player Settings")]
     public float speed = 1f;

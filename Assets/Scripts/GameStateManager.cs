@@ -290,6 +290,7 @@ public class GameStateManager : MonoBehaviour
         }
         
         CheckForReset();
+        Player2Toggle();
         
     }
     // -------------------------------------------------------------------
@@ -304,6 +305,14 @@ public class GameStateManager : MonoBehaviour
             englishWordsHard.Clear();
             englishWordsEasy.Clear();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
+    // -------------------------------------------------------------------
+    void Player2Toggle()
+    {
+        if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.cKey.isPressed)
+        {
+            KeyInput.computer = !KeyInput.computer;
         }
     }
     // -------------------------------------------------------------------
@@ -352,7 +361,7 @@ public class GameStateManager : MonoBehaviour
             int index = Random.Range(0, wordList.Count);
             word = wordList[index].ToUpper().Trim();
             // word length check
-            if (word.Length > 2 && word.Length < 13)
+            if (word.Length > 2 && word.Length < 11)
             {
                 wordFound = true;
             }

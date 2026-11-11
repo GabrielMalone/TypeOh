@@ -21,18 +21,18 @@ public class finishLineScript : MonoBehaviour
     {
         // Debug.Log($"Finish Line Crossed: {collision.gameObject.name}");
 
-        if (collision.gameObject.name == "p1_collector")
-        {
-            GSM.player_1_winner = true;
-            GSM.endGame = true;
-            GSM.gameStarted = false;
-        }
-        if (collision.gameObject.name == "p2_collector")
-        {
-            GSM.player_2_winner = true;
-            GSM.endGame = true;
-            GSM.gameStarted = false;
-        }
+        // if (collision.gameObject.name == "p1_collector")
+        // {
+        //     GSM.player_1_winner = true;
+        //     GSM.endGame = true;
+        //     GSM.gameStarted = false;
+        // }
+        // if (collision.gameObject.name == "p2_collector")
+        // {
+        //     GSM.player_2_winner = true;
+        //     GSM.endGame = true;
+        //     GSM.gameStarted = false;
+        // }
     }
     // ------------------------------------------------------------------- 
 }

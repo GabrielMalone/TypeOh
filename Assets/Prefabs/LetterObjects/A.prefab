@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7630565340444278381}
-  - component: {fileID: 4913777821123870572}
   - component: {fileID: 8053642025275216896}
   - component: {fileID: -7249777355718260386}
   - component: {fileID: -1377537333614948318}
@@ -31,31 +30,11 @@ Transform:
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8653462127783392232}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &4913777821123870572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7630565340444275091}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92af93d3af59aec498b2b6b047cc6c7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bobbingSpinning
-  power: 0.1
-  frequency: 1
-  delay: 0.1
-  y: 0
-  x: 1
-  z: 0
-  canRotate: 1
-  rotationSpeed: {x: 1, y: 0, z: 0}
 --- !u!54 &8053642025275216896
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -313,5 +292,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0073880255, y: 0.013467121, z: 0.0050001424}
-  m_Center: {x: 0.00008831441, y: 0.0067825117, z: -0.00000010104849}
+  m_Size: {x: 0.027800616, y: 0.04081742, z: 0.0050001424}
+  m_Center: {x: -0.0006986445, y: 0.020457663, z: -0.00000010105696}
