@@ -176,6 +176,9 @@ public class KeyInput : MonoBehaviour
             GameStateManager.p2_spawnedLetters;
 
         GameObject newLetter = Instantiate(letterObject, correctSpawnPosition);
+        Material material = player_1 ? GSM.p1_Material : GSM.p2_Material;
+        newLetter.GetComponent<LetterBehavior>().isOnPlatform = true;
+        newLetter.GetComponentInChildren<Renderer>().material = material;
 
         if (player_1 && GSM.p1_goldenLetterIndex == GSM.p1_curIndex)
         {
@@ -227,7 +230,7 @@ public class KeyInput : MonoBehaviour
         comboTracker = 0;
         GameObject newLetter = Instantiate(letterObject, incorrectSpawnPosition);
         lastIncorrectLetter = newLetter.name[0];    
-
+        newLetter.GetComponent<LetterBehavior>().isOnPlatform=true;
         newLetter.GetComponentInChildren<Renderer>().material = material;
 
         if (player_1 && GSM.p1_goldenLetterIndex == GSM.p1_curIndex)

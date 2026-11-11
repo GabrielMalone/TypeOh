@@ -15,13 +15,14 @@ public class PlayerPointerScript : MonoBehaviour
     {
         gsm = gameStateManager.GetComponent<GameStateManager>();
         offsetX = player_1 ? 0.15f : 0.15f;
-        offsetY = player_1 ? -1f : 1.5f;
+        offsetY = player_1 ? -1f : -1f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        GetCurrentPlayerLetterObject();
+        if (gsm.gameStarted)
+            GetCurrentPlayerLetterObject();
     }
 
 

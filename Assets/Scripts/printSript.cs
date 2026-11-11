@@ -60,7 +60,7 @@ public class printSript : MonoBehaviour
             GSM.p2_percent_complete = currentPercent;
         }
 
-        bool distanceChanged = Mathf.Abs(current_distance - prevDistance) > 0.001;
+        bool distanceChanged = Mathf.Abs(current_distance - prevDistance) >= 0.01;
 
         if (firstTimeRunning || (distanceChanged && Time.time - prevTime > updateTime))
         {

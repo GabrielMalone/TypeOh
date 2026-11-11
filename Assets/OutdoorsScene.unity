@@ -1056,6 +1056,7 @@ PrefabInstance:
     - {fileID: 5600469766344152243, guid: 2d8f06ba886cc4481a6b19733309d4b4, type: 3}
     - {fileID: 771047304583077569, guid: 2d8f06ba886cc4481a6b19733309d4b4, type: 3}
     - {fileID: 5055147288931610318, guid: 2d8f06ba886cc4481a6b19733309d4b4, type: 3}
+    - {fileID: 2742968805891442232, guid: 2d8f06ba886cc4481a6b19733309d4b4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2070,6 +2071,10 @@ PrefabInstance:
       propertyPath: letterScale
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2742968805891442232, guid: 2d8f06ba886cc4481a6b19733309d4b4, type: 3}
+      propertyPath: isOnPlatform
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3957005028267778713, guid: 2d8f06ba886cc4481a6b19733309d4b4, type: 3}
       propertyPath: m_Name
       value: 2
@@ -2178,6 +2183,7 @@ PrefabInstance:
     - {fileID: 5600469766344152243, guid: 2d8f06ba886cc4481a6b19733309d4b4, type: 3}
     - {fileID: 771047304583077569, guid: 2d8f06ba886cc4481a6b19733309d4b4, type: 3}
     - {fileID: 5055147288931610318, guid: 2d8f06ba886cc4481a6b19733309d4b4, type: 3}
+    - {fileID: 2742968805891442232, guid: 2d8f06ba886cc4481a6b19733309d4b4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3977,6 +3983,10 @@ PrefabInstance:
       propertyPath: letterScale
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2742968805891442232, guid: 2d8f06ba886cc4481a6b19733309d4b4, type: 3}
+      propertyPath: isOnPlatform
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3957005028267778713, guid: 2d8f06ba886cc4481a6b19733309d4b4, type: 3}
       propertyPath: m_Name
       value: P
@@ -4077,6 +4087,7 @@ PrefabInstance:
     - {fileID: 5600469766344152243, guid: 2d8f06ba886cc4481a6b19733309d4b4, type: 3}
     - {fileID: 771047304583077569, guid: 2d8f06ba886cc4481a6b19733309d4b4, type: 3}
     - {fileID: 5055147288931610318, guid: 2d8f06ba886cc4481a6b19733309d4b4, type: 3}
+    - {fileID: 2742968805891442232, guid: 2d8f06ba886cc4481a6b19733309d4b4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5425,7 +5436,7 @@ MonoBehaviour:
   player_2_winner: 0
   endGame: 0
   victorySound: {fileID: 8300000, guid: a1b649818c1634f1ab26dc5b57aafd95, type: 3}
-  distanceBetweenLetters: 1
+  distanceBetweenLetters: 1.25
   letterScale: 0.47
   p1_wordSpawnArea: {fileID: 183789778}
   p2_wordSpawnArea: {fileID: 496101310}
@@ -8554,7 +8565,7 @@ Transform:
   m_GameObject: {fileID: 1416444135}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.42, y: 7.04, z: -25.08}
+  m_LocalPosition: {x: 2.71, y: 7.04, z: -25.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

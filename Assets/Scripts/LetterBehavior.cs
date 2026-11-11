@@ -29,13 +29,16 @@ public class LetterBehavior : MonoBehaviour
     public bool isPercent = false;
     public bool isCountdown = false;
     public bool isOnPlatform = false;
+    private UnityEngine.Vector3 lastScale;
+    private float rndAdjst;
     // -------------------------------------------------------------------
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       Destroy(gameObject, timeToLive);
-       // gameObject.transform.localScale = Vector3.one * letterScale;
-       renderer = gameObject.GetComponentInChildren<Renderer>();
+        rndAdjst = Random.value;
+        Destroy(gameObject, timeToLive);
+        // gameObject.transform.localScale = Vector3.one * letterScale;
+        renderer = gameObject.GetComponentInChildren<Renderer>();
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
@@ -43,7 +46,7 @@ public class LetterBehavior : MonoBehaviour
     {
         if (currentlySelected && !scaling)
         {
-            StartCoroutine(CursorScale());
+            StartCoroutine(CursorScale(1f));
         }
         if (currentlySelected && !rotating)
         {
@@ -59,11 +62,15 @@ public class LetterBehavior : MonoBehaviour
         }
         if (isCountdown && !scaling)
         {
-            StartCoroutine(CursorScale());
+            StartCoroutine(CursorScale(0f));
         }
         if (isPercent && !scaling)
         {
-            StartCoroutine(CursorScale());
+            StartCoroutine(CursorScale(1f));
+        }
+        if (!scaling && !isPercent &&!isOnPlatform)
+        {
+            StartCoroutine(CursorScale(1f));
         }
 
     }
@@ -132,40 +139,90 @@ public class LetterBehavior : MonoBehaviour
         blinking = false;
     }
     // -------------------------------------------------------------------
-    public IEnumerator CursorScale()
+    public IEnumerator CursorScale(float s)
     {
         scaling = true;
-    
-        float scaleTime = 1f;
-        float s = 1.25f;
-        float startTime = Time.time;
-        float i;
 
-        while (Time.time - startTime < scaleTime)
+        float scaleTime = 1f;
+        float startTime = Time.time;
+
+        if (!isCountdown)
         {
-            float t = (Time.time - startTime) / scaleTime;
-            i = Mathf.Lerp(
-                1,
-                0.5f,
-                t
-            );
-            transform.localScale = new UnityEngine.Vector3(i*s, i*s, i*s);
+            s *= Random.value;
+            s = Mathf.Clamp(s, 0.8f, 1.1f);
+        }
+            
+        while (true)
+        {
+            // total game time clock for percent
+            float elapsed = isPercent
+                ? Time.time
+                : Time.time - startTime;
+            // take a number that keeps increasing and make it
+            // go back and forth between these two numbers
+            float t = Mathf.PingPong(elapsed / scaleTime, 1f);
+
+            float i = Mathf.Lerp(1f, s, t);
+
+            transform.localScale = UnityEngine.Vector3.one * (i);
+
             yield return null;
         }
-        startTime = Time.time;
-        while (Time.time - startTime < scaleTime)
-        {
-            float t = (Time.time - startTime) / scaleTime;
-            i = Mathf.Lerp(
-                0.5f,
-                1,
-                t
-            );
-            transform.localScale = new UnityEngine.Vector3(i*s, i*s, i*s);
-            yield return null;
-        }
-        scaling = false;
     }
+    // -------------------------------------------------------------------
+    // public IEnumerator CursorScale()
+    // {
+    //     scaling = true;
+
+    //     if (lastScale != null && isPercent)
+    //     {
+    //         transform.localScale = lastScale;
+    //     }
+  
+
+    //     float scaleTime = 1f;
+    //     float s = 1.25f;
+    //     float startTime = Time.time;
+    //     float i;
+
+    //     while (Time.time - startTime < scaleTime)
+    //     {
+    //         float t = (Time.time - startTime) / scaleTime;
+    //         i = Mathf.Lerp(
+    //             1,
+    //             0.5f,
+    //             t
+    //         );
+    //         transform.localScale = new UnityEngine.Vector3(i*s, i*s, i*s);
+
+    //         if (isPercent)
+    //         {
+    //             lastScale = transform.localScale;
+    //         }
+    //         yield return null;
+    //     }
+    //     startTime = Time.time;
+
+    //     while (Time.time - startTime < scaleTime)
+    //     {
+    //         float t = (Time.time - startTime) / scaleTime;
+    //         i = Mathf.Lerp(
+    //             0.5f,
+    //             1,
+    //             t
+    //         );
+
+    //         transform.localScale = new UnityEngine.Vector3(i*s, i*s, i*s);
+
+    //         if (isPercent)
+    //         {
+    //             lastScale = transform.localScale;
+    //         }
+
+    //         yield return null;
+    //     }
+    //     scaling = false;
+    // }
     // -------------------------------------------------------------------
     public void SetLetterScale(float scale)
     {
