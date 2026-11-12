@@ -377,6 +377,7 @@ public class KeyInput : MonoBehaviour
 
         if (shake)
         {
+            audio_source.PlayOneShot(GSM.chuckle);
             comboTracker = 0;
             GSM.ApplyUpwardForce(player_1);
             GSM.JumbleLetters(player_1);

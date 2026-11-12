@@ -52,6 +52,10 @@ public class LetterBehavior : MonoBehaviour
         {
             StartCoroutine(CursorBlink());
         }
+        if (currentlySelected && !rotating)
+        {
+            StartCoroutine(CursorRotate());
+        }
         if (p1_goldenLetter || p2_goldenLetter && !blinking)
         {
             StartCoroutine(CursorBlink());

@@ -31,6 +31,9 @@ public class GameStateManager : MonoBehaviour
     public AudioSource countDownSource;
     public AudioClip beep_1;
 
+    [Header("Game Music")]
+    public AudioClip chuckle;
+
     [Header("Player Settings")]
     public GameObject player_1;
     public GameObject player_2;
