@@ -381,6 +381,7 @@ public class KeyInput : MonoBehaviour
         {
             comboTracker = 0;
             GSM.ApplyUpwardForce(player_1);
+            GSM.JumbleLetters(player_1);
             ShakeCamera();
         }
     }

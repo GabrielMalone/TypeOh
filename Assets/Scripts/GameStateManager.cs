@@ -603,6 +603,18 @@ public class GameStateManager : MonoBehaviour
         rb.AddForce(Vector3.up * comboForce, ForceMode.Impulse);
     }
     // -------------------------------------------------------------------
+    public void JumbleLetters(bool p1)
+    {
+        List<GameObject> letters = p1 ? p2_spawnedLetters : p1_spawnedLetters;
+        foreach (GameObject letter in letters)
+        {
+            float speed = Random.value * 1;
+            LetterBehavior lb = letter.GetComponent<LetterBehavior>();
+            StartCoroutine(lb.CursorRotate(speed));
+            StartCoroutine(lb.CursorScale(Random.value * 2f, speed));
+        }
+    }
+    // -------------------------------------------------------------------
     public IEnumerator StartGame()
     {
      
