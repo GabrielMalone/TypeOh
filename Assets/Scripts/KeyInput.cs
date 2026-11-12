@@ -389,8 +389,7 @@ public class KeyInput : MonoBehaviour
     void ComptuerPlayer()
     {   
         if (!computer) return;
-        player_1 = false;
-
+ 
         char rnd_char = (char)Random.Range(65,90);
         char cur_car = GSM.p2_word[GSM.p2_curIndex];
 
