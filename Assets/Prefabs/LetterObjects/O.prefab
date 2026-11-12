@@ -209,10 +209,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LetterBehavior
   timeToLive: 100000
   NextLetterMaterial: {fileID: 2100000, guid: 289ad87d1b2d543e1aa37716c85e5d2b, type: 2}
-  letterScale: 0.5
-  goldenLetter: 0
+  letterScale: 1
+  p1_goldenLetter: 0
+  p2_goldenLetter: 0
   audioSource: {fileID: 3211598937451299749}
   collisionNoise: {fileID: 8300000, guid: dc0e3e02e6196504180cc29f85eef89e, type: 3}
+  currentlySelected: 0
+  isPercent: 0
+  isCountdown: 0
+  isOnPlatform: 0
+  comboFX: 0
 --- !u!82 &3211598937451299749
 AudioSource:
   m_ObjectHideFlags: 0

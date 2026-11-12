@@ -1,7 +1,6 @@
 using System.Collections;
-using System.Numerics;
-using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LetterBehavior : MonoBehaviour
 
@@ -13,7 +12,7 @@ public class LetterBehavior : MonoBehaviour
     public Material NextLetterMaterial;
 
     [Header("Letter Size")]
-    public float letterScale = 1f;
+    private float letterScale = 0.75f;
 
     [Header("Special Settings")]
     public bool p1_goldenLetter = false;
@@ -38,12 +37,12 @@ public class LetterBehavior : MonoBehaviour
     {
         rndAdjst = Random.value;
         Destroy(gameObject, timeToLive);
-        // gameObject.transform.localScale = Vector3.one * letterScale;
+        gameObject.transform.localScale = Vector3.one * letterScale;
         renderer = gameObject.GetComponentInChildren<Renderer>();
-        if (!scaling && !isPercent && !isOnPlatform && !isCountdown)
-        {
-            StartCoroutine(CursorScale(2f, 0.25f));
-        }
+        // if (!scaling && !isPercent && !isOnPlatform && !isCountdown)
+        // {
+        //     StartCoroutine(CursorScale(1f, 0.5f));
+        // }
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
@@ -94,7 +93,7 @@ public class LetterBehavior : MonoBehaviour
                 end,
                 t
             );
-            transform.rotation = ogRotation * UnityEngine.Quaternion.Euler(0f, i, 0f); ;
+            transform.rotation = ogRotation * Quaternion.Euler(0f, i, 0f); ;
             yield return null;
         }
         transform.rotation = ogRotation;
@@ -108,7 +107,7 @@ public class LetterBehavior : MonoBehaviour
         Material material = renderer.material;
         Color ogEmission = material.GetColor("_EmissiveColor");
 
-        float blinkTime = 1f;
+        float blinkTime = 0.2f;
         float startTime = Time.time;
         float i;
 
@@ -140,32 +139,19 @@ public class LetterBehavior : MonoBehaviour
         blinking = false;
     }
     // -------------------------------------------------------------------
-    public IEnumerator CursorScale(float s, float scaleTime = 2f)
+    public IEnumerator CursorScale(float scale, float scaleTime = 2f)
     {
         scaling = true;
-
         float startTime = Time.time;
+        Vector3 ogScale = transform.localScale;
 
-        // if (!isCountdown)
-        // {
-        //     s *= Random.value;
-        //     s = Mathf.Clamp(s, 0.95f, 1.05f);
-        // }
-            
         while (isPercent)
         {
-            // total game time clock for percent
-            float elapsed = isPercent
-                ? Time.time
-                : Time.time - startTime;
             // take a number that keeps increasing and make it
             // go back and forth between these two numbers
-            float t = Mathf.PingPong(elapsed / scaleTime, 1f);
-
-            float i = Mathf.Lerp(1f, s, t);
-
-            transform.localScale = UnityEngine.Vector3.one * i;
-
+            float t = Mathf.PingPong(Time.time / scaleTime, 1f);
+            float i = Mathf.Lerp(1f, scale, t);
+            transform.localScale = Vector3.one * i;
             yield return null;
         }
 
@@ -176,8 +162,8 @@ public class LetterBehavior : MonoBehaviour
             // take a number that keeps increasing and make it
             // go back and forth between these two numbers
             float t = elapsed / scaleTime;
-            float i = Mathf.Lerp(1f, s, t);
-            transform.localScale = UnityEngine.Vector3.one * i;
+            float i = Mathf.Lerp(1f, scale, t);
+            transform.localScale = Vector3.one * i;
             yield return null;
         }
 
@@ -190,15 +176,18 @@ public class LetterBehavior : MonoBehaviour
             // take a number that keeps increasing and make it
             // go back and forth between these two numbers
             float t = elapsed / scaleTime;
-            float i = Mathf.Lerp(s, 1f, t);
-            transform.localScale = UnityEngine.Vector3.one * i;
+            float i = Mathf.Lerp(scale, 1f, t);
+            transform.localScale = Vector3.one * i;
             yield return null;
         }
+
+        transform.localScale = ogScale;
+        scaling = false;
     }
     // -------------------------------------------------------------------
     public void SetLetterScale(float scale)
     {
-        gameObject.transform.localScale = UnityEngine.Vector3.one * scale;
+        gameObject.transform.localScale = Vector3.one * scale;
     }
     // -------------------------------------------------------------------
     public void SetLetterMaterial(Material material)
@@ -218,8 +207,8 @@ public class LetterBehavior : MonoBehaviour
         Rigidbody rb = gameObject.GetComponent<Rigidbody>();
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.None;
-        rb.AddForce((Random.value > 0.5 ? UnityEngine.Vector3.up : UnityEngine.Vector3.down) * 10, ForceMode.Impulse);
-        rb.AddTorque((Random.value > 0.5 ? UnityEngine.Vector3.up : UnityEngine.Vector3.down) * 10, ForceMode.Impulse);
+        rb.AddForce((Random.value > 0.5 ? Vector3.up : Vector3.down) * 10, ForceMode.Impulse);
+        rb.AddTorque((Random.value > 0.5 ? Vector3.up : Vector3.down) * 10, ForceMode.Impulse);
     }
     // -------------------------------------------------------------------
     void OnCollisionEnter(Collision collision)

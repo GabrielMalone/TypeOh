@@ -608,10 +608,10 @@ public class GameStateManager : MonoBehaviour
         List<GameObject> letters = p1 ? p2_spawnedLetters : p1_spawnedLetters;
         foreach (GameObject letter in letters)
         {
-            float speed = Random.value * 1;
+            float speed = Random.value * 0.5f;
             LetterBehavior lb = letter.GetComponent<LetterBehavior>();
             StartCoroutine(lb.CursorRotate(speed));
-            StartCoroutine(lb.CursorScale(Random.value * 2f, speed));
+            StartCoroutine(lb.CursorScale(2f, speed));
         }
     }
     // -------------------------------------------------------------------
