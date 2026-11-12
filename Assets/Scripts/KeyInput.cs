@@ -143,17 +143,12 @@ public class KeyInput : MonoBehaviour
         return null;
     }
     // -------------------------------------------------------------------
-
     void KeyEventCoordinator(string curPlayerLetter, GameObject letterObject)
     {
-        // current word player is currently on
-        // current position in that word (cur char)
+        string word = player_1 ? GSM.p1_word : GSM.p2_word;
+        int index = player_1 ? GSM.p1_curIndex : GSM.p2_curIndex;
 
-        if (curPlayerLetter[0] == (
-            player_1 ?
-            GSM.p1_word[GSM.p1_curIndex] :
-            GSM.p2_word[GSM.p2_curIndex])
-        )
+        if (curPlayerLetter[0] == word[index])
         {
             CorrectKeyPressEvents(letterObject);
         }
@@ -163,7 +158,7 @@ public class KeyInput : MonoBehaviour
         }
     }
     // -------------------------------------------------------------------
-    void CorrectKeyPressEvents(GameObject letterObject)
+    void CorrectKeyPressEvents(GameObject letterObject)             
     {
         audio_source.clip = correct_sound;
         audio_source.Play();
@@ -393,6 +388,7 @@ public class KeyInput : MonoBehaviour
     void ComptuerPlayer()
     {   
         if (!computer) return;
+        player_1 = false;
 
         char rnd_char = (char)Random.Range(65,90);
         char cur_car = GSM.p2_word[GSM.p2_curIndex];
