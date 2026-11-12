@@ -451,9 +451,9 @@ public class GameStateManager : MonoBehaviour
             string currentWord,
             GameObject spawnArea,
             bool p1,
+            float distanceBetweenLetters = 1.5f,
             List<GameObject> otherList = null,
             bool mainWord = true
-
         )
     {
         List<GameObject> spawnedLetters = p1 ? p1_spawnedLetters : p2_spawnedLetters;
@@ -625,7 +625,8 @@ public class GameStateManager : MonoBehaviour
             CenterAndSpawnWord(
                 (countDownTime - i).ToString(), 
                 countDownSpawnArea, 
-                false, 
+                false,
+                1f, 
                 countdownLetters, 
                 false
             );
@@ -644,7 +645,7 @@ public class GameStateManager : MonoBehaviour
                 countDownSpawnArea.transform.position.z
             );
 
-        CenterAndSpawnWord("GO", countDownSpawnArea, false, countdownLetters, false);
+        CenterAndSpawnWord("GO", countDownSpawnArea, false, 1.25f, countdownLetters, false);
         countDownSource.clip = beep_1;
         countDownSource.Play();
 

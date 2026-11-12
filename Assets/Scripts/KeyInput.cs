@@ -261,20 +261,18 @@ public class KeyInput : MonoBehaviour
     {
         float flickerDuration = 0.2f;
         float startTime = Time.time;
-        float multiplier = 5;
-
-        float intensity = ogIntensity;
+        float multiplier = 5f;
 
         if (!correct)
         {
-            multiplier = 20;
-            shaft_light.color = shaft_light.color = Color.crimson;
+            multiplier = 20f;
+            shaft_light.color = Color.crimson;
         }
 
-        while (intensity < ogIntensity * multiplier)
+        while (Time.time - startTime < flickerDuration)
         {
             float t = (Time.time - startTime) / flickerDuration;
-            intensity = Mathf.Lerp(
+            float intensity = Mathf.Lerp(
                 ogIntensity,
                 ogIntensity * multiplier,
                 t

@@ -21,6 +21,7 @@ public class printSript : MonoBehaviour
     private float prevDifference;
     private bool distanceSet = false;
     private bool needToLoadPercent = true;
+    private float distanceBetweenNumbers = 1.25f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -52,7 +53,7 @@ public class printSript : MonoBehaviour
             needToLoadPercent = false;
             ClearOldStats();
             int floorPercent = Mathf.RoundToInt(currentPercent);
-            GSM.CenterAndSpawnWord(floorPercent.ToString() + "%", gameObject, true, statLetters, false);
+            GSM.CenterAndSpawnWord(floorPercent.ToString() + "%", gameObject, true, distanceBetweenNumbers, statLetters, false);
             float rotation = player_1 ? -65f : 65f;
             gameObject.transform.Rotate(0f, rotation, 0f);
             SetStatMaterial();
@@ -69,7 +70,7 @@ public class printSript : MonoBehaviour
             if (currentPercent >= 99.9f)
             {
                 ClearOldStats();
-                GSM.CenterAndSpawnWord("100%", gameObject, true, statLetters, false);
+                GSM.CenterAndSpawnWord("100%", gameObject, true, distanceBetweenNumbers, statLetters, false);
                 float rotation = player_1 ? -65f : 65f;
                 gameObject.transform.Rotate(0f, rotation, 0f);
                 SetStatMaterial();
@@ -90,7 +91,7 @@ public class printSript : MonoBehaviour
             if (currentPercent >= 99.9f)
             {
                 ClearOldStats();
-                GSM.CenterAndSpawnWord("100%", gameObject, true, statLetters, false);
+                GSM.CenterAndSpawnWord("100%", gameObject ,true, distanceBetweenNumbers, statLetters, false);
                 float rotation = player_1 ? -65f : 65f;
                 gameObject.transform.Rotate(0f, rotation, 0f);
                 SetStatMaterial();
