@@ -14,8 +14,6 @@ public class printSript : MonoBehaviour
     private Material material;
     private GameStateManager GSM;
     private float currentPercent = 0;
-    private float updateTime = 0.1f;
-    private float prevTime = 0f;
     private float totalDistance;
     public List<GameObject> statLetters = new List<GameObject>();
     private Collider platformCollider;
@@ -27,7 +25,6 @@ public class printSript : MonoBehaviour
     void Start()
     {
         GSM = GameStateManager.GetComponent<GameStateManager>();
-        prevTime = Time.time;
         // let's delay this like 3 seconds since platforms needs to settle. 
         Invoke(nameof(InitializeDistance), 3f);
         material = player_1 ? p1_percent_mat : p2_percent_mat;
@@ -36,30 +33,24 @@ public class printSript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GSM.gameStarted)
+        if (!GSM.gameStarted) return;
+        if (distanceSet)
         {
             UpdatePercentDone();
         }
-        if (distanceSet)
-            UpdatePercentDone();
-        
     }
     // -------------------------------------------------------------------
     void UpdatePercentDone()
     {
         float current_difference = Mathf.Abs(finishLine.transform.position.y - platform.transform.position.y);
-
         currentPercent = Mathf.Clamp01(1 - (current_difference / totalDistance)) * 100f;
-
         bool differenceChanged = Mathf.Abs(current_difference - prevDifference) >= 0.2;
-
         // Debug.Log($"current distnace: {current_difference} | prev distance : {prevDifference} | diff: {current_difference - prevDifference}");
 
         if (differenceChanged || needToLoadPercent)
         {   
             needToLoadPercent = false;
             ClearOldStats();
-            prevTime = Time.time;
             int floorPercent = Mathf.RoundToInt(currentPercent);
             GSM.CenterAndSpawnWord(floorPercent.ToString() + "%", gameObject, true, statLetters, false);
             float rotation = player_1 ? -65f : 65f;
@@ -77,6 +68,16 @@ public class printSript : MonoBehaviour
             // Debug.Log($"current percent complete p1: {GSM.p1_percent_complete}");
             if (currentPercent >= 99.9f)
             {
+                ClearOldStats();
+                GSM.CenterAndSpawnWord("100%", gameObject, true, statLetters, false);
+                float rotation = player_1 ? -65f : 65f;
+                gameObject.transform.Rotate(0f, rotation, 0f);
+                SetStatMaterial();
+                foreach (GameObject letter in statLetters)
+                {
+                    letter.GetComponent<LetterBehavior>().isPercent = true;
+                }
+                prevDifference = current_difference;
                 GSM.player_1_winner = true;
                 GSM.endGame = true;
                 GSM.gameStarted = false;
@@ -88,6 +89,16 @@ public class printSript : MonoBehaviour
             // Debug.Log($"current percent complete p2: {GSM.p2_percent_complete}");
             if (currentPercent >= 99.9f)
             {
+                ClearOldStats();
+                GSM.CenterAndSpawnWord("100%", gameObject, true, statLetters, false);
+                float rotation = player_1 ? -65f : 65f;
+                gameObject.transform.Rotate(0f, rotation, 0f);
+                SetStatMaterial();
+                foreach (GameObject letter in statLetters)
+                {
+                    letter.GetComponent<LetterBehavior>().isPercent = true;
+                }
+                prevDifference = current_difference;
                 GSM.player_2_winner = true;
                 GSM.endGame = true;
                 GSM.gameStarted = false;

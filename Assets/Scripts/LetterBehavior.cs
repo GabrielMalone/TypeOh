@@ -66,7 +66,7 @@ public class LetterBehavior : MonoBehaviour
         }
         if (isPercent && !scaling)
         {
-            StartCoroutine(CursorScale(1f));
+            StartCoroutine(CursorScale(0.5f));
         }
         if (!scaling && !isPercent &&!isOnPlatform &&!currentlySelected)
         {
@@ -107,7 +107,7 @@ public class LetterBehavior : MonoBehaviour
         Material material = renderer.material;
         Color ogEmission = material.GetColor("_EmissiveColor");
 
-        float blinkTime = 0.2f;
+        float blinkTime = 1f;
         float startTime = Time.time;
         float i;
 
