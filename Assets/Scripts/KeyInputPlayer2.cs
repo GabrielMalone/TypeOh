@@ -4,10 +4,10 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using Unity.Cinemachine;
 using System.Collections.Generic;
+using System.Threading;
 // -----------------------------------------------------------------------
 public class KeyInputPlayer2 : MonoBehaviour
 {
-
 
     [Header("Player Selection")]
     [SerializeField] public static bool computer = false;
@@ -60,7 +60,6 @@ public class KeyInputPlayer2 : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Debug.Log($"KeyInputPlayer2 instance: {gameObject.name} | ID: {GetEntityId()}");
         GSM = stateManager.GetComponent<GameStateManager>();
         ogIntensity = shaft_light.intensity;
         ogColor = shaft_light.color;
@@ -88,29 +87,38 @@ public class KeyInputPlayer2 : MonoBehaviour
     void CheckForKeyInput()
     {
         if (Keyboard.current == null) return;
-        KeyControl curPressedKey = GetCurrentKey();
-
-        if (curPressedKey == null) return;
-        string curKey = curPressedKey.keyCode.ToString();
-        Debug.Log($"P2 KEY: {curKey} | Frame: {Time.frameCount}");
-        if (!GameStateManager.keyboardMap.ContainsKey(curKey)) return;
+        List<KeyControl> curPressedKeys = GetCurrentKeys();
+        if (curPressedKeys.Count < 1) return;
+        string curKey = "";
+        foreach (KeyControl key in curPressedKeys)
+        {
+            string strkKey = key.keyCode.ToString();
+            Debug.Log($" P2 cur pressed keys: {strkKey}");
+            if (!GameStateManager.keyboardMap.ContainsKey(strkKey)) continue;
+            curKey = strkKey;
+            break;
+        }
         // map back to reality
+        if (curKey == "") return;
         char cur_key = GameStateManager.keyboardMap[curKey];
         // Debug.Log($"{curKey} was pressed!");
         GameObject curLetterObj = GameStateManager.letterObjects[cur_key];
         KeyEventCoordinator(cur_key.ToString(), curLetterObj);
     }
     // -------------------------------------------------------------------
-    KeyControl GetCurrentKey()
+    List<KeyControl> GetCurrentKeys()
     {
+        List<KeyControl> pressedKeys = new List<KeyControl>();
+
         foreach (KeyControl key in Keyboard.current.allKeys)
         {
             if (key.wasPressedThisFrame)
             {
-                return key;
+                pressedKeys.Add(key);
             }
         }
-        return null;
+
+        return pressedKeys;
     }
     // -------------------------------------------------------------------
     void KeyEventCoordinator(string curPlayerLetter, GameObject letterObject)
@@ -157,8 +165,8 @@ public class KeyInputPlayer2 : MonoBehaviour
         GSM.p2_word_set = false;
         
 
-        // every third letter gets collision
-        CollisionManagement(newLetter);
+        // every other letter gets collision
+        CollisionManagement(newLetter, 2, true);
         if (!flickering)
         {
             flickering = true;
@@ -186,7 +194,7 @@ public class KeyInputPlayer2 : MonoBehaviour
 
         GSM.player_2_incorrect_cnt++;
         
-        CollisionManagement(newLetter, goldenLetter ? 1 : 2);
+        CollisionManagement(newLetter, goldenLetter ? 1 : 2, false);
         
         RemoveLetterAsPunishment();
 
@@ -235,10 +243,14 @@ public class KeyInputPlayer2 : MonoBehaviour
         }
     }
     // -------------------------------------------------------------------
-    void CollisionManagement(GameObject newLetter, int mod = 2)
+    void CollisionManagement(GameObject newLetter, int mod = 2, bool correct = true)
     {
+        int count = correct ? 
+            GSM.player_2_platformLetters.Count :
+             GSM.player_1_platformLetters.Count;
+
         // remove collision every once and a while
-        if (GSM.player_2_incorrect_cnt % mod == 0)
+        if (count % mod == 0)
         {
             int layer = LayerMask.NameToLayer("GhostLetter");
             newLetter.layer = layer;

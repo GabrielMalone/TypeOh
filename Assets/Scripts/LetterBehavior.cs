@@ -48,10 +48,10 @@ public class LetterBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if (currentlySelected && !blinking)
-        // {
-        //     StartCoroutine(CursorBlink());
-        // }
+        if (currentlySelected && !blinking)
+        {
+            StartCoroutine(CursorBlink());
+        }
         if (currentlySelected && !rotating)
         {
             StartCoroutine(CursorRotate());

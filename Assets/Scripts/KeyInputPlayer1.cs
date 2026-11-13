@@ -75,25 +75,40 @@ public class KeyInputPlayer1 : MonoBehaviour
     void CheckForKeyInput()
     {
         if (Keyboard.current == null) return;
-        KeyControl curPressedKey = GetCurrentKey();
-        if (curPressedKey == null) return;
-        string curKey = curPressedKey.keyCode.ToString();
-        if (GameStateManager.keyboardMap.ContainsKey(curKey)) return;
+        List<KeyControl> curPressedKeys = GetCurrentKeys();
+        // iterate through list, for player 1, 
+        // if standard kayboard a - z take the first a -z that 
+        // was pressed this frame as their input
+        // for player 2 take last non a-z that was pressed
+        if (curPressedKeys.Count < 1) return;
+        string curKey = "";
+        foreach(KeyControl key in curPressedKeys)
+        {
+            string strkKey = key.keyCode.ToString();
+            Debug.Log($" P1 cur pressed keys: {strkKey}");
+            if (GameStateManager.keyboardMap.ContainsKey(strkKey)) continue;
+            curKey = strkKey;
+            break;
+        }
+        if (curKey == "") return;
         char cur_key = curKey[0];
         GameObject curLetterObj = GameStateManager.letterObjects[cur_key];
         KeyEventCoordinator(cur_key.ToString(), curLetterObj);
     }
     // -------------------------------------------------------------------
-    KeyControl GetCurrentKey()
+    List<KeyControl> GetCurrentKeys()
     {
+        List<KeyControl> pressedKeys = new List<KeyControl>();
+
         foreach (KeyControl key in Keyboard.current.allKeys)
         {
             if (key.wasPressedThisFrame)
             {
-                return key;
+                pressedKeys.Add(key);
             }
         }
-        return null;
+
+        return pressedKeys;
     }
     // -------------------------------------------------------------------
     void KeyEventCoordinator(string curPlayerLetter, GameObject letterObject)
@@ -139,8 +154,8 @@ public class KeyInputPlayer1 : MonoBehaviour
         GSM.player_1_platformLetters.Add(newLetter);
         GSM.p1_word_set = false;
 
-        // every third letter gets collision
-        CollisionManagement(newLetter);
+        // every other letter gets collision
+        CollisionManagement(newLetter, 2, true);
         if (!flickering)
         {
             flickering = true;
@@ -169,7 +184,7 @@ public class KeyInputPlayer1 : MonoBehaviour
 
         GSM.player_1_incorrect_cnt++;
 
-        CollisionManagement(newLetter, goldenLetter ? 1 : 2);
+        CollisionManagement(newLetter, goldenLetter ? 1 : 2, false);
 
         RemoveLetterAsPunishment();
 
@@ -219,12 +234,15 @@ public class KeyInputPlayer1 : MonoBehaviour
         }
     }
     // -------------------------------------------------------------------
-    void CollisionManagement(GameObject newLetter, int mod = 2)
+    void CollisionManagement(GameObject newLetter, int mod = 2, bool correct = true)
     {
-        // remove collision every once and a while
-        if (GSM.player_2_incorrect_cnt % mod == 0)
-        {
+        int count = correct ?
+            GSM.player_1_platformLetters.Count :
+             GSM.player_2_platformLetters.Count;
 
+        // remove collision every once and a while
+        if (count % mod == 0)
+        {
             int layer = LayerMask.NameToLayer("GhostLetter");
             newLetter.layer = layer;
 

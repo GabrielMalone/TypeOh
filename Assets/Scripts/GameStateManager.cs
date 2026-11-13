@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEditor.Callbacks;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -590,6 +591,16 @@ public class GameStateManager : MonoBehaviour
     // -------------------------------------------------------------------
     public void ApplyUpwardForce(bool p1)
     {
+
+        List<GameObject> letters = p1 ? player_2_platformLetters : player_1_platformLetters;
+
+        foreach(GameObject letter in letters)
+        {
+            letter.layer = LayerMask.NameToLayer("Letter");
+            Rigidbody r = letter.GetComponent<Rigidbody>();
+            r.AddForce(Vector3.up * comboForce, ForceMode.Impulse);
+        }
+
         Rigidbody rb;
         if (p1)
         {
@@ -599,7 +610,10 @@ public class GameStateManager : MonoBehaviour
         {
             rb = player_1_platform.GetComponent<Rigidbody>();
         }
+
         rb.AddForce(Vector3.up * comboForce, ForceMode.Impulse);
+
+
     }
     // -------------------------------------------------------------------
     public void JumbleLetters(bool p1)
