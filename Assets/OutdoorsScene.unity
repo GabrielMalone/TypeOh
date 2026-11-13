@@ -6739,7 +6739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KeyInputPlayer2
   speed: 0.1
-  accuracy: 0.5
+  accuracy: 0.95
   correctSpawnPosition: {fileID: 778672661}
   incorrectSpawnPosition: {fileID: 683480740}
   correct_material: {fileID: 2100000, guid: 964d7b2f41fcf49d5a04f92f02989f7c, type: 2}
@@ -10346,8 +10346,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10, y: 0, z: 10}
-  m_Center: {x: 0.00000023841858, y: 0, z: 0}
+  m_Size: {x: 9.969582, y: 2.5882006, z: 15.454102}
+  m_Center: {x: 0.015209198, y: -1.2941003, z: -2.7270508}
 --- !u!64 &1517671422
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -12259,7 +12259,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   volumeAnchorOverride: {fileID: 0}
-  antialiasing: 3
+  antialiasing: 0
   SMAAQuality: 2
   dithering: 1
   stopNaNs: 0

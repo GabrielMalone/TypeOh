@@ -73,9 +73,9 @@ public class KeyInputPlayer2 : MonoBehaviour
         if (!gameOver && GSM.gameStarted)
         {
             CheckForKeyInput();
-            // ComptuerPlayer();
+            ComptuerPlayer();
         }
-        if (GSM.player_1_winner || GSM.player_2_winner)
+        if (GSM.player_2_winner)
         {
             gameOver = true;
             shaft_light.color = Color.lawnGreen;
