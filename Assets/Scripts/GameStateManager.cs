@@ -31,7 +31,8 @@ public class GameStateManager : MonoBehaviour
     public AudioSource countDownSource;
     public AudioClip beep_1;
 
-    [Header("Game Music")]
+    // sfx currently scattered throughout game
+    [Header("Game SFX")]
     public AudioClip chuckle;
 
     [Header("Player Settings")]
@@ -315,7 +316,7 @@ public class GameStateManager : MonoBehaviour
     {
         if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.cKey.isPressed)
         {
-            KeyInput.computer = !KeyInput.computer;
+            KeyInputPlayer2.computer = !KeyInputPlayer2.computer;
         }
     }
     // -------------------------------------------------------------------
@@ -406,9 +407,6 @@ public class GameStateManager : MonoBehaviour
         if (word.Length < 1) return;
         if (spawnedLetters.Count < 1) return;
 
-        Debug.Log($"Golden Letter index: {p1_goldenLetterIndex} | p1_curIndex: {p1_curIndex}");
-
-      
         for (int i = 0; i < word.Length; i++)
         {
             GameObject curLetterObj = spawnedLetters[i];
@@ -577,14 +575,12 @@ public class GameStateManager : MonoBehaviour
         if (p1)
         {
             p1_goldenLetterIndex = rnd_inx;
-            Debug.Log($"golden letter index for player 1: {p1_goldenLetterIndex}");
             lb.p1_goldenLetter = true;
         }
             
         else
         {
             p2_goldenLetterIndex = rnd_inx;
-            Debug.Log($"golden letter index for player 1: {p2_goldenLetterIndex}");
             lb.p2_goldenLetter = true;
         }
             

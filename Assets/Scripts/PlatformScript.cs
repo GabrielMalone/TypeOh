@@ -7,7 +7,7 @@ public class PlatformScript : MonoBehaviour
     [Header("Sound FX Settings")]
     public AudioSource audioSource;
     public AudioClip clankSound;
-    public float maxImpact = 10f;
+    private float maxImpact = 10f;
 
     [Header("Boundary Settings")]
     public GameObject boundaryBox;
