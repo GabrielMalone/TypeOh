@@ -26,6 +26,7 @@ public class KeyInputPlayer1 : MonoBehaviour
     public float comboTracker;
     public float comboNeeded = 20f;
     public Light combo_shaft;
+    public Light combo_shaft2;
     private bool animatingCombo = false;
     public Light shaft_light;
     private bool flickering = false;
@@ -76,8 +77,7 @@ public class KeyInputPlayer1 : MonoBehaviour
         else 
             comboDecayMultiplier = 1;
 
-        comboTracker = 
-            Mathf.Max(0, comboTracker -= Time.deltaTime * comboDecayMultiplier);
+        comboTracker =  Mathf.Max(0, comboTracker -= Time.deltaTime * comboDecayMultiplier);
         // Debug.Log($"p1 current combo: {comboTracker}");
     }
     // -------------------------------------------------------------------
@@ -186,6 +186,7 @@ public class KeyInputPlayer1 : MonoBehaviour
         newLetter.GetComponent<LetterBehavior>().isOnPlatform=true;
         newLetter.GetComponentInChildren<Renderer>().material = material;
         newLetter.GetComponent<LetterBehavior>().SetLetterScale(0.5f);
+        GSM.player_2_platformLetters.Add(newLetter);
 
         if (GSM.p1_goldenLetterIndex == GSM.p1_curIndex)
         {
@@ -293,7 +294,7 @@ public class KeyInputPlayer1 : MonoBehaviour
         float cur_range = combo_shaft.range;
 
         // 23 is just figuring out height of shaft in camera
-        float desired_range = (float)comboTracker / (float)comboNeeded * 23;
+        float desired_range = (float)comboTracker / (float)comboNeeded * shaft_light.range;
 
         float anim_time = 0.2f;
         float startTime = Time.time;
@@ -302,6 +303,9 @@ public class KeyInputPlayer1 : MonoBehaviour
         {
             shake = true;
         }
+
+        if (GSM.gameStarted && Mathf.Abs(cur_range - desired_range) > 2)
+            comboAudioSource.Play();
         // Debug.Log($"cur range: {cur_range} | desired range: {desired_range}");
         while (Time.time - startTime < anim_time)
         {
@@ -311,12 +315,11 @@ public class KeyInputPlayer1 : MonoBehaviour
                 desired_range,
                 t
             );
-            if (GSM.gameStarted && Mathf.Abs(cur_range - desired_range) > 2)
-                comboAudioSource.Play();
             yield return null;
         }
 
         combo_shaft.range = desired_range;
+     
         animatingCombo = false;
 
         if (shake)
