@@ -209,7 +209,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LetterBehavior
   timeToLive: 100000
   NextLetterMaterial: {fileID: 2100000, guid: 289ad87d1b2d543e1aa37716c85e5d2b, type: 2}
-  letterScale: 1
   p1_goldenLetter: 0
   p2_goldenLetter: 0
   audioSource: {fileID: 3067796628561125518}
@@ -228,7 +227,7 @@ AudioSource:
   m_GameObject: {fileID: 7312965833978098500}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8058449842588731637, guid: d9c40b9a5a70646ea8054d8b2e18e447, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: dc0e3e02e6196504180cc29f85eef89e, type: 3}
   m_PlayOnAwake: 0
@@ -276,7 +275,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

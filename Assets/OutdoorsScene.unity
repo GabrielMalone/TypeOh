@@ -670,7 +670,7 @@ Transform:
   m_GameObject: {fileID: 79770093}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -35, z: 5.53}
+  m_LocalPosition: {x: 0, y: -23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5234,7 +5234,7 @@ Transform:
   m_GameObject: {fileID: 683480739}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 13, z: 0}
+  m_LocalPosition: {x: 0, y: 14.81, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6010,7 +6010,7 @@ Transform:
   m_GameObject: {fileID: 778672660}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 13.499, z: 0}
+  m_LocalPosition: {x: 0, y: 16.125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6183,7 +6183,7 @@ Transform:
   m_GameObject: {fileID: 860827829}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 13, z: 0}
+  m_LocalPosition: {x: 0, y: 14.809999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6237,7 +6237,7 @@ MonoBehaviour:
   p1_curIndex: 0
   p2_curIndex: 0
   maxPlatformForce: 4905
-  comboForce: 10000
+  comboForce: 100
   p1_goldenLetterIndex: -1
   p2_goldenLetterIndex: -1
   goldenMassMultiplier: 10
@@ -6252,12 +6252,15 @@ MonoBehaviour:
   countDownSource: {fileID: 876266763}
   beep_1: {fileID: 8300000, guid: b2f34eeedc6df412fab8f2b24b5e1d2c, type: 3}
   chuckle: {fileID: 8300000, guid: 7a717287f54a04cd585de5e9b5b31e02, type: 3}
+  scream: {fileID: 8300000, guid: ad5b3596411644c09aeeec97335609cd, type: 3}
   player_1: {fileID: 1771319987}
   player_2: {fileID: 929033122}
   player_1_material: {fileID: 2100000, guid: cfb16296380964658a5c11226330dfa0, type: 2}
   player_2_material: {fileID: 2100000, guid: 34a8f052067d049c9909594f30de97d7, type: 2}
   player_1_platform: {fileID: 1014663150}
   player_2_platform: {fileID: 1431308733}
+  p1_platformMat: {fileID: 2100000, guid: 7548fa908571e49c099e4125441b45c4, type: 2}
+  p2_platformMat: {fileID: 2100000, guid: caef92b34ccb84f629b1ad3a56c44cee, type: 2}
   player_1_spring: {fileID: 1871610276}
   player_2_spring: {fileID: 1954166948}
   finishLine: {fileID: 1517671419}
@@ -13969,7 +13972,7 @@ Transform:
   m_GameObject: {fileID: 1404511490}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.03, y: 428, z: 6.2}
+  m_LocalPosition: {x: 0.03, y: 428, z: 0}
   m_LocalScale: {x: 1, y: -14.57868, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17098,7 +17101,7 @@ MonoBehaviour:
   antialiasing: 1
   SMAAQuality: 2
   dithering: 1
-  stopNaNs: 0
+  stopNaNs: 1
   taaSharpenStrength: 0.5
   TAAQuality: 1
   taaSharpenMode: 0
@@ -17935,7 +17938,7 @@ Transform:
   m_GameObject: {fileID: 1930354215}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 13.704, z: 0}
+  m_LocalPosition: {x: 0, y: 16.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

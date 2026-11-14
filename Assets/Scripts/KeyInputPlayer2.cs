@@ -24,6 +24,7 @@ public class KeyInputPlayer2 : MonoBehaviour
     [Header("Letter Material Settings")]
     public Material correct_material;
 
+
     [Header("platform letter scale settings")]
     public float letterScale = 1f;
 
@@ -146,11 +147,11 @@ public class KeyInputPlayer2 : MonoBehaviour
         List<GameObject> spawnedLetters = GameStateManager.p2_spawnedLetters;
 
         GameObject newLetter = Instantiate(letterObject, correctSpawnPosition);
-        Material material =  GSM.p2_Material;
+        Material material =  GSM.p2_platformMat;
         newLetter.GetComponent<LetterBehavior>().isOnPlatform = true;
         newLetter.GetComponentInChildren<Renderer>().material = material;
+        newLetter.GetComponent<LetterBehavior>().SetLetterScale(0.5f);
 
-    
         if (GSM.p2_goldenLetterIndex == GSM.p2_curIndex)
         {
             GoldenFx(newLetter);
@@ -176,7 +177,7 @@ public class KeyInputPlayer2 : MonoBehaviour
     // -------------------------------------------------------------------
     void IncorrectKeyPressEvents(GameObject letterObject)
     {
-        Material material =  GSM.p2_Material;
+        Material material =  GSM.p2_platformMat;
         
         audio_source.PlayOneShot(incorrect_sound);
         bool goldenLetter = false;
@@ -185,6 +186,7 @@ public class KeyInputPlayer2 : MonoBehaviour
         lastIncorrectLetter = newLetter.name[0];    
         newLetter.GetComponent<LetterBehavior>().isOnPlatform=true;
         newLetter.GetComponentInChildren<Renderer>().material = material;
+        newLetter.GetComponent<LetterBehavior>().SetLetterScale(0.5f);
 
         if (GSM.p2_goldenLetterIndex == GSM.p2_curIndex)
         {

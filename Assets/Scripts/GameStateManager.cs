@@ -35,6 +35,7 @@ public class GameStateManager : MonoBehaviour
     // sfx currently scattered throughout game
     [Header("Game SFX")]
     public AudioClip chuckle;
+    public AudioClip scream;
 
     [Header("Player Settings")]
     public GameObject player_1;
@@ -43,6 +44,8 @@ public class GameStateManager : MonoBehaviour
     public Material player_2_material;
     public GameObject player_1_platform;
     public GameObject player_2_platform;
+    public Material p1_platformMat;
+    public Material p2_platformMat;
 
     [Header("Player Stats")]
     public SpringJoint player_1_spring;
@@ -597,6 +600,9 @@ public class GameStateManager : MonoBehaviour
         foreach(GameObject letter in letters)
         {
             letter.layer = LayerMask.NameToLayer("Letter");
+            LetterBehavior lb = letter.GetComponent<LetterBehavior>();
+            lb.audioSource.PlayOneShot(scream);
+
             Rigidbody r = letter.GetComponent<Rigidbody>();
             r.AddForce(Vector3.up * comboForce, ForceMode.Impulse);
         }

@@ -138,9 +138,10 @@ public class KeyInputPlayer1 : MonoBehaviour
          
 
         GameObject newLetter = Instantiate(letterObject, correctSpawnPosition);
-        Material material = GSM.p1_Material;
+        Material material = GSM.p1_platformMat;
         newLetter.GetComponent<LetterBehavior>().isOnPlatform = true;
         newLetter.GetComponentInChildren<Renderer>().material = material;
+        newLetter.GetComponent<LetterBehavior>().SetLetterScale(0.5f);
 
         if (GSM.p1_goldenLetterIndex == GSM.p1_curIndex)
         {
@@ -166,7 +167,7 @@ public class KeyInputPlayer1 : MonoBehaviour
     void IncorrectKeyPressEvents(GameObject letterObject)
     {
         
-        Material material = GSM.p1_Material;
+        Material material = GSM.p1_platformMat;
         
         audio_source.PlayOneShot(incorrect_sound);
         bool goldenLetter = false;
@@ -175,6 +176,7 @@ public class KeyInputPlayer1 : MonoBehaviour
         lastIncorrectLetter = newLetter.name[0];    
         newLetter.GetComponent<LetterBehavior>().isOnPlatform=true;
         newLetter.GetComponentInChildren<Renderer>().material = material;
+        newLetter.GetComponent<LetterBehavior>().SetLetterScale(0.5f);
 
         if (GSM.p1_goldenLetterIndex == GSM.p1_curIndex)
         {

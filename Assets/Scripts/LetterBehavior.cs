@@ -35,6 +35,7 @@ public class LetterBehavior : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (isOnPlatform) return;
         rndAdjst = Random.value;
         Destroy(gameObject, timeToLive);
         gameObject.transform.localScale = Vector3.one * letterScale;
@@ -48,6 +49,8 @@ public class LetterBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isOnPlatform) return;
+        
         if (currentlySelected && !blinking)
         {
             StartCoroutine(CursorBlink());
@@ -231,5 +234,7 @@ public class LetterBehavior : MonoBehaviour
         // Debug.Log($"volume for letters: {volume} | speed: {speed} | mass: {mass} |  maxImpact: {1f}");
         audioSource.PlayOneShot(collisionNoise, volume);
     }
+
+
 
 }
