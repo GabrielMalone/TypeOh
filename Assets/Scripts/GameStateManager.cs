@@ -36,6 +36,7 @@ public class GameStateManager : MonoBehaviour
     [Header("Game SFX")]
     public AudioClip chuckle;
     public AudioClip scream;
+    public AudioClip [] screams;
 
     [Header("Player Settings")]
     public GameObject player_1;
@@ -204,7 +205,7 @@ public class GameStateManager : MonoBehaviour
         keyboardMap["Period"] = 'Z';
 
         // load all english words
-        // https://github.com/dwyl/english-words
+        // https://gib.com/dwyl/english-words
         TextAsset file = Resources.Load<TextAsset>("words_alpha");
 
         // put them in the list
@@ -341,12 +342,12 @@ public class GameStateManager : MonoBehaviour
         while (!wordFound)
         {
             // losing get easy word
-            if (p1 && p1_percent_complete < p2_percent_complete)
+            if (p1 && P2InTheLead())
             {
                 hardChance = 0.2f;
             }
             // losing get easy word
-            else if (!p1 && p2_percent_complete < p1_percent_complete)
+            else if (!p1 && P1InTheLead())
             {
                 hardChance = 0.2f;
             }
@@ -549,11 +550,11 @@ public class GameStateManager : MonoBehaviour
         // greater chance of oglden 
         float goldenChance;
 
-        if (p1 && p1_percent_complete > p2_percent_complete)
+        if (p1 && P1InTheLead())
         {
             goldenChance = 0f;
         }
-        else if (!p1 && p2_percent_complete > p1_percent_complete)
+        else if (!p1 && P2InTheLead())
         {
             goldenChance = 0f;
         }
@@ -597,11 +598,14 @@ public class GameStateManager : MonoBehaviour
 
         List<GameObject> letters = p1 ? player_2_platformLetters : player_1_platformLetters;
 
+        int screamIndex = 0;
+
         foreach(GameObject letter in letters)
         {
             letter.layer = LayerMask.NameToLayer("Letter");
             LetterBehavior lb = letter.GetComponent<LetterBehavior>();
-            lb.audioSource.PlayOneShot(scream);
+            AudioClip s = screams[screamIndex ++ % screams.Length];
+            lb.audioSource.PlayOneShot(s);
 
             Rigidbody r = letter.GetComponent<Rigidbody>();
             r.AddForce(Vector3.up * comboForce, ForceMode.Impulse);
@@ -721,4 +725,15 @@ public class GameStateManager : MonoBehaviour
                 player_1_platform.transform.position.y - finishLine.transform.position.y
             );
     }
+    // -------------------------------------------------------------------
+    public bool P1InTheLead()
+    {
+        return p1_percent_complete > p2_percent_complete;
+    }
+    // -------------------------------------------------------------------
+    public bool P2InTheLead()
+    {
+        return p1_percent_complete < p2_percent_complete;
+    }
+    // -------------------------------------------------------------------
 }

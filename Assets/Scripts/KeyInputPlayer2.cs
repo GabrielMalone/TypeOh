@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using Unity.Cinemachine;
 using System.Collections.Generic;
-using System.Threading;
 // -----------------------------------------------------------------------
 public class KeyInputPlayer2 : MonoBehaviour
 {
@@ -33,8 +32,8 @@ public class KeyInputPlayer2 : MonoBehaviour
     public CinemachineImpulseSource impulseSource;
 
     [Header("Correct Settings")]
-    public int comboTracker;
-    public int comboNeeded = 20;
+    public float comboTracker;
+    public float comboNeeded = 20f;
     public Light combo_shaft;
     private bool animatingCombo = false;
     public Light shaft_light;
@@ -56,6 +55,7 @@ public class KeyInputPlayer2 : MonoBehaviour
     private char lastIncorrectLetter;
     private bool gameOver = false;
     private bool wrong_flicker = false;
+    private float comboDecayMultiplier;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -83,6 +83,15 @@ public class KeyInputPlayer2 : MonoBehaviour
         }
         if (!animatingCombo)
             StartCoroutine(ComboShaftFX());
+
+        // decay cmmbo over time to punish intentionally slow and precise typing
+        if (GSM.P2InTheLead()) 
+            comboDecayMultiplier = 2;
+        else 
+            comboDecayMultiplier = 1;
+        comboTracker = 
+            Mathf.Max(0, comboTracker -= Time.deltaTime * comboDecayMultiplier);
+        // Debug.Log($"p2 current combo: {comboTracker}");
     }
     // -------------------------------------------------------------------
     void CheckForKeyInput()
@@ -318,11 +327,12 @@ public class KeyInputPlayer2 : MonoBehaviour
 
         if (shake)
         {
-            audio_source.PlayOneShot(GSM.chuckle);
             comboTracker = 0;
-            GSM.ApplyUpwardForce(false);
-            GSM.JumbleLetters(false);
+            GSM.ApplyUpwardForce(true);
+            GSM.JumbleLetters(true);
             ShakeCamera();
+            yield return new WaitForSeconds(2.0f);
+            audio_source.PlayOneShot(GSM.chuckle);
         }
     }
     // -------------------------------------------------------------------

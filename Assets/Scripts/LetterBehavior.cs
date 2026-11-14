@@ -28,29 +28,30 @@ public class LetterBehavior : MonoBehaviour
     public bool isPercent = false;
     public bool isCountdown = false;
     public bool isOnPlatform = false;
-    private UnityEngine.Vector3 lastScale;
-    private float rndAdjst;
     public bool comboFX = false;
     // -------------------------------------------------------------------
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
         if (isOnPlatform) return;
-        rndAdjst = Random.value;
+
         Destroy(gameObject, timeToLive);
         gameObject.transform.localScale = Vector3.one * letterScale;
         renderer = gameObject.GetComponentInChildren<Renderer>();
+
         // if (!scaling && !isPercent && !isOnPlatform && !isCountdown)
         // {
         //     StartCoroutine(CursorScale(1f, 0.5f));
         // }
+
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
     void Update()
     {
         if (isOnPlatform) return;
-        
+
         if (currentlySelected && !blinking)
         {
             StartCoroutine(CursorBlink());
@@ -90,7 +91,7 @@ public class LetterBehavior : MonoBehaviour
             end = 0;
         }
         
-        UnityEngine.Quaternion ogRotation = transform.rotation;
+       Quaternion ogRotation = transform.rotation;
 
         while (Time.time - startTime < speed)
         {
@@ -220,18 +221,12 @@ public class LetterBehavior : MonoBehaviour
     // -------------------------------------------------------------------
     void OnCollisionEnter(Collision collision)
     {
-        if(collisionPlayed) return;
-        collisionPlayed = true;
-
-        // letter or platform
-        // if (collision.gameObject.layer != 3 || collision.gameObject.layer != 7) return;
         if (!collision.rigidbody) return;
-
         float speed = collision.relativeVelocity.magnitude;
         float mass = collision.rigidbody.mass;
         float volume = Mathf.Clamp01(speed * mass / 1f);
-        
         // Debug.Log($"volume for letters: {volume} | speed: {speed} | mass: {mass} |  maxImpact: {1f}");
+        if (speed < 1) return;
         audioSource.PlayOneShot(collisionNoise, volume);
     }
 

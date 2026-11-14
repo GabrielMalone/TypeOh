@@ -23,8 +23,8 @@ public class KeyInputPlayer1 : MonoBehaviour
     public CinemachineImpulseSource impulseSource;
 
     [Header("Correct Settings")]
-    public int comboTracker;
-    public int comboNeeded = 20;
+    public float comboTracker;
+    public float comboNeeded = 20f;
     public Light combo_shaft;
     private bool animatingCombo = false;
     public Light shaft_light;
@@ -45,7 +45,7 @@ public class KeyInputPlayer1 : MonoBehaviour
     private GameStateManager GSM;
     private char lastIncorrectLetter;
     private bool gameOver = false;
-
+    private float comboDecayMultiplier;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -70,6 +70,15 @@ public class KeyInputPlayer1 : MonoBehaviour
         }
         if (!animatingCombo)
             StartCoroutine(ComboShaftFX());
+
+        if (GSM.P1InTheLead()) 
+            comboDecayMultiplier = 2;
+        else 
+            comboDecayMultiplier = 1;
+
+        comboTracker = 
+            Mathf.Max(0, comboTracker -= Time.deltaTime * comboDecayMultiplier);
+        // Debug.Log($"p1 current combo: {comboTracker}");
     }
     // -------------------------------------------------------------------
     void CheckForKeyInput()
@@ -312,11 +321,12 @@ public class KeyInputPlayer1 : MonoBehaviour
 
         if (shake)
         {
-            audio_source.PlayOneShot(GSM.chuckle);
             comboTracker = 0;
             GSM.ApplyUpwardForce(true);
             GSM.JumbleLetters(true);
             ShakeCamera();
+            yield return new WaitForSeconds(2.0f);
+            audio_source.PlayOneShot(GSM.chuckle);
         }
     }
     // -------------------------------------------------------------------
