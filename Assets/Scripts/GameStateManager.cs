@@ -38,6 +38,9 @@ public class GameStateManager : MonoBehaviour
     public AudioClip chuckle;
     public AudioClip scream;
     public AudioClip [] screams;
+    public AudioClip computerEngageSound;
+    public AudioSource ambientAudioSource;
+
 
     [Header("Player Settings")]
     public GameObject player_1;
@@ -311,7 +314,7 @@ public class GameStateManager : MonoBehaviour
     // -------------------------------------------------------------------
     void CheckForReset()
     {
-        if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.rKey.isPressed)
+        if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.rKey.wasPressedThisFrame)
         {
             letterObjects = new Dictionary<char, GameObject>();
             keyboardMap = new Dictionary<string, char>();
@@ -325,9 +328,11 @@ public class GameStateManager : MonoBehaviour
     // -------------------------------------------------------------------
     void Player2Toggle()
     {
-        if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.cKey.isPressed)
+        if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.cKey.wasPressedThisFrame)
         {
             KeyInputPlayer2.computer = !KeyInputPlayer2.computer;
+            Debug.Log($"Turning computer player to: {KeyInputPlayer2.computer}");
+            gameMusicSource.PlayOneShot(computerEngageSound);
         }
     }
     // -------------------------------------------------------------------
@@ -690,6 +695,7 @@ public class GameStateManager : MonoBehaviour
         gameStarted = true;
         p1_wordSpawnArea.SetActive(true);
         p2_wordSpawnArea.SetActive(true);
+        ambientAudioSource.Play();
     }
     // -------------------------------------------------------------------
     public IEnumerator FadeInMusic()

@@ -78,7 +78,7 @@ public class KeyInputPlayer2 : MonoBehaviour
         if (!gameOver && GSM.gameStarted)
         {
             CheckForKeyInput();
-            if (computer || !computerPaused)
+            if (computer && !computerPaused)
             {
                 StartCoroutine(ComptuerPlayer());
             } 
