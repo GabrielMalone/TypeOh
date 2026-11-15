@@ -82,6 +82,9 @@ public class GameStateManager : MonoBehaviour
     public Material p1_Material;
     public Material p2_Material;
 
+    [Header("specialFX")]
+    public GameObject wordResetFX;
+
     [Header("Alphabet Game Objects")]
     public GameObject A;
     public GameObject B;
@@ -251,6 +254,7 @@ public class GameStateManager : MonoBehaviour
             // pick a new world
             p1_word = GetNewWord(true);
             // spawn letters for new word
+   
             CenterAndSpawnWord(p1_word, p1_wordSpawnArea, true);
             PlaceGoldenLetter(true);
             p1_word_set = false;
@@ -263,6 +267,7 @@ public class GameStateManager : MonoBehaviour
         {
             UpdateWordMaterials(true);
             p1_word_set = true;
+
         }
 
         // RemoveGoldenLetter(true);
