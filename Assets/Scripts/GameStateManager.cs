@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEditor.Callbacks;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -381,7 +380,7 @@ public class GameStateManager : MonoBehaviour
             int index = Random.Range(0, wordList.Count);
             word = wordList[index].ToUpper().Trim();
             // word length check
-            if (word.Length > 2 && word.Length < 11)
+            if (word.Length > 2 && word.Length < 21)
             {
                 wordFound = true;
             }

@@ -71,7 +71,7 @@ public class printSript : MonoBehaviour
             {
                 ClearOldStats();
                 GSM.CenterAndSpawnWord("100%", gameObject, true, distanceBetweenNumbers, statLetters, false);
-                float rotation = player_1 ? -65f : 65f;
+                float rotation = player_1 ? -45f : 45f;
                 gameObject.transform.Rotate(0f, rotation, 0f);
                 SetStatMaterial();
                 foreach (GameObject letter in statLetters)
