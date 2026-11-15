@@ -16197,7 +16197,7 @@ MonoBehaviour:
   gameMusicSource: {fileID: 876266762}
   gameMusic: {fileID: 8300000, guid: 78af0cc0d3fc64dd396ac12cb6aa199a, type: 3}
   countDownSource: {fileID: 876266763}
-  beep_1: {fileID: 8300000, guid: b2f34eeedc6df412fab8f2b24b5e1d2c, type: 3}
+  beep_1: {fileID: 8300000, guid: 8e6ba14c2ee2a401392fc74f9d8a759b, type: 3}
   calmMusic: {fileID: 8300000, guid: 4f34b212eae7240c3843de325caa20cb, type: 3}
   chuckle: {fileID: 8300000, guid: 7a717287f54a04cd585de5e9b5b31e02, type: 3}
   scream: {fileID: 8300000, guid: ad5b3596411644c09aeeec97335609cd, type: 3}
@@ -16408,7 +16408,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 6a3fd9a379de2449099dff9cbd57e9ab, type: 3}
+  m_Resource: {fileID: 8300000, guid: f1c58bab380994e08b1b65d6733a0fb2, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -26498,7 +26498,7 @@ Light:
   serializedVersion: 13
   m_Type: 2
   m_Color: {r: 0, g: 1, b: 0.69433475, a: 1}
-  m_Intensity: 15.600342
+  m_Intensity: 3.0167782
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.802082
