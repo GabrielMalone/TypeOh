@@ -188,7 +188,7 @@ public class KeyInputPlayer2 : MonoBehaviour
     {
         Material material =  GSM.p2_platformMat;
         
-        audio_source.PlayOneShot(incorrect_sound);
+        audio_source.PlayOneShot(incorrect_sound, 0.2f);
         bool goldenLetter = false;
         comboTracker = 0;
         GameObject newLetter = Instantiate(letterObject, incorrectSpawnPosition);

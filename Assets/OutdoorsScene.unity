@@ -11877,8 +11877,8 @@ MonoBehaviour:
   comboAudioSource: {fileID: 208040506}
   goldenLetterAudioSource: {fileID: 2112510056}
   audio_source: {fileID: 1017969607}
-  correct_sound: {fileID: 8300000, guid: 3074bf58f94ad4217ba6c6ea2e951adf, type: 3}
-  incorrect_sound: {fileID: 8300000, guid: 28d831ebb238e46cab2b67a94905561b, type: 3}
+  correct_sound: {fileID: 8300000, guid: 0f354583fa85442d89eedc7d0263257e, type: 3}
+  incorrect_sound: {fileID: 8300000, guid: 61df3c12a0c09464ca9b77b65ff206a0, type: 3}
   stateManager: {fileID: 876266759}
 --- !u!1001 &972928664
 PrefabInstance:
@@ -21813,8 +21813,8 @@ MonoBehaviour:
   comboAudioSource: {fileID: 208040506}
   goldenLetterAudioSource: {fileID: 2112510056}
   audio_source: {fileID: 1770237475}
-  correct_sound: {fileID: 8300000, guid: 3074bf58f94ad4217ba6c6ea2e951adf, type: 3}
-  incorrect_sound: {fileID: 8300000, guid: 28d831ebb238e46cab2b67a94905561b, type: 3}
+  correct_sound: {fileID: 8300000, guid: 0f354583fa85442d89eedc7d0263257e, type: 3}
+  incorrect_sound: {fileID: 8300000, guid: 61df3c12a0c09464ca9b77b65ff206a0, type: 3}
   stateManager: {fileID: 876266759}
 --- !u!1 &1771339687
 GameObject:

@@ -221,13 +221,13 @@ public class LetterBehavior : MonoBehaviour
     // -------------------------------------------------------------------
     void OnCollisionEnter(Collision collision)
     {
-        if (!collision.rigidbody) return;
-        float speed = collision.relativeVelocity.magnitude;
-        float mass = collision.rigidbody.mass;
-        float volume = Mathf.Clamp01(speed * mass / 1f);
+        // if (!collision.rigidbody) return;
+        // float speed = collision.relativeVelocity.magnitude;
+        // float mass = collision.rigidbody.mass;
+        // float volume = Mathf.Clamp01(speed * mass / 1f);
         // Debug.Log($"volume for letters: {volume} | speed: {speed} | mass: {mass} |  maxImpact: {1f}");
-        if (speed < 1) return;
-        audioSource.PlayOneShot(collisionNoise, volume);
+        // if (speed < 1) return;
+        // audioSource.PlayOneShot(collisionNoise, volume);
     }
 
 
