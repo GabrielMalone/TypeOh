@@ -31,6 +31,7 @@ public class GameStateManager : MonoBehaviour
     public AudioClip gameMusic;
     public AudioSource countDownSource;
     public AudioClip beep_1;
+    public AudioClip calmMusic;
 
     // sfx currently scattered throughout game
     [Header("Game SFX")]
@@ -689,6 +690,8 @@ public class GameStateManager : MonoBehaviour
     public IEnumerator FadeInMusic()
     {
         float timeStarted = Time.time;
+
+        gameMusicSource.clip = calmMusic;
         gameMusicSource.volume = 0;
         gameMusicSource.Play();
 
@@ -697,15 +700,15 @@ public class GameStateManager : MonoBehaviour
             float t = (Time.time - timeStarted) / musicFadeInTime;
             gameMusicSource.volume = Mathf.Lerp(
                 0f,
-                0.1f,
+                0.5f,
                 t
             );
             yield return null;
         }
 
         // Debug.Log("Playing Music!");
+        gameMusicSource.volume = 0.5f;
 
-        gameMusicSource.volume = 0.1f;
     }
     // -------------------------------------------------------------------
     public void AdjustMusicVolume()
@@ -715,7 +718,7 @@ public class GameStateManager : MonoBehaviour
         float min_distance = Mathf.Min(p1_distance, p2_distance);
         float currentPercent = Mathf.Clamp01(1 - (min_distance / totalPlatformDistance));
         // Debug.Log($"volume: {currentPercent}");
-        gameMusicSource.volume = currentPercent;
+        // gameMusicSource.volume = currentPercent;
     }
     // -------------------------------------------------------------------
     void InitializeDistance()
