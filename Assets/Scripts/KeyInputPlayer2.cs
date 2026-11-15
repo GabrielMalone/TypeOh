@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using Unity.Cinemachine;
 using System.Collections.Generic;
+using UnityEngine.Android;
+using UnityEngine.Analytics;
 // -----------------------------------------------------------------------
 public class KeyInputPlayer2 : MonoBehaviour
 {
@@ -14,6 +16,8 @@ public class KeyInputPlayer2 : MonoBehaviour
     [Header("Computer Player Settings")]
     public float speed = 1f;
     public float accuracy = 0.5f;
+    public bool computerPaused = false;
+    public float computerPauseTime = 2f;
     private float timeLastTyped = 0f;
 
     [Header("Letter Spawn Position")]
@@ -74,7 +78,10 @@ public class KeyInputPlayer2 : MonoBehaviour
         if (!gameOver && GSM.gameStarted)
         {
             CheckForKeyInput();
-            ComptuerPlayer();
+            if (computer || !computerPaused)
+            {
+                StartCoroutine(ComptuerPlayer());
+            } 
         }
         if (GSM.player_2_winner)
         {
@@ -342,14 +349,41 @@ public class KeyInputPlayer2 : MonoBehaviour
         }
     }
     // -------------------------------------------------------------------
-    void ComptuerPlayer()
-    {   
-        if (!computer) return;
+    IEnumerator ComptuerPlayer()
+    {
+        float speedMultiplier = Random.value * speed * 10;
+
+        if (Random.value < 0.5f)
+        {
+            speedMultiplier *= -1;
+        }
+
+        float curSpeed = speed + speedMultiplier;
+        float minSpeed = speed * 2;
+        float maxSpeed = speed / 2;
+
+        // Debug.Log($"speedMultiplier: {speedMultiplier} | curSpeed : {curSpeed} | minSpeed {minSpeed} | maxSpeed {maxSpeed}");
  
+        curSpeed = Mathf.Clamp(curSpeed, minSpeed, maxSpeed);
+
+        //Debug.Log($"speedMultiplier: {speedMultiplier} | curSpeed : {curSpeed} | minSpeed {minSpeed} | maxSpeed {maxSpeed}");
         char rnd_char = (char)Random.Range(65,90);
         char cur_car = GSM.p2_word[GSM.p2_curIndex];
 
-        if (Time.time - timeLastTyped > speed) 
+        // take a pause of variable length every variable amount of time 
+        // pause length and when to pause length should be inside a window
+
+        computerPaused = Random.value < 0.05f;
+
+        if (computerPaused)
+        {
+            float curPauseTime = Random.value * computerPauseTime;
+            yield return new WaitForSeconds(Random.value * curPauseTime);
+            // Debug.Log($"computer pausing for  : {curPauseTime}");
+            computerPaused = false;
+        }
+
+        else if (Time.time - timeLastTyped > curSpeed) 
         {
             timeLastTyped = Time.time;
             if (Random.value < accuracy)
