@@ -13,5 +13,8 @@ public class moon : MonoBehaviour
     void Update()
     {
         transform.Rotate(Vector3.up * spintRate * Time.deltaTime);
+        transform.Rotate(new Vector3(0,0,0.5f) * spintRate * Time.deltaTime);
     }
 }
+
+nonsyllagystically
