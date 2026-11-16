@@ -117,7 +117,7 @@ Material:
     - _ZTestGBuffer: 4
     - _ZTestTransparent: 4
     - _ZWrite: 1
-    - _galaxySpeed: 1
+    - _galaxySpeed: 2
     - _noiseScale: 0.01
     - _offSetX: 1
     - _offSetY: 1

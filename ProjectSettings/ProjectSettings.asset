@@ -46,7 +46,7 @@ PlayerSettings:
     duration: 2
   m_VirtualRealitySplashScreen: {fileID: 6192944022281365145, guid: 710541ec5f7924ce4b7f418860bb2876, type: 3}
   defaultScreenWidth: 2560
-  defaultScreenHeight: 650
+  defaultScreenHeight: 500
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
   m_StereoRenderingPath: 0
