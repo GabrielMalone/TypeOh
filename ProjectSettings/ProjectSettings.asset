@@ -16,10 +16,10 @@ PlayerSettings:
   productName: TypeOh!
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
-  m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
-  m_SplashScreenOverlayOpacity: 0.524
+  m_SplashScreenOverlayOpacity: 0
   m_SplashScreenAnimation: 1
   m_SplashScreenLogoStyle: 1
   m_SplashScreenDrawMode: 1
@@ -42,10 +42,10 @@ PlayerSettings:
   m_SplashScreenLogos:
   - logo: {fileID: 10404, guid: 0000000000000000f000000000000000, type: 0}
     duration: 2
-  - logo: {fileID: 21300000, guid: fdba598fb7b3b404f8ef6f1dd8866e73, type: 3}
+  - logo: {fileID: 21300000, guid: c8708eb9a1c5341938df7057f8f48c8b, type: 3}
     duration: 2
-  m_VirtualRealitySplashScreen: {fileID: 6192944022281365145, guid: 710541ec5f7924ce4b7f418860bb2876, type: 3}
-  defaultScreenWidth: 2560
+  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: c8708eb9a1c5341938df7057f8f48c8b, type: 3}
+  defaultScreenWidth: 2650
   defaultScreenHeight: 500
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
@@ -104,7 +104,7 @@ PlayerSettings:
   bakeCollisionMeshes: 0
   forceSingleInstance: 1
   useFlipModelSwapchain: 1
-  resizableWindow: 0
+  resizableWindow: 1
   useMacAppStoreValidation: 0
   macAppStoreCategory: public.app-category.games
   gpuSkinning: 1
@@ -115,7 +115,7 @@ PlayerSettings:
   xboxEnableKinectAutoTracking: 0
   xboxEnableFitness: 0
   visibleInBackground: 1
-  allowFullscreenSwitch: 1
+  allowFullscreenSwitch: 0
   fullscreenMode: 3
   xboxSpeechDB: 0
   xboxEnableHeadOrientation: 0
@@ -306,7 +306,7 @@ PlayerSettings:
   - m_BuildTarget: Standalone
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 6192944022281365145, guid: b683fd0bab35447eda6665de8cb99e04, type: 3}
+      m_Icon: {fileID: 2800000, guid: 096b36f5323d240c78ef7f81a7a2fc19, type: 3}
       m_Width: 1024
       m_Height: 1024
       m_Kind: 0
@@ -855,7 +855,7 @@ PlayerSettings:
   monoEnv: 
   splashScreenBackgroundSourceLandscape: {fileID: 0}
   splashScreenBackgroundSourcePortrait: {fileID: 0}
-  blurSplashScreenBackground: 1
+  blurSplashScreenBackground: 0
   spritePackerPolicy: 
   webGLMemorySize: 32
   webGLExceptionSupport: 1
