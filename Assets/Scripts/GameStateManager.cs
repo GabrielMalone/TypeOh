@@ -129,6 +129,7 @@ public class GameStateManager : MonoBehaviour
     public GameObject NINE;
     public GameObject ZERO;
     public GameObject PERCENT;
+    public GameObject QUESTIONMARK;
 
     public static Dictionary<char, GameObject> letterObjects = new Dictionary<char, GameObject>();
     public static Dictionary<string, char> keyboardMap = new Dictionary<string, char>();
@@ -183,6 +184,7 @@ public class GameStateManager : MonoBehaviour
         letterObjects['9'] = NINE;
         letterObjects['0'] = ZERO;
         letterObjects['%'] = PERCENT;
+        letterObjects['?'] = QUESTIONMARK;
 
         // map for player 2 keyboard
         // which was mapped w/ outside program
@@ -234,12 +236,18 @@ public class GameStateManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        InitGame();
+        ambientAudioSource.Play();
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
     void Update()
     {
+        if (p1Ready && p2Ready && !gameInitialized)
+        {
+            gameInitialized = true;
+            InitGame();
+        }
+        if (!gameInitialized) return;
         // p1 branch
         if (CurWordIsFinished(true))
         {
@@ -309,7 +317,6 @@ public class GameStateManager : MonoBehaviour
     // -------------------------------------------------------------------
     void InitGame()
     {
-        gameInitialized = true;
         p1_word = GetNewWord(true);
         p2_word = GetNewWord(false);
         p1_wordSpawnArea.SetActive(false);
@@ -505,6 +512,13 @@ public class GameStateManager : MonoBehaviour
         for (int i = 0; i < centerLetterIndex; i++)
         {
             char letter = currentWord[i];
+
+            if (letter == ' ')
+            {
+                nxtPosition += distanceBetweenLetters;
+                continue;
+            }
+
             GameObject letterObj = Instantiate(
                 // letter gameobj
                 letterObjects[letter],
@@ -534,6 +548,13 @@ public class GameStateManager : MonoBehaviour
         for (int i = centerLetterIndex; i < lenWord; i++)
         {
             char letter = currentWord[i];
+
+            if (letter == ' ')
+            {
+                nxtPosition += distanceBetweenLetters;
+                continue;
+            }
+
             GameObject letterObj = Instantiate(
                 // letter gameobj
                 letterObjects[letter],
@@ -597,8 +618,8 @@ public class GameStateManager : MonoBehaviour
 
         if (Random.value >= goldenChance)
         {
-            if (p1) p1_goldenLetterIndex  = -1;
-            if (!p1) p2_goldenLetterIndex = -1;
+            if (p1)  p1_goldenLetterIndex  = -1;
+            if (!p1) p2_goldenLetterIndex  = -1;
             return;
         }
     
@@ -716,7 +737,7 @@ public class GameStateManager : MonoBehaviour
         gameStarted = true;
         p1_wordSpawnArea.SetActive(true);
         p2_wordSpawnArea.SetActive(true);
-        ambientAudioSource.Play();
+     
     }
     // -------------------------------------------------------------------
     public IEnumerator FadeInMusic()
