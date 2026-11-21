@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class LetterBehavior : MonoBehaviour
 
@@ -23,8 +23,8 @@ public class LetterBehavior : MonoBehaviour
     private Renderer renderer;
     private bool blinking = false;
     public bool currentlySelected = false;
-    private bool rotating = false;
-    private bool scaling = false;
+    public bool rotating = false;
+    public bool scaling = false;
     public bool isPercent = false;
     public bool isCountdown = false;
     public bool isOnPlatform = false;
@@ -229,7 +229,5 @@ public class LetterBehavior : MonoBehaviour
         // if (speed < 1) return;
         // audioSource.PlayOneShot(collisionNoise, volume);
     }
-
-
-
+    // -------------------------------------------------------------------
 }

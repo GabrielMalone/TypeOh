@@ -4,8 +4,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using Unity.Cinemachine;
 using System.Collections.Generic;
-using UnityEngine.Android;
-using UnityEngine.Analytics;
 // -----------------------------------------------------------------------
 public class KeyInputPlayer2 : MonoBehaviour
 {

@@ -50,6 +50,10 @@ public class GameStateManager : MonoBehaviour
     public GameObject player_2_platform;
     public Material p1_platformMat;
     public Material p2_platformMat;
+    public bool p1Ready = false;
+    public bool p2Ready = false;
+    public bool gameInitialized = false;
+
 
     [Header("Player Stats")]
     public SpringJoint player_1_spring;
@@ -230,20 +234,18 @@ public class GameStateManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        p1_word = GetNewWord(true);
-        p2_word = GetNewWord(false);
-        p1_wordSpawnArea.SetActive(false);
-        p2_wordSpawnArea.SetActive(false);
-        CenterAndSpawnWord(p1_word, p1_wordSpawnArea, true);
-        CenterAndSpawnWord(p2_word, p2_wordSpawnArea, false);
-        StartCoroutine(FadeInMusic());
-        StartCoroutine(StartGame());
-        Invoke(nameof(InitializeDistance), countDownTime);
+        ambientAudioSource.Play();
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
     void Update()
     {
+        if (p1Ready && p2Ready &&!gameInitialized)
+        {
+            InitGame();
+        }
+        if (!gameStarted) return;
+
         // p1 branch
         if (CurWordIsFinished(true))
         {
@@ -309,6 +311,20 @@ public class GameStateManager : MonoBehaviour
         CheckForReset();
         Player2Toggle();
         
+    }
+    // -------------------------------------------------------------------
+    void InitGame()
+    {
+        gameInitialized = true;
+        p1_word = GetNewWord(true);
+        p2_word = GetNewWord(false);
+        p1_wordSpawnArea.SetActive(false);
+        p2_wordSpawnArea.SetActive(false);
+        CenterAndSpawnWord(p1_word, p1_wordSpawnArea, true);
+        CenterAndSpawnWord(p2_word, p2_wordSpawnArea, false);
+        StartCoroutine(FadeInMusic());
+        StartCoroutine(StartGame());
+        Invoke(nameof(InitializeDistance), countDownTime);
     }
     // -------------------------------------------------------------------
     void CheckForReset()
