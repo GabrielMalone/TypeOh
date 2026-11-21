@@ -50,6 +50,7 @@ public class P1ReadyScript : MonoBehaviour
             LetterBehavior lb = letter.GetComponent<LetterBehavior>();
             AudioClip s = GSM.screams[(int)(Random.value * GSM.screams.Length)];
             lb.audioSource.PlayOneShot(GSM.chuckle);
+            Destroy(letter, 3f);
         }
     }
 

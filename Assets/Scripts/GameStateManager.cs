@@ -234,18 +234,12 @@ public class GameStateManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        ambientAudioSource.Play();
+        InitGame();
     }
     // -------------------------------------------------------------------
     // Update is called once per frame
     void Update()
     {
-        if (p1Ready && p2Ready &&!gameInitialized)
-        {
-            InitGame();
-        }
-        if (!gameStarted) return;
-
         // p1 branch
         if (CurWordIsFinished(true))
         {
@@ -561,6 +555,18 @@ public class GameStateManager : MonoBehaviour
             else
                 otherList?.Add(letterObj);
         }
+
+
+        if (mainWord && p1)
+        {
+            spawnArea.transform.Rotate(0, -32f, 0);
+        }
+
+        if (mainWord && !p1)
+        {
+            spawnArea.transform.Rotate(0, 32f, 0);
+        }
+
     }
     // -------------------------------------------------------------------
     public float GetPlatformWeight(SpringJoint spring)
