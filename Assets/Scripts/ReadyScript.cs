@@ -16,7 +16,7 @@ public class ReadyScript : MonoBehaviour
     void Start()
     {
         GSM.CenterAndSpawnWord(
-            p1 ? "P1 R TO START" : "P2 R TO START", 
+            p1 ? "P1 (R)EADY ?" : "P2 (R)EADY ?", 
             gameObject, 
             false, 
             1.5f, 

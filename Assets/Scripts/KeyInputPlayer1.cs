@@ -302,6 +302,8 @@ public class KeyInputPlayer1 : MonoBehaviour
         if (comboTracker >= comboNeeded)
         {
             shake = true;
+            comboNeeded = Mathf.Clamp(comboNeeded + 3, 3, 20);
+            Debug.Log($"combo needed: {comboNeeded}");
         }
 
         if (GSM.gameStarted && Mathf.Abs(cur_range - desired_range) > 2)

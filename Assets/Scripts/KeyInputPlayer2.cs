@@ -314,6 +314,8 @@ public class KeyInputPlayer2 : MonoBehaviour
         if (comboTracker >= comboNeeded)
         {
             shake = true;
+            comboNeeded = Mathf.Clamp(comboNeeded + 3, 3, 20);
+            Debug.Log($"combo needed: {comboNeeded}");
         }
         
         // Debug.Log($"cur range: {cur_range} | desired range: {desired_range}");

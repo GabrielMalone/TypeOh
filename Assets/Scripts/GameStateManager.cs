@@ -130,6 +130,8 @@ public class GameStateManager : MonoBehaviour
     public GameObject ZERO;
     public GameObject PERCENT;
     public GameObject QUESTIONMARK;
+    public GameObject LEFT_PAR;
+    public GameObject RIGHT_PAR;
 
     public static Dictionary<char, GameObject> letterObjects = new Dictionary<char, GameObject>();
     public static Dictionary<string, char> keyboardMap = new Dictionary<string, char>();
@@ -185,6 +187,8 @@ public class GameStateManager : MonoBehaviour
         letterObjects['0'] = ZERO;
         letterObjects['%'] = PERCENT;
         letterObjects['?'] = QUESTIONMARK;
+        letterObjects['('] = LEFT_PAR;
+        letterObjects[')'] = RIGHT_PAR;
 
         // map for player 2 keyboard
         // which was mapped w/ outside program
