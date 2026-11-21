@@ -43,6 +43,7 @@ public class KeyInputPlayer1 : MonoBehaviour
 
     [Header("Game State Manager")]
     public GameObject stateManager;
+    public KeyInputPlayer2 keyInputPlayer2;
     private GameStateManager GSM;
     private char lastIncorrectLetter;
     private bool gameOver = false;
@@ -79,6 +80,7 @@ public class KeyInputPlayer1 : MonoBehaviour
 
         comboTracker =  Mathf.Max(0, comboTracker -= Time.deltaTime * comboDecayMultiplier);
         // Debug.Log($"p1 current combo: {comboTracker}");
+        comboNeeded = Mathf.Max(comboNeeded, keyInputPlayer2.comboNeeded);
     }
     // -------------------------------------------------------------------
     void CheckForKeyInput()

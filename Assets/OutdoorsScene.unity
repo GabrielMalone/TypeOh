@@ -21134,9 +21134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3726c52fb6744a3bf790dcc2aa5819, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::P1ReadyScript
-  letters: []
-  GSM: {fileID: 876266760}
-  readymat: {fileID: 2100000, guid: 7548fa908571e49c099e4125441b45c4, type: 2}
 --- !u!114 &826236177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22041,6 +22038,7 @@ MonoBehaviour:
   correct_sound: {fileID: 8300000, guid: 0f354583fa85442d89eedc7d0263257e, type: 3}
   incorrect_sound: {fileID: 8300000, guid: 61df3c12a0c09464ca9b77b65ff206a0, type: 3}
   stateManager: {fileID: 876266759}
+  keyInputPlayer1: {fileID: 1771319991}
 --- !u!1001 &972928664
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30548,9 +30546,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3726c52fb6744a3bf790dcc2aa5819, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::P1ReadyScript
-  letters: []
-  GSM: {fileID: 876266760}
-  readymat: {fileID: 2100000, guid: caef92b34ccb84f629b1ad3a56c44cee, type: 2}
 --- !u!64 &1431432411
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -32168,6 +32163,7 @@ MonoBehaviour:
   correct_sound: {fileID: 8300000, guid: 0f354583fa85442d89eedc7d0263257e, type: 3}
   incorrect_sound: {fileID: 8300000, guid: 61df3c12a0c09464ca9b77b65ff206a0, type: 3}
   stateManager: {fileID: 876266759}
+  keyInputPlayer2: {fileID: 929033127}
 --- !u!1 &1771339687
 GameObject:
   m_ObjectHideFlags: 0

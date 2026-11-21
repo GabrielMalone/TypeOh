@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using Unity.Cinemachine;
 using System.Collections.Generic;
+
 // -----------------------------------------------------------------------
 public class KeyInputPlayer2 : MonoBehaviour
 {
@@ -54,6 +55,7 @@ public class KeyInputPlayer2 : MonoBehaviour
 
     [Header("Game State Manager")]
     public GameObject stateManager;
+    public KeyInputPlayer1 keyInputPlayer1;
     private GameStateManager GSM;
     private char lastIncorrectLetter;
     private bool gameOver = false;
@@ -97,6 +99,7 @@ public class KeyInputPlayer2 : MonoBehaviour
             comboDecayMultiplier = 1;
         comboTracker = Mathf.Max(0, comboTracker -= Time.deltaTime * comboDecayMultiplier);
         // Debug.Log($"p2 current combo: {comboTracker}");
+        comboNeeded = Mathf.Max(comboNeeded, keyInputPlayer1.comboNeeded);
     }
     // -------------------------------------------------------------------
     void CheckForKeyInput()
