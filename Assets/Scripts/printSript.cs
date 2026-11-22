@@ -54,7 +54,7 @@ public class printSript : MonoBehaviour
             ClearOldStats();
             int floorPercent = Mathf.RoundToInt(currentPercent);
             GSM.CenterAndSpawnWord(floorPercent.ToString() + "%", gameObject, true, distanceBetweenNumbers, statLetters, false);
-            float rotation = player_1 ? -65f : 65f;
+            float rotation = player_1 ? -35f : 35f;
             gameObject.transform.Rotate(0f, rotation, 0f);
             SetStatMaterial();
             foreach(GameObject letter in statLetters)
@@ -71,7 +71,7 @@ public class printSript : MonoBehaviour
             {
                 ClearOldStats();
                 GSM.CenterAndSpawnWord("100%", gameObject, true, distanceBetweenNumbers, statLetters, false);
-                float rotation = player_1 ? -45f : 45f;
+                float rotation = player_1 ? -25f : 25f;
                 gameObject.transform.Rotate(0f, rotation, 0f);
                 SetStatMaterial();
                 foreach (GameObject letter in statLetters)
@@ -92,7 +92,7 @@ public class printSript : MonoBehaviour
             {
                 ClearOldStats();
                 GSM.CenterAndSpawnWord("100%", gameObject ,true, distanceBetweenNumbers, statLetters, false);
-                float rotation = player_1 ? -65f : 65f;
+                float rotation = player_1 ? -35f : 35f;
                 gameObject.transform.Rotate(0f, rotation, 0f);
                 SetStatMaterial();
                 foreach (GameObject letter in statLetters)

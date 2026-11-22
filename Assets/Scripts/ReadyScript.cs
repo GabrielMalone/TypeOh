@@ -52,23 +52,37 @@ public class ReadyScript : MonoBehaviour
             SetLettersReady(false);
             GSM.p2Ready = true;
         }
+        if (GSM.p1Ready && GSM.p2Ready)
+        {
+            
+            List<GameObject> letters = p1 ? p1_letters : p2_letters;
+
+
+            for(int i = 0 ; i < letters.Count ; i ++)
+            {
+                Destroy(letters[i], 3f);
+            }
+        }
     }
 
 
     void SetLettersReady(bool p1)
     {
+
+        float f = 3f;
+
         List<GameObject> letters = p1 ? p1_letters : p2_letters;
 
         foreach(GameObject letter in letters)
         {
             Rigidbody rb = letter.GetComponent<Rigidbody>();
+            rb.useGravity = false;
             rb.constraints = RigidbodyConstraints.None;
-            rb.AddForce(new Vector3(10 * Random.value, 10 * Random.value, 10 * Random.value), ForceMode.Impulse);
-            rb.AddTorque(new Vector3(10 * Random.value, 10 * Random.value, 10 * Random.value), ForceMode.Impulse);
+            rb.AddForce(new Vector3(f * Random.value, f * Random.value, f * Random.value), ForceMode.Impulse);
+            rb.AddTorque(new Vector3(f * Random.value, f * Random.value, f * Random.value), ForceMode.Impulse);
             LetterBehavior lb = letter.GetComponent<LetterBehavior>();
             AudioClip s = yays[(int)(Random.value * yays.Length)];
-            lb.audioSource.PlayOneShot(GSM.chuckle);
-            Destroy(letter, 3f);
+            lb.audioSource.PlayOneShot(s);
         }
     }
 
