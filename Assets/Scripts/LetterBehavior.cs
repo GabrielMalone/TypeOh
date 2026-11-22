@@ -22,6 +22,7 @@ public class LetterBehavior : MonoBehaviour
     private bool collisionPlayed = false;
     private Renderer renderer;
     private bool blinking = false;
+    private bool goldenBlinking = false;
     public bool currentlySelected = false;
     public bool rotating = false;
     public bool scaling = false;
@@ -60,10 +61,10 @@ public class LetterBehavior : MonoBehaviour
         {
             StartCoroutine(CursorRotate());
         }
-        if (p1_goldenLetter || p2_goldenLetter && !blinking)
-        {
-            StartCoroutine(CursorBlink());
-        }
+        // if (p1_goldenLetter || p2_goldenLetter && !goldenBlinking)
+        // {
+        //     StartCoroutine(GoldenCursorBlink());
+        // }
         if (isCountdown && !scaling)
         {
             StartCoroutine(CursorScale(0.5f));
@@ -145,6 +146,44 @@ public class LetterBehavior : MonoBehaviour
         }
         material.SetColor("_EmissiveColor", ogEmission);
         blinking = false;
+    }
+    // -------------------------------------------------------------------
+    public IEnumerator GoldenCursorBlink()
+    {
+        goldenBlinking = true;
+        Material material = renderer.material;
+        Color ogEmission = material.GetColor("_EmissiveColor");
+
+        float blinkTime = 0.2f;
+        float startTime = Time.time;
+        float i;
+
+        while (Time.time - startTime < blinkTime)
+        {
+            float t = (Time.time - startTime) / blinkTime;
+            i = Mathf.Lerp(
+                1,
+                0f,
+                t
+            );
+            material.SetColor("_EmissiveColor", ogEmission * i);
+            yield return null;
+        }
+        material.SetColor("_EmissiveColor", ogEmission * 0);
+        startTime = Time.time;
+        while (Time.time - startTime < blinkTime)
+        {
+            float t = (Time.time - startTime) / blinkTime;
+            i = Mathf.Lerp(
+                0f,
+                1,
+                t
+            );
+            material.SetColor("_EmissiveColor", ogEmission * i);
+            yield return null;
+        }
+        material.SetColor("_EmissiveColor", ogEmission);
+        goldenBlinking = false;
     }
     // -------------------------------------------------------------------
     public IEnumerator CursorScale(float scale, float scaleTime = 2f)
