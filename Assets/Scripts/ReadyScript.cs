@@ -47,7 +47,7 @@ public class ReadyScript : MonoBehaviour
             SetLettersReady(true);
             GSM.p1Ready = true;
         }
-        if (Keyboard.current.numpad8Key.wasPressedThisFrame)
+        if (Keyboard.current.numpad8Key.wasPressedThisFrame  || Keyboard.current.periodKey.wasPressedThisFrame)
         {
             SetLettersReady(false);
             GSM.p2Ready = true;
@@ -81,8 +81,7 @@ public class ReadyScript : MonoBehaviour
             rb.AddForce(new Vector3(f * Random.value, f * Random.value, f * Random.value), ForceMode.Impulse);
             rb.AddTorque(new Vector3(f * Random.value, f * Random.value, f * Random.value), ForceMode.Impulse);
             LetterBehavior lb = letter.GetComponent<LetterBehavior>();
-            AudioClip s = yays[(int)(Random.value * yays.Length)];
-            lb.audioSource.PlayOneShot(s);
+            lb.audioSource.PlayOneShot(GSM.chuckle);
         }
     }
 
