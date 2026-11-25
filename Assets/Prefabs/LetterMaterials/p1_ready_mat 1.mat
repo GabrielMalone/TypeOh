@@ -54,7 +54,7 @@ Material:
     m_Floats:
     - _AlbedoAffectEmissive: 1
     - _EmissiveExposureWeight: 1
-    - _EmissiveIntensity: 24.537638
+    - _EmissiveIntensity: 9.01
     - _Metallic: 1
     - _RefractionModel: 0
     - _Smoothness: 0
@@ -62,9 +62,9 @@ Material:
     - _StencilWriteMaskDepth: 9
     - _UseEmissiveIntensity: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissiveColor: {r: 0, g: 10.258618, b: 24.537638, a: 24.537638}
-    - _EmissiveColorLDR: {r: 0, g: 0.6785716, b: 1, a: 1}
+    - _BaseColor: {r: 0, g: 0.23935056, b: 1, a: 1}
+    - _Color: {r: 0, g: 0.23935053, b: 1, a: 1}
+    - _EmissiveColor: {r: 0, g: 0, b: 0, a: 9.01}
+    - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
