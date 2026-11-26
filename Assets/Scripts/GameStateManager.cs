@@ -17,6 +17,7 @@ public class GameStateManager : MonoBehaviour
     public int p2_goldenLetterIndex = -1;
     public float goldenMassMultiplier = 10f;
     public float goldenLetterScaler = 1f;
+    public bool chaosMode = false;
 
     [Header("Game Start Settings")]
     public int countDownTime = 3;
@@ -24,6 +25,7 @@ public class GameStateManager : MonoBehaviour
     public GameObject p1_platform;
     public GameObject p2_platform;
     public float totalPlatformDistance;
+    public ParticleSystem firePS;
 
     [Header("Game Music")]
     public AudioSource gameMusicSource;
@@ -343,6 +345,11 @@ public class GameStateManager : MonoBehaviour
             englishWordsHard.Clear();
             englishWordsEasy.Clear();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.mKey.wasPressedThisFrame)
+        {
+            chaosMode = !chaosMode;
+            Debug.Log("CHAOS MODE!");
         }
     }
     // -------------------------------------------------------------------
@@ -712,6 +719,7 @@ public class GameStateManager : MonoBehaviour
             );
             countDownSource.Play();
             countdownLetters[0].GetComponent<LetterBehavior>().isCountdown = true;
+            ParticleSystem ps = Instantiate(firePS, countdownLetters[0].transform);
             yield return new WaitForSeconds(1f);
             Destroy(countdownLetters[0]);
             countdownLetters.Clear();

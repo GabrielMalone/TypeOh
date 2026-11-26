@@ -25,6 +25,8 @@ public class KeyInputPlayer2 : MonoBehaviour
 
     [Header("Letter Material Settings")]
     public Material correct_material;
+    public ParticleSystem firePS;
+    public Material burntMat;
 
 
     [Header("platform letter scale settings")]
@@ -154,6 +156,39 @@ public class KeyInputPlayer2 : MonoBehaviour
         }
     }
     // -------------------------------------------------------------------
+    void DropAndSetOnFire()
+    {
+        List<GameObject> spawnedLetters = GameStateManager.p2_spawnedLetters;
+        GameObject curLetter = Instantiate(
+            spawnedLetters[GSM.p2_curIndex],
+            spawnedLetters[GSM.p2_curIndex].transform.position,
+            spawnedLetters[GSM.p2_curIndex].transform.rotation
+        );
+        ParticleSystem ps = Instantiate(firePS, curLetter.transform);
+        Rigidbody rb = curLetter.GetComponent<Rigidbody>();
+        LetterBehavior lb = curLetter.GetComponent<LetterBehavior>();
+        lb.SetLetterMaterial(burntMat);
+        StartCoroutine(lb.CursorRotate());
+        rb.useGravity = !GSM.chaosMode;
+        rb.constraints = RigidbodyConstraints.None;
+        float f = GSM.chaosMode ? 3f : 20f;
+        f = !GSM.chaosMode ? Mathf.Clamp(Random.value * f, 10, 20) : Mathf.Clamp(Random.value * f, 1f, 3f);
+        rb.AddForce(
+            new Vector3(
+                GSM.chaosMode ? Random.value < 0.5 ? f : -f : 0,
+                GSM.chaosMode ? Random.value < 0.5 ? f : -f : -f,
+                GSM.chaosMode ? Random.value < 0.5 ? f : -f : 0),
+            ForceMode.Impulse
+        );
+        if (GSM.chaosMode)
+        {
+            rb.AddTorque(f, f, f);
+        }
+        rb.detectCollisions = false;
+        spawnedLetters[GSM.p2_curIndex].SetActive(false);
+        Destroy(curLetter, GSM.chaosMode ? 60f : 3f);
+    }
+    // -------------------------------------------------------------------
     void CorrectKeyPressEvents(GameObject letterObject)             
     {
         audio_source.clip = correct_sound;
@@ -176,13 +211,13 @@ public class KeyInputPlayer2 : MonoBehaviour
         }
 
         // increment correct index pos
-        spawnedLetters[GSM.p2_curIndex].SetActive(false);
+        DropAndSetOnFire();
+
         GSM.p2_curIndex++;
         GSM.player_2_correct_cnt++;
         GSM.player_2_platformLetters.Add(newLetter);
         GSM.p2_word_set = false;
         
-
         // every other letter gets collision
         CollisionManagement(newLetter, 2, true);
         if (!flickering)

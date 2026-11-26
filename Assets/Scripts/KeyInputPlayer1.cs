@@ -14,6 +14,8 @@ public class KeyInputPlayer1 : MonoBehaviour
 
     [Header("Letter Material Settings")]
     public Material correct_material;
+    public ParticleSystem firePS;
+    public Material burntMat;
 
     [Header("platform letter scale settings")]
     public float letterScale = 1f;
@@ -81,6 +83,7 @@ public class KeyInputPlayer1 : MonoBehaviour
         comboTracker =  Mathf.Max(0, comboTracker -= Time.deltaTime * comboDecayMultiplier);
         // Debug.Log($"p1 current combo: {comboTracker}");
         comboNeeded = Mathf.Max(comboNeeded, keyInputPlayer2.comboNeeded);
+
     }
     // -------------------------------------------------------------------
     void CheckForKeyInput()
@@ -137,17 +140,45 @@ public class KeyInputPlayer1 : MonoBehaviour
         }
     }
     // -------------------------------------------------------------------
+    void DropAndSetOnFire()
+    {
+        List<GameObject> spawnedLetters = GameStateManager.p1_spawnedLetters;
+        GameObject curLetter = Instantiate(
+            spawnedLetters[GSM.p1_curIndex],
+            spawnedLetters[GSM.p1_curIndex].transform.position,
+            spawnedLetters[GSM.p1_curIndex].transform.rotation
+        );
+        ParticleSystem ps = Instantiate(firePS, curLetter.transform);
+        Rigidbody rb = curLetter.GetComponent<Rigidbody>();
+        LetterBehavior lb = curLetter.GetComponent<LetterBehavior>();
+        lb.SetLetterMaterial(burntMat);
+        StartCoroutine(lb.CursorRotate());
+        rb.useGravity = !GSM.chaosMode;
+        rb.constraints = RigidbodyConstraints.None;
+        float f = GSM.chaosMode ? 3f : 20f;
+        f = !GSM.chaosMode ? Mathf.Clamp(Random.value * f, 10, 20) : Mathf.Clamp(Random.value * f, 1f, 3f);
+        rb.AddForce(
+            new Vector3(
+                GSM.chaosMode ? Random.value < 0.5 ? f : -f : 0,
+                GSM.chaosMode ? Random.value < 0.5 ? f : -f : -f,
+                GSM.chaosMode ? Random.value < 0.5 ? f : -f : 0), 
+            ForceMode.Impulse
+        );
+        if (GSM.chaosMode)
+        {
+            rb.AddTorque(f,f,f);
+        }
+        rb.detectCollisions = false;
+        spawnedLetters[GSM.p1_curIndex].SetActive(false);
+        Destroy(curLetter, GSM.chaosMode ? 60f : 3f);
+    }  
+    // -------------------------------------------------------------------
     void CorrectKeyPressEvents(GameObject letterObject)             
     {
         audio_source.clip = correct_sound;
         audio_source.Play();
         comboTracker++;
         // Debug.Log($"combotracker: {comboTracker} | comboNeeded: {comboNeeded}");
-
-        List<GameObject> spawnedLetters = 
-            GameStateManager.p1_spawnedLetters;
-         
-
         GameObject newLetter = Instantiate(letterObject, correctSpawnPosition);
         Material material = GSM.p1_platformMat;
         newLetter.GetComponent<LetterBehavior>().isOnPlatform = true;
@@ -160,7 +191,8 @@ public class KeyInputPlayer1 : MonoBehaviour
             goldenLetterAudioSource.Play();
         }
 
-        spawnedLetters[GSM.p1_curIndex].SetActive(false);
+        DropAndSetOnFire();
+        
         GSM.p1_curIndex++;
         GSM.player_1_correct_cnt++;
         GSM.player_1_platformLetters.Add(newLetter);
@@ -174,6 +206,7 @@ public class KeyInputPlayer1 : MonoBehaviour
             StartCoroutine(LightFX(true));
         }
     }
+    
     // -------------------------------------------------------------------
     void IncorrectKeyPressEvents(GameObject letterObject)
     {
